@@ -1,14 +1,31 @@
 package entity;
 
+import javax.persistence.*;
+
 /**
  * Created by Comfy on 05.02.2017.
  */
+@Entity
+@Table(name = "EMPLOYER")
 public class Employer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "NAME")
     private String name;
+
+    @Column(name = "SURENAME")
     private String sureName;
+
+    @Column(name = "AGE")
     private Integer age;
+
+    @Column(name = "SEX")
     private String sex;
+
+    @Column(name = "POSITION")
     private String position;
 
 

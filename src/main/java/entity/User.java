@@ -1,11 +1,23 @@
 package entity;
 
+import javax.persistence.*;
+
 /**
  * Created by Comfy on 05.02.2017.
  */
+
+@Entity
+@Table(name = "USERS")
 public class User {
+
+    @Column(name = "LOGIN")
     private String login;
+
+    @Column(name = "PASSWORD")
     private String password;
+
+    @OneToOne
+    @JoinColumn(name = "EMPLOYER_ID", referencedColumnName = "ID")
     private Employer employer;
 
     public User(String login, String password, Employer employer) {
