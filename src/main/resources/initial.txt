@@ -2,3 +2,15 @@ Yuliya Lypchuk
 Vyazovsky +
 Dmitry+
 _yihu
+
+FXMLLoader loader = new FXMLLoader(JDBCGraphEx.class.getResource("/jdbcgraph/new_contact.fxml"));
+        GridPane page = (GridPane) loader.load();
+        Stage stage = new Stage();
+        stage.setTitle("New Contact");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(tblContacts.getScene().getWindow());
+        Scene scene = new Scene(page);
+        stage.setScene(scene);
+        stage.showAndWait();
+
+        cmbgcm
