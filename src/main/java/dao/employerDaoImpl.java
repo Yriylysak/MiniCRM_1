@@ -14,7 +14,7 @@ public class employerDaoImpl implements employerDao {
     }
 
     @Override
-    public Employer read(Long id) {
+    public Employer read(String password) {
         return null;
     }
 

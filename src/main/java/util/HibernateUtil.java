@@ -9,6 +9,7 @@ import org.hibernate.cfg.Configuration;
  * Created by Comfy on 05.02.2017.
  */
 public class HibernateUtil {
+
     private static final SessionFactory factory = build();
     private static StandardServiceRegistry registry;
 

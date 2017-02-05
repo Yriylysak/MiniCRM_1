@@ -9,6 +9,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "USERS")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(name = "LOGIN")
     private String login;
@@ -26,8 +29,7 @@ public class User {
         this.employer = employer;
     }
 
-    public User() {
-    }
+    public User() {    }
 
     public String getLogin() {
         return login;
