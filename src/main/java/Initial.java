@@ -1,13 +1,20 @@
 import entity.Employer;
 import entity.User;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
 
+import java.io.IOException;
+
 /**
  * Created by Yura on 04.02.2017.
  */
-public class Initial {
+public class Initial extends Application{
 
     public static void main(String[] args) {
         SessionFactory factory = HibernateUtil.getSessionFactory();
@@ -33,6 +40,20 @@ public class Initial {
         session.close();
 
         HibernateUtil.getSessionFactory().close();
+
+
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("view/enterWindow.fxml"));
+
+
+        } catch (IOException e){e.printStackTrace();}
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
     }
 }
 
