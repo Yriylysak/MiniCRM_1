@@ -9,23 +9,30 @@ import javafx.scene.control.TextField;
  * Created by Yura on 05.02.2017.
  */
 public class enterContorller {
-    @FXML
-    private Label loginLabel;
-    @FXML
-    private Label passwordLabel;
-    @FXML
-    private TextField loginField;
-    @FXML
-    private TextField passwordField;
-    @FXML
-    private Button enterButton;
-    @FXML
-    private Button cancelButton;
 
     @FXML
-    private void onActionSignIn() {
+     TextField loginField;
+    @FXML
+     TextField passwordField;
+    @FXML
+     Button enterButton;
+    @FXML
+     Button cancelButton;
+
+
+
+    @FXML
+    private void onActionLog() {
         System.out.println(loginField.getText());
+
+    }
+    @FXML
+    private void onActionPass(){
         System.out.println(passwordField.getText());
+    }
+    @FXML
+    private void onActionEnter() {
+
     }
     @FXML
     private void onActionCancel() {
