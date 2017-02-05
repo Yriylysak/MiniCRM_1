@@ -4,6 +4,7 @@ package entity;
  * Created by Comfy on 05.02.2017.
  */
 public class Employer {
+    private Long id;
     private String name;
     private String sureName;
     private Integer age;
