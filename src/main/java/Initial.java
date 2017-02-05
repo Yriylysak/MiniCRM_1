@@ -17,6 +17,8 @@ import java.io.IOException;
 public class Initial extends Application{
 
     public static void main(String[] args) {
+        Application.launch(args);
+
         SessionFactory factory = HibernateUtil.getSessionFactory();
 
         User user = new User();
@@ -24,10 +26,7 @@ public class Initial extends Application{
 
         //user.setEmployer(employer);
 
-
         Session session = factory.openSession();
-
-
 
         session.beginTransaction();
         session.save(employer);
@@ -36,11 +35,9 @@ public class Initial extends Application{
         session.beginTransaction();
         session.save(user);
         session.getTransaction().commit();
-
         session.close();
 
         HibernateUtil.getSessionFactory().close();
-
 
     }
 

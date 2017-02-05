@@ -1,5 +1,7 @@
 package service;
 
+import dao.employerDao;
+import dao.employerDaoImpl;
 import entity.Employer;
 
 import java.util.List;
@@ -8,6 +10,11 @@ import java.util.List;
  * Created by Comfy on 05.02.2017.
  */
 public class employerServiceImpl implements employerService {
+    private employerDao employerDao;
+    public employerServiceImpl() {
+        employerDao = new employerDaoImpl();
+    }
+
     @Override
     public Long add(Employer notebook) {
         return null;

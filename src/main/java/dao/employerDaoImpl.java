@@ -1,20 +1,42 @@
 package dao;
 
 import entity.Employer;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import util.HibernateUtil;
+
 
 import java.util.List;
 
 /**
  * Created by Comfy on 05.02.2017.
  */
+
 public class employerDaoImpl implements employerDao {
+    private SessionFactory factory;
+
+    public employerDaoImpl () {
+        factory = HibernateUtil.getSessionFactory();
+    }
+
     @Override
-    public Long create(Employer ntb) {
+    public Long create(Employer employer) {
+        Session session = factory.openSession();
+        try {
+            session.beginTransaction();
+            Long id = (Long) session.save(employer);
+            session.getTransaction().commit();
+            return id;
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+        }
         return null;
     }
 
     @Override
     public Employer read(String password) {
+
         return null;
     }
 
@@ -30,6 +52,6 @@ public class employerDaoImpl implements employerDao {
 
     @Override
     public List<Employer> findAll() {
-        return null;
+        return factory.openSession().createCriteria(Employer.class).list();
     }
 }
