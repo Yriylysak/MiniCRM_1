@@ -60,4 +60,7 @@ public class Employer {
     public void setPosition(String position) {
         this.position = position;
     }
+
+    public Employer() {
+    }
 }

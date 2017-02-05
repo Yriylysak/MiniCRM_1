@@ -14,6 +14,8 @@ public class User {
         this.employer = employer;
     }
 
+    public User() {
+    }
 
     public String getLogin() {
         return login;
