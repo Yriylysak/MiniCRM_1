@@ -27,7 +27,6 @@ public class enterContorller {
     private void onActionLog() {
 
         System.out.println(loginField.getText());
-
     }
 
 

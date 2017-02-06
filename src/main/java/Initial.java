@@ -16,6 +16,7 @@ import java.io.IOException;
  */
 public class Initial extends Application{
 
+
     public static void main(String[] args) {
         Application.launch(args);
 
@@ -41,7 +42,6 @@ public class Initial extends Application{
 
     }
 
-    @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = null;
         try {
@@ -49,8 +49,16 @@ public class Initial extends Application{
 
 
         } catch (IOException e){e.printStackTrace();}
+
+        /*Scene scene = new Scene(root);
+        scene.getStylesheets().add(Initial.class
+                .getResource("/resource/view/enterWindow.css")
+                .toExternalForm());
+        primaryStage.setScene(scene);*/
+
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
+
 }
 
