@@ -3,3 +3,4 @@
 *.jar
 build.xml
 *.properties
+Будет удалено target/

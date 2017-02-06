@@ -50,6 +50,7 @@ public class Initial extends Application{
 
         } catch (IOException e){e.printStackTrace();}
 
+
         /*Scene scene = new Scene(root);
         scene.getStylesheets().add(Initial.class
                 .getResource("/resource/view/enterWindow.css")
