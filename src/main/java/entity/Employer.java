@@ -3,7 +3,7 @@ package entity;
 import javax.persistence.*;
 
 /**
- * Created by Comfy on 05.02.2017.
+ * Created by Alexandr on 05.02.2017.
  */
 @Entity
 @Table(name = "EMPLOYER")
@@ -35,6 +35,10 @@ public class Employer {
         this.age = age;
         this.sex = sex;
         this.position = position;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {

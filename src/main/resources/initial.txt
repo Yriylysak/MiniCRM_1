@@ -3,14 +3,12 @@ Vyazovsky +
 Dmitry+
 _yihu
 
-FXMLLoader loader = new FXMLLoader(JDBCGraphEx.class.getResource("/jdbcgraph/new_contact.fxml"));
-        GridPane page = (GridPane) loader.load();
-        Stage stage = new Stage();
-        stage.setTitle("New Contact");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(tblContacts.getScene().getWindow());
-        Scene scene = new Scene(page);
-        stage.setScene(scene);
-        stage.showAndWait();
+07.02.2017
 
-        cmbgcm
+Прохання не комітити свої файли hibernate.cfg.xml та клас Initial.java !
+
+Rename класів у папках Dao i Service.
+Дописане Dao для User i Employer.
+до класів User  i Employer додано getId().
+
+Прохання не комітити свої файли hibernate.cfg.xml та клас Initial.java !

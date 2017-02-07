@@ -1,18 +1,18 @@
 package service;
 
-import dao.employerDao;
-import dao.employerDaoImpl;
+import dao.EmployerDao;
+import dao.EmployerDaoImpl;
 import entity.Employer;
 
 import java.util.List;
 
 /**
- * Created by Comfy on 05.02.2017.
+ * Created by JL on 05.02.2017.
  */
-public class employerServiceImpl implements employerService {
-    private employerDao employerDao;
-    public employerServiceImpl() {
-        employerDao = new employerDaoImpl();
+public class EmployerServiceImpl implements EmployerService {
+    private EmployerDao employerDao;
+    public EmployerServiceImpl() {
+        employerDao = new EmployerDaoImpl();
     }
 
     @Override

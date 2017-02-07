@@ -3,7 +3,7 @@ package entity;
 import javax.persistence.*;
 
 /**
- * Created by Comfy on 05.02.2017.
+ * Created by Alexandr on 05.02.2017.
  */
 
 @Entity
@@ -30,6 +30,10 @@ public class User {
     }
 
     public User() {    }
+
+    public Long getId() {
+        return id;
+    }
 
     public String getLogin() {
         return login;
