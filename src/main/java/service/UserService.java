@@ -11,7 +11,13 @@ import java.util.List;
 public interface UserService {
     Long add(User user);
     List<User> findAll();
-    void changePassword(String  login, String password);
     boolean delete(Long id);
+    boolean changePassword(Long id, String oldPassword, String newPassword);
+
+    boolean isAdmin(String login, String password);
+    boolean isUser(String login, String password);
+    User createUser(Employer employer);
+    String createLogin(String name, String surname);
+    String createPassword();
 
 }

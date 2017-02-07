@@ -2,9 +2,11 @@ package service;
 
 import dao.UserDao;
 import dao.UserDaoImpl;
+import entity.Employer;
 import entity.User;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by JL on 05.02.2017.
@@ -34,9 +36,20 @@ public class UserServiceImpl implements UserService {
         return userDao.findAll();
     }
 
+    /*метод приймає в якості id, старий і новий пароль.
+    * якщо id і старий пароль співпадають з даними з бази,
+    * тоді старий пароль замінюється на новий*/
     @Override
-    public void changePassword(String login, String password) {
-
+    public boolean changePassword(Long id, String oldPassword, String newPassword) {
+        List<User> users = userDao.findAll();
+        for(User us : users) {
+            if((us.getId() == id) && (us.getPassword() == oldPassword)) {
+                us.setPassword(newPassword);
+                userDao.update(us);
+                return true;
+            }
+        }
+        return false;
     }
 
     /*метод видаляє з бази user
@@ -46,5 +59,78 @@ public class UserServiceImpl implements UserService {
     public boolean delete(Long id) {
         User user = userDao.read(id);
         return userDao.delete(user);
+    }
+
+    /*перевірка чи введений логін і пароль належить адміну*/
+    @Override
+    public boolean isAdmin(String login, String password) {
+        List<User> users = userDao.findAll();
+        for(User us : users) {
+            if((us.getEmployer().getPosition() == "admin") //якщо потрібно, то змінити на "administrator"
+                    && (us.getLogin() == login)
+                    && (us.getPassword() == password)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /*перевірка введені логін і пароль співпадають з даними з бази*/
+    @Override
+    public boolean isUser(String login, String password) {
+        List<User> users = userDao.findAll();
+        for(User us : users) {
+            if((us.getLogin() == login) && (us.getPassword() == password)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /*автогенерація юзера, метод отримує об"єкт типу Employer*/
+    @Override
+    public User createUser(Employer employer) {
+        User user = new User(createLogin(employer.getName(), employer.getSureName()),
+                            createPassword(), employer);
+        return user;
+    }
+
+    /*автогенерація логіна на основі імені і прізвища*/
+    @Override
+    public String createLogin(String name, String surname) {
+        char chars[] = new char[2];
+        name.getChars(0, 2, chars, 0);
+        String login = new String(chars);
+        login += surname;
+        List<User> users = findAll();
+        for(User us: users) {
+            if (us.getLogin() == login) {
+                //тут треба придумати щось для наступного,
+                // хто буде з таким же іменем і прізвищем
+                login += "2";
+            }
+        }
+        return login;
+    }
+
+    /*проста автогенерація пароля*/
+    @Override
+    public String createPassword() {
+        char lowerCase[] = {'a','b','c','d','e','f','g','i','j','k','m','n','o','p','q','r','s','t','w','x','y','z'};
+        char upperCase[] = {'A','B','C','D','E','F','G','H','J','K','L','M','N','P','Q','R','S','T','W','X','Y','Z'};
+        char numbers[] = {'2','3','4','5','6','7','8','9'};
+        char special[] = {'*', '$', '-', '+', '?', '&', '=', '!', '%', '{','}', '/'};
+
+        char chars[] = {special[(int)(Math.random() * 11)],
+                        lowerCase[(int)(Math.random() * 21)],
+                        upperCase[(int)(Math.random() * 21)],
+                        numbers[(int)(Math.random() * 7)],
+                        lowerCase[(int)(Math.random() * 21)],
+                        numbers[(int)(Math.random() * 7)],
+                        upperCase[(int)(Math.random() * 21)],
+                        special[(int)(Math.random() * 11)]};
+
+        String password = new String(chars);
+        return password;
     }
 }
