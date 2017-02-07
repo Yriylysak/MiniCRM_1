@@ -15,14 +15,22 @@ public class EmployerServiceImpl implements EmployerService {
         employerDao = new EmployerDaoImpl();
     }
 
+    /*метод додає у базу нового співробітника (Employer)
+    * для цього у метод треба передати об"єкт типу Employer
+    * повертає унікальний id*/
     @Override
-    public Long add(Employer notebook) {
+    public Long add(Employer employer) {
+        if (employer != null) {
+            Long id = employerDao.create(employer);
+            return id;
+        }
         return null;
     }
 
+    /*метод без параметрів, повертає список List<> усіх співробітників*/
     @Override
     public List<Employer> findAll() {
-        return null;
+        return employerDao.findAll();
     }
 
     @Override
@@ -30,8 +38,12 @@ public class EmployerServiceImpl implements EmployerService {
 
     }
 
+    /*метод видаляє з бази співробітника (Employer)
+    * для цього у метод треба передати унікальний id
+    * повертає true якщо успішно видалили*/
     @Override
-    public boolean delete(String login) {
-        return false;
+    public boolean delete(Long id) {
+        Employer empl = employerDao.read(id);
+        return employerDao.delete(empl);
     }
 }

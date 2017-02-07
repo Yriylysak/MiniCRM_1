@@ -11,5 +11,5 @@ public interface EmployerService {
     Long add(Employer employer);
     List<Employer> findAll();
     void changePosition(String  login, String position);
-    boolean delete(String login);
+    boolean delete(Long id);
 }

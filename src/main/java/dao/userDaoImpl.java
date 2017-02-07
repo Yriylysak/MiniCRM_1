@@ -9,11 +9,11 @@ import util.HibernateUtil;
 import java.util.List;
 
 /**
- * Created by Comfy on 05.02.2017.
+ * Created by JL on 05.02.2017.
  */
-public class userDaoImpl implements userDao{
+public class UserDaoImpl implements UserDao{
     private SessionFactory factory;
-    public userDaoImpl() {
+    public UserDaoImpl() {
         factory = HibernateUtil.getSessionFactory();
     }
 
@@ -31,22 +31,53 @@ public class userDaoImpl implements userDao{
         return null;    }
 
     @Override
-    public User read(String password) {
+    public User read(Long id) {
+        List<User> users = findAll();
+        for (User us : users) {
+            if (us.getId() == id) {
+                return us;
+            }
+        }
         return null;
     }
 
     @Override
     public boolean update(User user) {
+        Session session = factory.openSession();
+        try{
+            session.beginTransaction();
+            session.update(user);
+            session.getTransaction().commit();
+            return  true;
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+        }
         return false;
     }
 
     @Override
     public boolean delete(User user) {
+        if (user != null) {
+            List<User> users = findAll();
+            for (User us : users) {
+                if (user.getId() == us.getId()) {
+                    Session session = factory.openSession();
+                    try {
+                        session.beginTransaction();
+                        session.delete(user);
+                        session.getTransaction().commit();
+                        return true;
+                    } catch (HibernateException e) {
+                        session.getTransaction().rollback();
+                    }
+                }
+            }
+        }
         return false;
     }
 
     @Override
     public List<User> findAll() {
-        return null;
+        return factory.openSession().createCriteria(User.class).list();
     }
 }

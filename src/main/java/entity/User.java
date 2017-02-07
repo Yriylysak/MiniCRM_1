@@ -60,4 +60,9 @@ public class User {
         this.employer = employer;
     }
 
+    @Override
+    public String toString() {
+        return getLogin() + " " + getPassword();
+    }
+
 }

@@ -84,4 +84,8 @@ public class Employer {
 
     public Employer() {
     }
+    @Override
+    public String toString() {
+        return getName() + " " + getSureName() + " " + getPosition();
+    }
 }

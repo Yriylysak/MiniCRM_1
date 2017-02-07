@@ -12,6 +12,6 @@ public interface UserService {
     Long add(User user);
     List<User> findAll();
     void changePassword(String  login, String password);
-    boolean delete(String login);
+    boolean delete(Long id);
 
 }
