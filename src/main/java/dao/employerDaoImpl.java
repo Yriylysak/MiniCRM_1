@@ -29,6 +29,7 @@ public class EmployerDaoImpl implements EmployerDao {
         } catch (HibernateException e) {
             session.getTransaction().rollback();
         }
+        session.close();
         return null;
     }
     @Override
@@ -41,6 +42,7 @@ public class EmployerDaoImpl implements EmployerDao {
         }
         return null;
     }
+
     @Override
     public boolean update(Employer employer) {
         Session session = factory.openSession();
@@ -52,7 +54,10 @@ public class EmployerDaoImpl implements EmployerDao {
         } catch (HibernateException e) {
             session.getTransaction().rollback();
         }
-        return false;    }
+        session.close();
+        return false;
+    }
+
     @Override
     public boolean delete(Employer employer) {
         if (employer != null) {
@@ -68,6 +73,7 @@ public class EmployerDaoImpl implements EmployerDao {
                     } catch (HibernateException e) {
                         session.getTransaction().rollback();
                     }
+                    session.close();
                 }
             }
         }

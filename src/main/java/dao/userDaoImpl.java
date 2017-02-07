@@ -28,7 +28,9 @@ public class UserDaoImpl implements UserDao{
         } catch (HibernateException e) {
             session.getTransaction().rollback();
         }
-        return null;    }
+        session.close();
+        return null;
+    }
 
     @Override
     public User read(Long id) {
@@ -52,6 +54,7 @@ public class UserDaoImpl implements UserDao{
         } catch (HibernateException e) {
             session.getTransaction().rollback();
         }
+        session.close();
         return false;
     }
 
