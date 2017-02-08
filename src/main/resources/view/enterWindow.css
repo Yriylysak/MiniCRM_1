@@ -4,8 +4,11 @@
 /*Ссылка на все компоненты TextField*/
 .text-field {
     -fx-background-color:
-            linear-gradient(#f0ff35, #a9ff00),
-            radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);
+            linear-gradient(/*#f0ff35*/#d0d0d0, /*#a9ff00*/#d0d0d0),
+            radial-gradient(center 50% -40%, radius 200%, /*#b8ee36*/#d0d0d0 45%, /*#80c800*/#d0d0d0 50%);
+    -fx-text-fill: black;
+}
+.label{
     -fx-text-fill: white;
 }
 /*Ссылка на все компоненты Button - (стиль кнопки)*/
