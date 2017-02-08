@@ -57,6 +57,7 @@ public class enterContorller {
 
             }catch (IOException e){e.printStackTrace();}
                 Scene scene = new Scene(root);
+                scene.getStylesheets().add("/view/enterWindow.css");
                 stage.setScene(scene);
                 stage.show();
 
