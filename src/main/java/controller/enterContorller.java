@@ -16,7 +16,7 @@ public class enterContorller {
     @FXML
      TextField loginField;
     @FXML
-     TextField passwordField;
+     PasswordField passwordField;
     @FXML
      Button enterButton;
     @FXML
