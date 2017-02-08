@@ -53,7 +53,7 @@ public class Initial extends Application{
 
         } catch (IOException e){e.printStackTrace();}
 
-
+        primaryStage.setTitle("Авторизация");
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Initial.class
                 .getResource("/view/enterWindow.css")

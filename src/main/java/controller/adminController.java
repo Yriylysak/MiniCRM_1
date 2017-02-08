@@ -14,8 +14,7 @@ import java.util.ResourceBundle;
  */
 public class adminController
 {
-    @FXML
-    private Label AdminLabel;
+
 
     @FXML
     private TextArea EmplArea;
@@ -36,6 +35,21 @@ public class adminController
     private Button GenButton;
 
 
+    @FXML
+    private void onActionCreate() {
 
+    }
+    @FXML
+    private void onActionChen() {
+
+    }
+    @FXML
+    private void onActionDel() {
+
+    }
+    @FXML
+    private void onActionGen() {
+
+    }
 
 }
