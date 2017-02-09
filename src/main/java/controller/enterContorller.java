@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import service.UserService;
+import service.UserServiceImpl;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -17,6 +19,8 @@ import java.io.IOException;
  * Created by Yura on 05.02.2017.
  */
 public class enterContorller {
+
+    UserService userService = new UserServiceImpl();
 
     @FXML
      TextField loginField;
@@ -47,8 +51,8 @@ public class enterContorller {
     private void onActionEnter() throws IOException
     {
 
-        /*if(loginField.getText()=="Admin"&&passwordField.getText()=="1")
-        {*/
+        if(userService.isAdmin(loginField.getText(),passwordField.getText()))
+        {
 
             Parent root = null;
             Stage stage = new Stage();
@@ -62,10 +66,14 @@ public class enterContorller {
                 stage.show();
 
 
-        /*}*/
+        }
+        else {
+            System.out.println("Windov manager");
+        }
 
 
     }
+
     @FXML
     private void onActionCancel() {
         System.exit(0);
