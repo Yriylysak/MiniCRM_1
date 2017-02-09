@@ -40,6 +40,8 @@ public class Initial extends Application{
 
         HibernateUtil.getSessionFactory().close();
 
+        // Commit
+
 
 
     }
