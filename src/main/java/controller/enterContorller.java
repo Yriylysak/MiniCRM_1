@@ -5,14 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import service.UserService;
 import service.UserServiceImpl;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 /**
@@ -49,7 +47,7 @@ public class enterContorller {
     }
     //
     @FXML
-    private void onActionEnter() throws IOException
+    private void onActionEnter()
     {
 
         if(userService.isAdmin(loginField.getText(),passwordField.getText()))
