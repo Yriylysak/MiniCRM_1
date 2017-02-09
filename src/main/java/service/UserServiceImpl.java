@@ -66,21 +66,21 @@ public class UserServiceImpl implements UserService {
     public boolean isAdmin(String login, String password) {
         List<User> users = userDao.findAll();
         for(User us : users) {
-            if((us.getEmployer().getPosition() == "admin") //якщо потрібно, то змінити на "administrator"
-                    && (us.getLogin() == login)
-                    && (us.getPassword() == password)) {
+            if((us.getEmployer().getPosition().equals("Admin")) //якщо потрібно, то змінити на "administrator"
+                    && (us.getLogin().equals(login))
+                    && (us.getPassword().equals(password))) {
                 return true;
             }
         }
         return false;
     }
 
-    /*перевірка введені логін і пароль співпадають з даними з бази*/
+    /*перевірка введені логін і пароль співпадають з даними з бази юзерів*/
     @Override
     public boolean isUser(String login, String password) {
         List<User> users = userDao.findAll();
         for(User us : users) {
-            if((us.getLogin() == login) && (us.getPassword() == password)) {
+            if((us.getLogin().equals(login)) && (us.getPassword().equals(password))) {
                 return true;
             }
         }
