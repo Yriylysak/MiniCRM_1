@@ -47,6 +47,7 @@ public class enterContorller {
         System.out.println(passwordField.getText());
 
     }
+    //
     @FXML
     private void onActionEnter() throws IOException
     {
