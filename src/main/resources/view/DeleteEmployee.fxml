@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="392.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="71.0" layoutY="47.0" text="Удалить пользователя?">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="deleteEmployeeBtn" layoutX="40.0" layoutY="106.0" mnemonicParsing="false" onAction="#onActionDelEmpl" prefHeight="43.0" prefWidth="126.0" text="Удалить" />
+      <Button fx:id="cancelDelEmplBtn" layoutX="224.0" layoutY="106.0" mnemonicParsing="false" onAction="#onActionCancelDelEmpl" prefHeight="43.0" prefWidth="126.0" text="Отмена" />
+   </children>
+</AnchorPane>
