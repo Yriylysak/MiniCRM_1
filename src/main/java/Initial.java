@@ -41,7 +41,7 @@ public class Initial extends Application{
         HibernateUtil.getSessionFactory().close();
 
 
-
+//hjgk
     }
 
     public void start(Stage primaryStage) throws Exception {
