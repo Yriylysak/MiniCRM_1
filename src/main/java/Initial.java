@@ -7,6 +7,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import service.EmployerService;
+import service.EmployerServiceImpl;
+import service.UserService;
+import service.UserServiceImpl;
 import util.HibernateUtil;
 
 import java.io.IOException;
@@ -17,30 +21,22 @@ import java.io.IOException;
 public class Initial extends Application{
 
 
-    public static void main(String[] args) {
-        Application.launch(args);
+    public static void main(String[] args)
+    {
+        //
+        EmployerService employerService = new EmployerServiceImpl();
+        UserService userService = new UserServiceImpl();
 
-        SessionFactory factory = HibernateUtil.getSessionFactory();
-
-        User user = new User();
-        Employer employer = new Employer();
-
-        //user.setEmployer(employer);
-
-        Session session = factory.openSession();
-
-        session.beginTransaction();
-        session.save(employer);
-        session.getTransaction().commit();
-
-        session.beginTransaction();
-        session.save(user);
-        session.getTransaction().commit();
-        session.close();
-
+        Employer employerAdmin = new Employer("NameAdmin", "SurnameAdmin", 21, "m", "admin");
+        User userAdmin = new User("Admin", "1", employerAdmin);
+        employerService.add(employerAdmin);
+        userService.add(userAdmin);
         HibernateUtil.getSessionFactory().close();
 
         // Commit
+        Application.launch(args);
+
+
 
 
 
