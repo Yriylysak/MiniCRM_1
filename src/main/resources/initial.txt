@@ -12,3 +12,6 @@ Rename класів у папках Dao i Service.
 до класів User  i Employer додано getId().
 
 Прохання не комітити свої файли hibernate.cfg.xml та клас Initial.java !
+
+employee - наемный рабочий.
+employer - работодатель.
