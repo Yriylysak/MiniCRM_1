@@ -58,6 +58,7 @@ public class EnterContorller {
             scene.getStylesheets().add("/view/adminWindow.css");
             stage.setScene(scene);
             stage.show();
+            stage.setResizable(false);
 
         } else if (userService.isUser(loginField.getText(), passwordField.getText())) {
             try {
@@ -69,6 +70,7 @@ public class EnterContorller {
             scene.getStylesheets().add("/view/adminWindow.css");
             stage.setScene(scene);
             stage.show();
+            stage.setResizable(false);
         } else {
             loginField.clear();
             passwordField.clear();
@@ -79,6 +81,7 @@ public class EnterContorller {
 
             onActionEnter(); // і як сюди повернутись, щоб знову ввести дані??
         }
+
     }
 
     @FXML
