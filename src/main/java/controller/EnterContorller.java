@@ -59,6 +59,7 @@ public class EnterContorller {
             stage.setScene(scene);
             stage.show();
             stage.setResizable(false);
+            GraphicsLoader.closeWindow(enterButton);
 
         } else if (userService.isUser(loginField.getText(), passwordField.getText())) {
             try {
@@ -72,14 +73,23 @@ public class EnterContorller {
             stage.show();
             stage.setResizable(false);
         } else {
-            loginField.clear();
+            /*loginField.clear();
             passwordField.clear();
             if (counter == 0) onActionCancel();
             /*!!!  Додати сюди Text Label, на який виводити повідомлення :
              * "Невірно введені дані! Залишилось " + counter  + " спроб!" !!!*/
-            counter--;
-
-            onActionEnter(); // і як сюди повернутись, щоб знову ввести дані??
+            //counter--;
+            //onActionEnter(); // і як сюди повернутись, щоб знову ввести дані??
+            try {
+                root = FXMLLoader.load(getClass().getResource("/view/accessDenied.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/view/adminWindow.css");
+            stage.setScene(scene);
+            stage.show();
+            stage.setResizable(false);
         }
 
     }

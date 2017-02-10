@@ -1,4 +1,5 @@
 import controller.EnterContorller;
+import controller.GraphicsLoader;
 import entity.Employee;
 import entity.User;
 import javafx.application.Application;
