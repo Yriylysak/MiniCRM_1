@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by Alexandr on 05.02.2017.
@@ -28,6 +29,8 @@ public class Employer {
     @Column(name = "POSITION")
     private String position;
 
+    @Column (name = "DATE")
+    private Date date;
 
     public Employer(String name, String sureName, Integer age, String sex, String position) {
         this.name = name;
@@ -35,53 +38,44 @@ public class Employer {
         this.age = age;
         this.sex = sex;
         this.position = position;
+        date = new Date();
     }
-
     public Long getId() {
         return id;
     }
-
     public String getName() {
         return name;
     }
-
     public String getSureName() {
         return sureName;
     }
-
     public Integer getAge() {
         return age;
     }
-
     public String getSex() {
         return sex;
     }
-
     public String getPosition() {
         return position;
     }
-
-
+    public Date getDate() {
+        return date;
+    }
     public void setName(String name) {
         this.name = name;
     }
-
     public void setSureName(String sureName) {
         this.sureName = sureName;
     }
-
     public void setAge(Integer age) {
         this.age = age;
     }
-
     public void setSex(String sex) {
         this.sex = sex;
     }
-
     public void setPosition(String position) {
         this.position = position;
     }
-
     public Employer() {
     }
     @Override
