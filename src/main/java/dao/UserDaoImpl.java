@@ -13,10 +13,10 @@ import java.util.List;
  */
 public class UserDaoImpl implements UserDao{
     private SessionFactory factory;
+
     public UserDaoImpl() {
         factory = HibernateUtil.getSessionFactory();
     }
-
     @Override
     public Long create(User user) {
         Session session = factory.openSession();
@@ -31,7 +31,6 @@ public class UserDaoImpl implements UserDao{
         session.close();
         return null;
     }
-
     @Override
     public User read(Long id) {
         List<User> users = findAll();
@@ -42,7 +41,6 @@ public class UserDaoImpl implements UserDao{
         }
         return null;
     }
-
     @Override
     public boolean update(User user) {
         Session session = factory.openSession();
@@ -57,7 +55,6 @@ public class UserDaoImpl implements UserDao{
         session.close();
         return false;
     }
-
     @Override
     public boolean delete(User user) {
         if (user != null) {
@@ -78,9 +75,8 @@ public class UserDaoImpl implements UserDao{
         }
         return false;
     }
-
     @Override
     public List<User> findAll() {
-        return factory.openSession().createCriteria(User.class).list();
+        return  factory.openSession().createCriteria(User.class).list();
     }
 }

@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
     /*перевірка чи введений логін і пароль належить адміну*/
     @Override
     public boolean isAdmin(String login, String password) {
-        List<User> users = userDao.findAll();
+        List<User> users = findAll();
         for(User us : users) {
             if((us.getEmployer().getPosition().equals("Admin")) //якщо потрібно, то змінити на "administrator"
                     && (us.getLogin().equals(login))
@@ -80,7 +80,9 @@ public class UserServiceImpl implements UserService {
     public boolean isUser(String login, String password) {
         List<User> users = userDao.findAll();
         for(User us : users) {
-            if((us.getLogin().equals(login)) && (us.getPassword().equals(password))) {
+            if ( ! (us.getEmployer().getPosition().equals("Admin")) //якщо не Адмін, а юзер з бази
+                    && (us.getLogin().equals(login))
+                    && (us.getPassword().equals(password))) {
                 return true;
             }
         }
