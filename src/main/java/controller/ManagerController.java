@@ -3,5 +3,5 @@ package controller;
 /**
  * Created by Comfy on 05.02.2017.
  */
-public class managerController {
+public class ManagerController {
 }

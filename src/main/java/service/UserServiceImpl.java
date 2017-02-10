@@ -2,11 +2,10 @@ package service;
 
 import dao.UserDao;
 import dao.UserDaoImpl;
-import entity.Employer;
+import entity.Employee;
 import entity.User;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by JL on 05.02.2017.
@@ -66,7 +65,7 @@ public class UserServiceImpl implements UserService {
     public boolean isAdmin(String login, String password) {
         List<User> users = findAll();
         for(User us : users) {
-            if((us.getEmployer().getPosition().equals("Admin")) //якщо потрібно, то змінити на "administrator"
+            if((us.getEmployee().getPosition().equals("Admin")) //якщо потрібно, то змінити на "administrator"
                     && (us.getLogin().equals(login))
                     && (us.getPassword().equals(password))) {
                 return true;
@@ -80,7 +79,7 @@ public class UserServiceImpl implements UserService {
     public boolean isUser(String login, String password) {
         List<User> users = userDao.findAll();
         for(User us : users) {
-            if ( ! (us.getEmployer().getPosition().equals("Admin")) //якщо не Адмін, а юзер з бази
+            if ( ! (us.getEmployee().getPosition().equals("Admin")) //якщо не Адмін, а юзер з бази
                     && (us.getLogin().equals(login))
                     && (us.getPassword().equals(password))) {
                 return true;
@@ -89,11 +88,11 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    /*автогенерація юзера, метод отримує об"єкт типу Employer*/
+    /*автогенерація юзера, метод отримує об"єкт типу Employee*/
     @Override
-    public User createUser(Employer employer) {
-        User user = new User(createLogin(employer.getName(), employer.getSureName()),
-                            createPassword(), employer);
+    public User createUser(Employee employee) {
+        User user = new User(createLogin(employee.getName(), employee.getSureName()),
+                            createPassword(), employee);
         return user;
     }
 

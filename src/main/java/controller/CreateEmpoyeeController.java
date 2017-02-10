@@ -1,17 +1,17 @@
 package controller;
 
-import entity.Employer;
+import entity.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import service.EmployerService;
-import service.EmployerServiceImpl;
+import service.EmployeeService;
+import service.EmployeeServiceImpl;
 
 /**
  * Created by Yura on 09.02.2017.
  */
-public class createEmpoyeeController
+public class CreateEmpoyeeController
 {
     //
 
@@ -59,11 +59,13 @@ public class createEmpoyeeController
     {
         if(nameField.getText()!=""&&surnameField.getText()!=""&&ageField.getText()!=""&&sexField.getText()!=""&&positionField.getText()!="")
         {
-            Employer employer = new Employer(nameField.getText(), surnameField.getText(), Integer.parseInt(ageField.getText()), sexField.getText(), positionField.getText());
+            Employee employee = new Employee(nameField.getText(), surnameField.getText(), Integer.parseInt(ageField.getText()), sexField.getText(), positionField.getText());
 
-            EmployerService employerService = new EmployerServiceImpl();
+            EmployeeService employeeService = new EmployeeServiceImpl();
 
-            employerService.add(employer);
+            employeeService.add(employee);
+
+            // employeeService.
         }
 
 

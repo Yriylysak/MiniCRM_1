@@ -8,11 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import service.EmployerService;
-import service.EmployerServiceImpl;
+import service.EmployeeService;
+import service.EmployeeServiceImpl;
 import service.UserService;
 import service.UserServiceImpl;
-import util.HibernateUtil;
 
 import java.io.IOException;
 
@@ -20,10 +19,10 @@ import java.io.IOException;
 /**
  * Created by Yura on 05.02.2017.
  */
-public class enterContorller {
+public class EnterContorller {
 
     private UserService userService = new UserServiceImpl();
-    private EmployerService employerService = new EmployerServiceImpl();
+    private EmployeeService employeeService = new EmployeeServiceImpl();
     private int counter = 5;
 
     @FXML

@@ -1,6 +1,6 @@
 package service;
 
-import entity.Employer;
+import entity.Employee;
 import entity.User;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public interface UserService {
 
     boolean isAdmin(String login, String password);
     boolean isUser(String login, String password);
-    User createUser(Employer employer);
+    User createUser(Employee employee);
     String createLogin(String name, String surname);
     String createPassword();
 

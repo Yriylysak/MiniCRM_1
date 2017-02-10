@@ -8,7 +8,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "EMPLOYER")
-public class Employer {
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,7 +32,7 @@ public class Employer {
     @Column (name = "DATE")
     private Date date;
 
-    public Employer(String name, String sureName, Integer age, String sex, String position) {
+    public Employee(String name, String sureName, Integer age, String sex, String position) {
         this.name = name;
         this.sureName = sureName;
         this.age = age;
@@ -76,7 +76,7 @@ public class Employer {
     public void setPosition(String position) {
         this.position = position;
     }
-    public Employer() {
+    public Employee() {
     }
     @Override
     public String toString() {

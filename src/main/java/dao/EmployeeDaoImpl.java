@@ -1,6 +1,6 @@
 package dao;
 
-import entity.Employer;
+import entity.Employee;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,18 +12,18 @@ import java.util.List;
  * Created by JL on 05.02.2017.
  */
 
-public class EmployerDaoImpl implements EmployerDao {
+public class EmployeeDaoImpl implements EmployeeDao {
     private SessionFactory factory;
 
-    public EmployerDaoImpl() {
+    public EmployeeDaoImpl() {
         factory = HibernateUtil.getSessionFactory();
     }
     @Override
-    public Long create(Employer employer) {
+    public Long create(Employee employee) {
         Session session = factory.openSession();
         try {
             session.beginTransaction();
-            Long id = (Long) session.save(employer);
+            Long id = (Long) session.save(employee);
             session.getTransaction().commit();
             return id;
         } catch (HibernateException e) {
@@ -33,9 +33,9 @@ public class EmployerDaoImpl implements EmployerDao {
         return null;
     }
     @Override
-    public Employer read(Long id) {
-        List<Employer> employers = findAll();
-        for(Employer empl : employers) {
+    public Employee read(Long id) {
+        List<Employee> employees = findAll();
+        for(Employee empl : employees) {
             if(empl.getId() == id) {
                 return empl;
             }
@@ -44,11 +44,11 @@ public class EmployerDaoImpl implements EmployerDao {
     }
 
     @Override
-    public boolean update(Employer employer) {
+    public boolean update(Employee employee) {
         Session session = factory.openSession();
         try{
             session.beginTransaction();
-            session.update(employer);
+            session.update(employee);
             session.getTransaction().commit();
             return  true;
         } catch (HibernateException e) {
@@ -59,15 +59,15 @@ public class EmployerDaoImpl implements EmployerDao {
     }
 
     @Override
-    public boolean delete(Employer employer) {
-        if (employer != null) {
-            List<Employer> employers = findAll();
-            for (Employer empl : employers) {
-                if (employer.getId() == empl.getId()) {
+    public boolean delete(Employee employee) {
+        if (employee != null) {
+            List<Employee> employees = findAll();
+            for (Employee empl : employees) {
+                if (employee.getId() == empl.getId()) {
                     Session session = factory.openSession();
                     try {
                         session.beginTransaction();
-                        session.delete(employer);
+                        session.delete(employee);
                         session.getTransaction().commit();
                         return true;
                     } catch (HibernateException e) {
@@ -80,7 +80,7 @@ public class EmployerDaoImpl implements EmployerDao {
         return false;
     }
     @Override
-    public List<Employer> findAll() {
-        return factory.openSession().createCriteria(Employer.class).list();
+    public List<Employee> findAll() {
+        return factory.openSession().createCriteria(Employee.class).list();
     }
 }

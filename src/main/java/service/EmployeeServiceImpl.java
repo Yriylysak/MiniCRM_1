@@ -1,8 +1,8 @@
 package service;
 
-import dao.EmployerDao;
-import dao.EmployerDaoImpl;
-import entity.Employer;
+import dao.EmployeeDao;
+import dao.EmployeeDaoImpl;
+import entity.Employee;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -10,19 +10,19 @@ import java.util.List;
 /**
  * Created by JL on 05.02.2017.
  */
-public class EmployerServiceImpl implements EmployerService {
-    private EmployerDao employerDao;
-    public EmployerServiceImpl() {
-        employerDao = new EmployerDaoImpl();
+public class EmployeeServiceImpl implements EmployeeService {
+    private EmployeeDao employeeDao;
+    public EmployeeServiceImpl() {
+        employeeDao = new EmployeeDaoImpl();
     }
 
-    /*метод додає у базу нового співробітника (Employer)
-    * для цього у метод треба передати об"єкт типу Employer
+    /*метод додає у базу нового співробітника (Employee)
+    * для цього у метод треба передати об"єкт типу Employee
     * повертає унікальний id*/
     @Override
-    public Long add(Employer employer) {
-        if (employer != null) {
-            Long id = employerDao.create(employer);
+    public Long add(Employee employee) {
+        if (employee != null) {
+            Long id = employeeDao.create(employee);
             return id;
         }
         return null;
@@ -30,28 +30,28 @@ public class EmployerServiceImpl implements EmployerService {
 
     /*метод без параметрів, повертає список List<> усіх співробітників*/
     @Override
-    public List<Employer> findAll() {
-        return employerDao.findAll();
+    public List<Employee> findAll() {
+        return employeeDao.findAll();
     }
 
 
-    /*метод видаляє з бази співробітника (Employer)
+    /*метод видаляє з бази співробітника (Employee)
     * для цього у метод треба передати унікальний id
     * повертає true якщо успішно видалили*/
     @Override
     public boolean delete(Long id) {
-        Employer empl = employerDao.read(id);
-        return employerDao.delete(empl);
+        Employee empl = employeeDao.read(id);
+        return employeeDao.delete(empl);
     }
 
     /*метод заміняє дані співробітнтка на нові*/
     @Override
-    public boolean changeEmployer(Long id, Employer employer) {
-        List<Employer> employers = findAll();
-        for(Employer empl : employers) {
+    public boolean changeEmployer(Long id, Employee employee) {
+        List<Employee> employees = findAll();
+        for(Employee empl : employees) {
             if (empl.getId() == id) {
-                empl = employer;
-                employerDao.update(empl);
+                empl = employee;
+                employeeDao.update(empl);
                 return true;
             }
         }
@@ -60,11 +60,11 @@ public class EmployerServiceImpl implements EmployerService {
 
     @Override
     public boolean changePosition(Long id, String position) {
-        List<Employer> employers = findAll();
-        for(Employer empl : employers) {
+        List<Employee> employees = findAll();
+        for(Employee empl : employees) {
             if (empl.getId() == id) {
                 empl.setPosition(position);
-                employerDao.update(empl);
+                employeeDao.update(empl);
                 return true;
             }
         }
@@ -73,11 +73,11 @@ public class EmployerServiceImpl implements EmployerService {
 
     @Override
     public boolean changeName(Long id, String name) {
-        List<Employer> employers = findAll();
-        for(Employer empl : employers) {
+        List<Employee> employees = findAll();
+        for(Employee empl : employees) {
             if (empl.getId() == id) {
                 empl.setName(name);
-                employerDao.update(empl);
+                employeeDao.update(empl);
                 return true;
             }
         }
@@ -86,11 +86,11 @@ public class EmployerServiceImpl implements EmployerService {
 
     @Override
     public boolean changeSurname(Long id, String surname) {
-        List<Employer> employers = findAll();
-        for(Employer empl : employers) {
+        List<Employee> employees = findAll();
+        for(Employee empl : employees) {
             if (empl.getId() == id) {
                 empl.setSureName(surname);
-                employerDao.update(empl);
+                employeeDao.update(empl);
                 return true;
             }
         }
@@ -99,11 +99,11 @@ public class EmployerServiceImpl implements EmployerService {
 
     @Override
     public boolean changeAge(Long id, Integer age) {
-        List<Employer> employers = findAll();
-        for(Employer empl : employers) {
+        List<Employee> employees = findAll();
+        for(Employee empl : employees) {
             if (empl.getId() == id) {
                 empl.setAge(age);
-                employerDao.update(empl);
+                employeeDao.update(empl);
                 return true;
             }
         }
@@ -112,11 +112,11 @@ public class EmployerServiceImpl implements EmployerService {
 
     @Override
     public boolean changeSex(Long id, String sex) {
-        List<Employer> employers = findAll();
-        for(Employer empl : employers) {
+        List<Employee> employees = findAll();
+        for(Employee empl : employees) {
             if (empl.getId() == id) {
                 empl.setSex(sex);
-                employerDao.update(empl);
+                employeeDao.update(empl);
                 return true;
             }
         }
@@ -124,19 +124,19 @@ public class EmployerServiceImpl implements EmployerService {
     }
 
     @Override
-    public Long findIdEmployer(Employer employer) {
-        return employer.getId();
+    public Long findIdEmployer(Employee employee) {
+        return employee.getId();
     }
 
     /*повертає список співробітників, в яких співпадає хоч одне
     * поле типу String з тим,
     * яке ми передали на вхід */
     @Override
-    public List<Employer> findBySomeStringParam(String someParam) {
-        List<Employer> employers = findAll();
-        List<Employer> returnList = new LinkedList<>();
+    public List<Employee> findBySomeStringParam(String someParam) {
+        List<Employee> employees = findAll();
+        List<Employee> returnList = new LinkedList<>();
 
-        for(Employer empl : employers) {
+        for(Employee empl : employees) {
             if ((empl.getName() == someParam) || (empl.getSureName() == someParam)
                 || (empl.getPosition() == someParam) || (empl.getSex() == someParam)) {
                 returnList.add(empl);
@@ -148,11 +148,11 @@ public class EmployerServiceImpl implements EmployerService {
     /*метод отримує віковий діапазон і повертає
     * всіх співробітників з цього вікового діапазону*/
     @Override
-    public List<Employer> findByAge(Integer minAge, Integer maxAge) {
-        List<Employer> employers = findAll();
-        List<Employer> returnList = new LinkedList<>();
+    public List<Employee> findByAge(Integer minAge, Integer maxAge) {
+        List<Employee> employees = findAll();
+        List<Employee> returnList = new LinkedList<>();
 
-        for(Employer empl : employers) {
+        for(Employee empl : employees) {
             if ((empl.getAge() >= minAge) && (empl.getAge() <= maxAge)) {
                 returnList.add(empl);
             }

@@ -22,15 +22,15 @@ public class User {
 
     @OneToOne
     @JoinColumn(name = "EMPLOYER_ID", referencedColumnName = "ID")
-    private Employer employer;
+    private Employee employee;
 
     @Column (name = "DATE")
     private Date date;
 
-    public User(String login, String password, Employer employer) {
+    public User(String login, String password, Employee employee) {
         this.login = login;
         this.password = password;
-        this.employer = employer;
+        this.employee = employee;
         date = new Date();
     }
     public User() {}
@@ -43,8 +43,8 @@ public class User {
     public String getPassword() {
         return password;
     }
-    public Employer getEmployer() {
-        return employer;
+    public Employee getEmployee() {
+        return employee;
     }
     public Date getDate() {
         return date;
@@ -55,8 +55,8 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public void setEmployer(Employer employer) {
-        this.employer = employer;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
     @Override
     public String toString() {
