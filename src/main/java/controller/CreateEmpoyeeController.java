@@ -37,7 +37,14 @@ public class CreateEmpoyeeController
     @FXML
     private Button cancelButton;
 
-
+//    @FXML
+//    public void initialize(){
+//        nameField.setDisable(false);
+//        sexField.setDisable(false);
+//        ageField.setDisable(false);
+//        surnameField.setDisable(false);
+//        positionField.setDisable(false);
+//    }
 
     public void onActionName(ActionEvent actionEvent) {
     }

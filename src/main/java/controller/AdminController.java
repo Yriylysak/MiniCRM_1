@@ -29,11 +29,14 @@ public class AdminController implements EventHandler{
     @FXML  private Button DelButton;
     @FXML  private Button GenButton;
 
+    private Employee currentEmployee;
+
     private EmployeeService employeeService = new EmployeeServiceImpl();
     private ObservableList<Employee> employeeObservableList;
 
     @FXML
     private void onActionCreate() {
+
         // employeeObservableList = FXCollections.observableArrayList(employeeService.findAll());
         //EmplViewHandler viewHandler = new EmplViewHandler(nameField, surnameField, ageField, sexField, positionField, employeeObservableList);
         Employee employee = new Employee(nameField.getText(), surnameField.getText(),
@@ -46,6 +49,8 @@ public class AdminController implements EventHandler{
         sexField.clear();
         ageField.clear();
         positionField.clear();
+
+
 
         // baseInfoList.refresh();
 
@@ -63,6 +68,14 @@ public class AdminController implements EventHandler{
     }
     @FXML
     private void onActionDel() {
+
+        currentEmployee =(Employee) baseInfoList.getSelectionModel().getSelectedItem();
+        employeeService = new EmployeeServiceImpl();
+
+        employeeService.delete(currentEmployee.getId());
+        System.out.println("dell");
+        initialize();
+
     }
     @FXML
     private void onActionGen() {
@@ -88,5 +101,19 @@ public class AdminController implements EventHandler{
         employeeObservableList = FXCollections.observableArrayList(employeeService.findAll());
         baseInfoList.setItems(employeeObservableList);
         System.out.println("99999999");
+
+
+    }
+
+    public void showListView() {
+
+            currentEmployee =(Employee) baseInfoList.getSelectionModel().getSelectedItem();
+            nameField.setText(currentEmployee.getName());
+            surnameField.setText(currentEmployee.getSureName());
+            ageField.setText(""+currentEmployee.getAge());
+            sexField.setText(currentEmployee.getSex());
+            positionField.setText(currentEmployee.getPosition());
+            registryField.setText(""+currentEmployee.getDate());
+
     }
 }
