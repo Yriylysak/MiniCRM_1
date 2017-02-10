@@ -25,6 +25,6 @@
       <TextField fx:id="positionField" layoutX="359.0" layoutY="173.0" AnchorPane.topAnchor="173.0" />
       <TextField fx:id="registryField" disable="true" layoutX="359.0" layoutY="205.0" AnchorPane.topAnchor="205.0" />
       <Label layoutX="235.0" layoutY="210.0" text="Дата регистрации" AnchorPane.leftAnchor="226.0" />
-      <ListView fx:id="baseInfoList" layoutX="23.0" layoutY="42.0" prefHeight="315.0" prefWidth="191.0" AnchorPane.bottomAnchor="40.0" AnchorPane.topAnchor="45.0" />
+      <ListView fx:id="baseInfoList" layoutX="23.0" layoutY="42.0" onMouseClicked="#viewHandler" prefHeight="315.0" prefWidth="191.0" AnchorPane.bottomAnchor="40.0" AnchorPane.topAnchor="45.0" />
    </children>
 </AnchorPane>
