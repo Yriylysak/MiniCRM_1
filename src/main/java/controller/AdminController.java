@@ -114,6 +114,7 @@ public class AdminController implements EventHandler{
             sexField.setText(currentEmployee.getSex());
             positionField.setText(currentEmployee.getPosition());
             registryField.setText(""+currentEmployee.getDate());
+            //11
 
     }
 }
