@@ -10,9 +10,9 @@
       <Label fx:id="AdminLabel" layoutX="225.0" layoutY="14.0" text="Администратор" />
       <TextArea fx:id="EmplArea" disable="true" layoutX="14.0" layoutY="45.0" prefHeight="315.0" prefWidth="200.0" />
       <TextArea fx:id="InfoArea" disable="true" layoutX="226.0" layoutY="45.0" prefHeight="222.0" prefWidth="314.0" />
-      <Button fx:id="CreateButton" layoutX="246.0" layoutY="284.0" mnemonicParsing="false" onAction="#onActionCreate" prefHeight="35.0" prefWidth="108.0" text="Создать" />
-      <Button fx:id="ChenButton" layoutX="404.0" layoutY="284.0" mnemonicParsing="false" onAction="#onActionChen" prefHeight="35.0" prefWidth="108.0" text="Изменить" />
-      <Button fx:id="DelButton" layoutX="246.0" layoutY="334.0" mnemonicParsing="false" onAction="#onActionDel" prefHeight="35.0" prefWidth="108.0" text="Удалить" />
-      <Button fx:id="GenButton" layoutX="404.0" layoutY="334.0" mnemonicParsing="false" onAction="#onActionGen" prefHeight="35.0" prefWidth="108.0" text="Сгенерировать" />
+      <Button fx:id="CreateButton" layoutX="225.0" layoutY="284.0" mnemonicParsing="false" onAction="#onActionCreate" prefHeight="35.0" prefWidth="134.0" text="Создать" />
+      <Button fx:id="ChenButton" layoutX="387.0" layoutY="284.0" mnemonicParsing="false" onAction="#onActionChen" prefHeight="35.0" prefWidth="134.0" text="Изменить" />
+      <Button fx:id="DelButton" layoutX="225.0" layoutY="325.0" mnemonicParsing="false" onAction="#onActionDel" prefHeight="35.0" prefWidth="134.0" text="Удалить" />
+      <Button fx:id="GenButton" layoutX="387.0" layoutY="325.0" mnemonicParsing="false" onAction="#onActionGen" prefHeight="35.0" prefWidth="134.0" text="Сгенерировать" />
    </children>
 </AnchorPane>
