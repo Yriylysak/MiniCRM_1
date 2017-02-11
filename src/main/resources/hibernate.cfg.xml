@@ -5,22 +5,22 @@
 <hibernate-configuration>
     <session-factory>
         <property name="connection.url">
-          <!--  jdbc:mysql://localhost:3306/FirstDB -->
-            jdbc:mysql://192.168.1.127:3306/FirstDB
-        </property>
-        <property name="connection.driver_class">
-            com.mysql.jdbc.Driver
-        </property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">100Yleaf</property>
+            jdbc:mysql://localhost:3306/crm
+            <!--jdbc:mysql://192.168.1.127:3306/FirstDB-->
+       </property>
+       <property name="connection.driver_class">
+           com.mysql.jdbc.Driver
+       </property>
+       <property name="connection.username">root</property>
+       <property name="connection.password">root</property>
 
-        <property name="hbm2ddl.auto"> create </property>
+       <property name="hbm2ddl.auto"> create </property>
 
-        <property name="connection.pool_size"> 1 </property>
-        <property name="show_sql"> true </property>
+       <property name="connection.pool_size"> 1 </property>
+       <property name="show_sql"> true </property>
 
-        <mapping class="entity.User"/>
-        <mapping class="entity.Employer"/>
+       <mapping class="entity.User"/>
+       <mapping class="entity.Employee"/>
 
-    </session-factory>
+   </session-factory>
 </hibernate-configuration>
