@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService {
         return login;
     }
 
-    /*проста автогенерація пароля*/
+    // проста автогенерація пароля
     @Override
     public String createPassword() {
         char lowerCase[] = {'a','b','c','d','e','f','g','i','j','k','m','n','o','p','q','r','s','t','w','x','y','z'};
@@ -139,7 +139,7 @@ public class UserServiceImpl implements UserService {
     public Long findUser(Employee employee) {
         List<User> users = userDao.findAll();
         for (User us : users) {
-            if (us.getEmployee().equals(employee)) {
+            if (us.getEmployee().getId() == (employee.getId())) {
                 return us.getId();
             }
         }

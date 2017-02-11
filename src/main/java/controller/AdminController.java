@@ -98,7 +98,16 @@ public class AdminController implements EventHandler{
         currentEmployee =(Employee) baseInfoList.getSelectionModel().getSelectedItem();
         employeeService = new EmployeeServiceImpl();
 
+        userService.delete(userService.findUser(currentEmployee));
         employeeService.delete(currentEmployee.getId());
+        baseInfoList.refresh();
+        employeeObservableList = FXCollections.observableList(employeeService.findAll());
+
+        nameField.clear();
+        surnameField.clear();
+        sexField.clear();
+        ageField.clear();
+        positionField.clear();
         System.out.println("dell");
         initialize();
 
