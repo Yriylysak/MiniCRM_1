@@ -90,6 +90,8 @@ public class EnterContorller {
             stage.setScene(scene);
             stage.show();
             stage.setResizable(false);
+            loginField.clear();
+            passwordField.clear();
         }
 
     }

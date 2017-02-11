@@ -6,12 +6,18 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import service.EmployeeService;
 import service.EmployeeServiceImpl;
+
+import java.io.IOException;
 
 
 /**
@@ -81,6 +87,19 @@ public class AdminController implements EventHandler{
     }
     @FXML
     private void onActionGen() {
+        Parent root = null;
+        Stage stage = new Stage();
+
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/generateWindow.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/view/adminWindow.css");
+        stage.setScene(scene);
+        stage.show();
+        stage.setResizable(false);
     }
 
     /*поки не працює*/
