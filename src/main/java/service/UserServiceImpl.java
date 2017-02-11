@@ -134,4 +134,15 @@ public class UserServiceImpl implements UserService {
         String password = new String(chars);
         return password;
     }
+
+    @Override
+    public Long findUser(Employee employee) {
+        List<User> users = userDao.findAll();
+        for (User us : users) {
+            if (us.getEmployee().equals(employee)) {
+                return us.getId();
+            }
+        }
+        return null;
+    }
 }
