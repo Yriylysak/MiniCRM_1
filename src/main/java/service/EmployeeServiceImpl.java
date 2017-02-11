@@ -164,11 +164,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     public boolean isCreatedEmployee(Employee employee) {
         List<Employee> employees = findAll();
         for(Employee empl : employees) {
-            if (       (empl.getName()) == employee.getName()
-                    && (empl.getSureName() == employee.getSureName())
+            if (       (empl.getName()).equals(employee.getName())
+                    && (empl.getSureName().equals(employee.getSureName()))
                     && (empl.getAge() == employee.getAge())
-                    && (empl.getSex() == employee.getSex())
-                    && (empl.getPosition() == employee.getPosition())) {
+                    && (empl.getSex().equals(employee.getSex()))
+                    && (empl.getPosition().equals(employee.getPosition()))) {
                 return true;
             }
         }
