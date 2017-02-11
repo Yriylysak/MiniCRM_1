@@ -50,7 +50,7 @@ public class AdminController implements EventHandler{
 
     @FXML
     private void onActionCreate() {
-
+//
         // employeeObservableList = FXCollections.observableArrayList(employeeService.findAll());
         //EmplViewHandler viewHandler = new EmplViewHandler(nameField, surnameField, ageField, sexField, positionField, employeeObservableList);
         Employee employee = new Employee(nameField.getText(), surnameField.getText(),
@@ -81,6 +81,16 @@ public class AdminController implements EventHandler{
     }
     @FXML
     private void onActionChen() {
+
+        Employee employee = new Employee(nameField.getText(), surnameField.getText(),
+                (Integer.parseInt(ageField.getText())), sexField.getText(), positionField.getText());
+        employeeService.add(employee);
+        employeeService.delete(currentEmployee.getId());
+        employeeObservableList = FXCollections.observableArrayList(employeeService.findAll());
+        baseInfoList.refresh();
+        baseInfoList.setItems(employeeObservableList);
+
+
     }
     @FXML
     private void onActionDel() {
