@@ -58,7 +58,7 @@ public class AdminController implements EventHandler{
 
         employeeService.add(employee);
         employeeObservableList = FXCollections.observableArrayList(employeeService.findAll());
-
+//
         baseInfoList.setItems(employeeObservableList);
         nameField.clear();
         surnameField.clear();

@@ -19,7 +19,7 @@ public class OkController {
     Label addPasswordField;
     @FXML
     Button btnOK;
-
+//
     @FXML
     public void initialize() {
 
