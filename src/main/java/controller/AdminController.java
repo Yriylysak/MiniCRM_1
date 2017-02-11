@@ -27,6 +27,7 @@ import java.io.IOException;
  * Created by Yura on 05.02.2017.
  */
 public class AdminController implements EventHandler{
+    // Commit 1.0
     @FXML  public ListView baseInfoList;
     @FXML  private TextField nameField;
     @FXML  private TextField surnameField;
@@ -175,6 +176,10 @@ public class AdminController implements EventHandler{
     }
     @FXML
     private void onActionCheck(){
+        if(currentUser.getId()!=null)
+        {
+
+        }
 
     }
 }
