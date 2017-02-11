@@ -7,6 +7,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import service.EmployeeService;
@@ -28,6 +29,7 @@ public class AdminController implements EventHandler{
     @FXML  private Button ChenButton;
     @FXML  private Button DelButton;
     @FXML  private Button GenButton;
+    @FXML  private CheckBox accountStatus;
 
     private Employee currentEmployee;
 

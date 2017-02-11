@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="AdminWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="557.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
+<AnchorPane fx:id="AdminWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="557.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
    <children>
       <Label fx:id="AdminLabel" layoutX="225.0" layoutY="14.0" text="Администратор" />
       <Button id="create btn" fx:id="CreateButton" layoutX="225.0" layoutY="284.0" mnemonicParsing="false" onAction="#onActionCreate" prefHeight="35.0" prefWidth="134.0" text="Создать" />
@@ -29,5 +27,7 @@
       <TextField fx:id="registryField" disable="true" layoutX="359.0" layoutY="205.0" AnchorPane.topAnchor="205.0" />
       <Label layoutX="235.0" layoutY="210.0" text="Дата регистрации" AnchorPane.leftAnchor="226.0" />
       <ListView fx:id="baseInfoList" layoutX="23.0" layoutY="42.0" onMousePressed="#showListView" prefHeight="315.0" prefWidth="191.0" AnchorPane.bottomAnchor="40.0" AnchorPane.topAnchor="45.0" />
+      <Label layoutX="226.0" layoutY="248.0" text="Аккаунт" AnchorPane.leftAnchor="226.0" />
+      <CheckBox fx:id="accountStatus" disable="true" layoutX="359.0" layoutY="247.0" mnemonicParsing="false" />
    </children>
 </AnchorPane>
