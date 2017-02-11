@@ -22,4 +22,6 @@ public interface EmployeeService {
     Long findIdEmployer(Employee employee);
     List<Employee> findBySomeStringParam(String someParam);
     List<Employee> findByAge(Integer ninAge, Integer maxAge);
+
+    boolean isCreatedEmployee(Employee employee);
 }

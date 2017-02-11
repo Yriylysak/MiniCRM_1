@@ -21,7 +21,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     * повертає унікальний id*/
     @Override
     public Long add(Employee employee) {
-        if (employee != null) {
+        if (employee != null && !isCreatedEmployee(employee)) {
             Long id = employeeDao.create(employee);
             return id;
         }
@@ -158,5 +158,20 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
         }
         return returnList;
+    }
+
+    @Override
+    public boolean isCreatedEmployee(Employee employee) {
+        List<Employee> employees = findAll();
+        for(Employee empl : employees) {
+            if (       (empl.getName()) == employee.getName()
+                    && (empl.getSureName() == employee.getSureName())
+                    && (empl.getAge() == employee.getAge())
+                    && (empl.getSex() == employee.getSex())
+                    && (empl.getPosition() == employee.getPosition())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
