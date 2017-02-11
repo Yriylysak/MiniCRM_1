@@ -27,7 +27,7 @@ public class OkController {
        // Employee currentEmployee =(Employee) adminController.baseInfoList.getSelectionModel().getSelectedItem();
         addNameField.setText(currentEmployee.getName());
         addLoginField.setText(currentUser.getLogin());
-        addPasswordField.setText("Password");
+        addPasswordField.setText(currentUser.getPassword());
         System.out.println(currentEmployee.getName());
     }
 
