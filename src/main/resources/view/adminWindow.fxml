@@ -28,7 +28,6 @@
       <Label layoutX="235.0" layoutY="210.0" text="Дата регистрации" AnchorPane.leftAnchor="226.0" />
       <ListView fx:id="baseInfoList" layoutX="23.0" layoutY="42.0" onMousePressed="#showListView" prefHeight="315.0" prefWidth="191.0" AnchorPane.bottomAnchor="40.0" AnchorPane.topAnchor="45.0" />
       <Label layoutX="226.0" layoutY="248.0" text="Аккаунт" AnchorPane.leftAnchor="226.0" />
-      <CheckBox fx:id="accountStatus" disable="true" layoutX="359.0" layoutY="247.0" mnemonicParsing="false" />
+      <CheckBox fx:id="accountStatus" disable="true" layoutX="359.0" layoutY="247.0" mnemonicParsing="false" onAction="#onActionCheck" />
    </children>
 </AnchorPane>
-<!--
