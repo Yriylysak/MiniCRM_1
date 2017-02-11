@@ -44,7 +44,7 @@ public class AdminController implements EventHandler{
 
     @FXML
     private void onActionCreate() {
-
+//
         // employeeObservableList = FXCollections.observableArrayList(employeeService.findAll());
         //EmplViewHandler viewHandler = new EmplViewHandler(nameField, surnameField, ageField, sexField, positionField, employeeObservableList);
         Employee employee = new Employee(nameField.getText(), surnameField.getText(),
