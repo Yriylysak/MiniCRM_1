@@ -1,6 +1,7 @@
 package controller;
 
 import entity.Employee;
+import entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -16,6 +17,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import service.EmployeeService;
 import service.EmployeeServiceImpl;
+import service.UserService;
+import service.UserServiceImpl;
 
 import java.io.IOException;
 
@@ -24,7 +27,7 @@ import java.io.IOException;
  * Created by Yura on 05.02.2017.
  */
 public class AdminController implements EventHandler{
-    @FXML  private ListView baseInfoList;
+    @FXML  public ListView baseInfoList;
     @FXML  private TextField nameField;
     @FXML  private TextField surnameField;
     @FXML  private TextField ageField;
@@ -37,10 +40,13 @@ public class AdminController implements EventHandler{
     @FXML  private Button GenButton;
     @FXML  private CheckBox accountStatus;
 
-    private Employee currentEmployee;
+    public static Employee currentEmployee;
+    public static User currentUser;
 
     private EmployeeService employeeService = new EmployeeServiceImpl();
     private ObservableList<Employee> employeeObservableList;
+    private UserService userService = new UserServiceImpl();
+    private ObservableList<User> userObservableList;
 
     @FXML
     private void onActionCreate() {
@@ -49,8 +55,10 @@ public class AdminController implements EventHandler{
         //EmplViewHandler viewHandler = new EmplViewHandler(nameField, surnameField, ageField, sexField, positionField, employeeObservableList);
         Employee employee = new Employee(nameField.getText(), surnameField.getText(),
                 (Integer.parseInt(ageField.getText())), sexField.getText(), positionField.getText());
+
         employeeService.add(employee);
         employeeObservableList = FXCollections.observableArrayList(employeeService.findAll());
+
         baseInfoList.setItems(employeeObservableList);
         nameField.clear();
         surnameField.clear();
@@ -87,6 +95,14 @@ public class AdminController implements EventHandler{
     }
     @FXML
     private void onActionGen() {
+        currentEmployee =(Employee) baseInfoList.getSelectionModel().getSelectedItem();
+        employeeService = new EmployeeServiceImpl();
+        currentUser = userService.createUser(currentEmployee);
+        //userService = new UserServiceImpl();
+        userService.add(currentUser);
+
+        //System.out.println(currentUser.getLogin());
+
         Parent root = null;
         Stage stage = new Stage();
 
