@@ -175,8 +175,7 @@ public class AdminController implements EventHandler {
         employeeObservableList = FXCollections.observableArrayList(employeeService.findAll());
         baseInfoList.setItems(employeeObservableList);
         System.out.println("99999999");
-
-
+        btnEmpl.setSelected(true);
     }
 
     public void showListView() {
@@ -190,10 +189,21 @@ public class AdminController implements EventHandler {
             registryField.setText("" + currentEmployee.getDate());
             accountStatus.setSelected(userService.findUser(currentEmployee) != null);
         }
-        if (btnUsers.isSelected()){
-            showListViewUsers();
+//        if (baseInfoList.getSelectionModel().getSelectedItems()==null){
+//            nameField.clear();
+//            surnameField.clear();
+//            sexField.clear();
+//            ageField.clear();
+//            positionField.clear();
+//            registryField.clear();
+//            accountStatus.setSelected(false);
+//        }
 
-        }
+        /*if (baseInfoList.getSelectionModel().getSelectedItems()!=null){
+            showListViewUsers();
+        }*/
+
+
         //11
 
     }
