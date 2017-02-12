@@ -48,3 +48,7 @@
     -fx-font-size: 13px;
 }
 
+.radio-button{
+    -fx-text-fill: white;
+}
+

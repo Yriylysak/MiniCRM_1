@@ -10,10 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import service.EmployeeService;
 import service.EmployeeServiceImpl;
@@ -52,6 +49,11 @@ public class AdminController implements EventHandler {
     private Button GenButton;
     @FXML
     private CheckBox accountStatus;
+    @FXML
+    private RadioButton btnEmpl;
+    @FXML
+    private RadioButton btnUsers;
+
 
     public static Employee currentEmployee;
     public static User currentUser;
@@ -96,7 +98,10 @@ public class AdminController implements EventHandler {
         Employee employee = new Employee(nameField.getText(), surnameField.getText(),
                 (Integer.parseInt(ageField.getText())), sexField.getText(), positionField.getText());
         employeeService.add(employee);
+        userService.delete(currentUser.getId());
+        currentUser = userService.createUser(currentEmployee);
         employeeService.delete(currentEmployee.getId());
+
         employeeObservableList = FXCollections.observableArrayList(employeeService.findAll());
         baseInfoList.refresh();
         baseInfoList.setItems(employeeObservableList);
@@ -162,6 +167,7 @@ public class AdminController implements EventHandler {
         ageField.setText(Integer.toString(employee.getAge()));
         sexField.setText(employee.getSex());
         positionField.setText(employee.getPosition());
+
     }
 
     @FXML
@@ -174,16 +180,52 @@ public class AdminController implements EventHandler {
     }
 
     public void showListView() {
+        if(baseInfoList.getSelectionModel().getSelectedItem()!= null) {
+            currentEmployee = (Employee) baseInfoList.getSelectionModel().getSelectedItem();
+            nameField.setText(currentEmployee.getName());
+            surnameField.setText(currentEmployee.getSureName());
+            ageField.setText("" + currentEmployee.getAge());
+            sexField.setText(currentEmployee.getSex());
+            positionField.setText(currentEmployee.getPosition());
+            registryField.setText("" + currentEmployee.getDate());
+            accountStatus.setSelected(userService.findUser(currentEmployee) != null);
+        }
+        if (btnUsers.isSelected()){
+            showListViewUsers();
 
-        currentEmployee = (Employee) baseInfoList.getSelectionModel().getSelectedItem();
-        nameField.setText(currentEmployee.getName());
-        surnameField.setText(currentEmployee.getSureName());
-        ageField.setText("" + currentEmployee.getAge());
-        sexField.setText(currentEmployee.getSex());
-        positionField.setText(currentEmployee.getPosition());
-        registryField.setText("" + currentEmployee.getDate());
-        accountStatus.setSelected(userService.findUser(currentEmployee) != null);
+        }
         //11
+
+    }
+    public void showListViewUsers(){
+        currentUser = (User) baseInfoList.getSelectionModel().getSelectedItem();
+        nameField.setText(currentUser.getEmployee().getName());
+        surnameField.setText(currentUser.getEmployee().getSureName());
+        ageField.setText(""+currentUser.getEmployee().getAge());
+        sexField.setText(currentUser.getEmployee().getSex());
+        positionField.setText(currentUser.getEmployee().getPosition());
+        registryField.setText(""+currentUser.getEmployee().getDate());
+        accountStatus.setSelected(userService.findUser(currentEmployee)!= null);
+    }
+
+    @FXML
+    private void onActionShowEmpl(){
+
+        if(btnEmpl.isSelected()){
+            btnUsers.setSelected(false);
+            employeeObservableList = FXCollections.observableArrayList(employeeService.findAll());
+            baseInfoList.setItems(employeeObservableList);
+        }
+
+    }
+
+    @FXML
+    private void onActionShowUsers(){
+            btnEmpl.setSelected(false);
+            userObservableList = FXCollections.observableArrayList(userService.findAll());
+            baseInfoList.setItems(userObservableList);
+
+
 
     }
 }
