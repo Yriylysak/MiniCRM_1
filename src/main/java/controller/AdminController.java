@@ -65,11 +65,11 @@ public class AdminController implements EventHandler {
 
     @FXML
     private void onActionCreate() {
-        if (nameField.getText() != "" && surnameField.getText() != null&&ageField.getText()!=""
-                && (Integer.parseInt(ageField.getText())) > 0
-                && sexField.getText() != ""
-                && positionField.getText() != "") {
-
+//        if (nameField.getText() != "" && surnameField.getText() != ""&&ageField.getText()!=""
+//                && (Integer.parseInt(ageField.getText())) > 0
+//                && sexField.getText() != ""
+//                && positionField.getText() != "") {
+            if (true){
 
             // employeeObservableList = FXCollections.observableArrayList(employeeService.findAll());
             //EmplViewHandler viewHandler = new EmplViewHandler(nameField, surnameField, ageField, sexField, positionField, employeeObservableList);
@@ -209,13 +209,8 @@ public class AdminController implements EventHandler {
             registryField.clear();
             accountStatus.setSelected(false);
         }
-
-
-
-
-        //11
-
     }
+
     public void showListViewUsers(){
         currentUser = (User) baseInfoList.getSelectionModel().getSelectedItem();
         nameField.setText(currentUser.getEmployee().getName());
