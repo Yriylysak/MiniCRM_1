@@ -18,6 +18,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public EmployeeDaoImpl() {
         factory = HibernateUtil.getSessionFactory();
     }
+
     @Override
     public Long create(Employee employee) {
         if (employee != null) {
