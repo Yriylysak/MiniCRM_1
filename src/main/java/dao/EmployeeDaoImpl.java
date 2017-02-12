@@ -20,16 +20,18 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
     @Override
     public Long create(Employee employee) {
-        Session session = factory.openSession();
-        try {
-            session.beginTransaction();
-            Long id = (Long) session.save(employee);
-            session.getTransaction().commit();
-            return id;
-        } catch (HibernateException e) {
-            session.getTransaction().rollback();
+        if (employee != null) {
+            Session session = factory.openSession();
+            try {
+                session.beginTransaction();
+                Long id = (Long) session.save(employee);
+                session.getTransaction().commit();
+                return id;
+            } catch (HibernateException e) {
+                session.getTransaction().rollback();
+            }
+            session.close();
         }
-        session.close();
         return null;
     }
     @Override
