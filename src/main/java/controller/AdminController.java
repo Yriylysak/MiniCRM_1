@@ -209,8 +209,8 @@ public class AdminController implements EventHandler {
             registryField.clear();
             accountStatus.setSelected(false);
         }
-
     }
+
     public void showListViewUsers(){
         currentUser = (User) baseInfoList.getSelectionModel().getSelectedItem();
         nameField.setText(currentUser.getEmployee().getName());
