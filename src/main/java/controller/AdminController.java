@@ -167,10 +167,7 @@ public class AdminController implements EventHandler {
         ageField.setText(Integer.toString(employee.getAge()));
         sexField.setText(employee.getSex());
         positionField.setText(employee.getPosition());
-        if (btnUsers.isSelected()){
-            showListViewUsers();
 
-        }
     }
 
     @FXML
@@ -192,6 +189,10 @@ public class AdminController implements EventHandler {
             positionField.setText(currentEmployee.getPosition());
             registryField.setText("" + currentEmployee.getDate());
             accountStatus.setSelected(userService.findUser(currentEmployee) != null);
+        }
+        if (btnUsers.isSelected()){
+            showListViewUsers();
+
         }
         //11
 
