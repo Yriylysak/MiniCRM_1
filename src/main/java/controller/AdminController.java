@@ -210,11 +210,6 @@ public class AdminController implements EventHandler {
             accountStatus.setSelected(false);
         }
 
-
-
-
-        //11
-
     }
     public void showListViewUsers(){
         currentUser = (User) baseInfoList.getSelectionModel().getSelectedItem();
