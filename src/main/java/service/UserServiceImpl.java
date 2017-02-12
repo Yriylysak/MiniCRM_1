@@ -6,6 +6,7 @@ import entity.Employee;
 import entity.User;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by JL on 05.02.2017.
@@ -105,7 +106,7 @@ public class UserServiceImpl implements UserService {
         login += surname;
         List<User> users = findAll();
         for(User us: users) {
-            if (us.getLogin() == login) {
+            if (us.getLogin().equals(login)) {
                 //тут треба придумати щось для наступного,
                 // хто буде з таким же іменем і прізвищем
                 login += "2";
@@ -132,7 +133,22 @@ public class UserServiceImpl implements UserService {
                         special[(int)(Math.random() * 11)]};
 
         String password = new String(chars);
-        return password;
+
+        StringBuilder stringBuilderPasswrod = new StringBuilder();
+        Random random = new Random();
+
+        while (stringBuilderPasswrod.length() != 8) {
+            String strLetter = (String.valueOf((char) random.nextInt(255)));
+
+            if (strLetter.matches("[aA-zZ]") || strLetter.matches("[0-9]")) {
+                stringBuilderPasswrod.append(strLetter);
+            }
+        }
+
+        password.matches("[[aA-zZ]*[2-9]*]");
+
+        //return stringBuilderPasswrod.toString();
+        return "qwerty";
     }
 
     @Override
