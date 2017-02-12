@@ -65,29 +65,36 @@ public class AdminController implements EventHandler {
 
     @FXML
     private void onActionCreate() {
-//
-        // employeeObservableList = FXCollections.observableArrayList(employeeService.findAll());
-        //EmplViewHandler viewHandler = new EmplViewHandler(nameField, surnameField, ageField, sexField, positionField, employeeObservableList);
-        Employee employee = new Employee(nameField.getText(), surnameField.getText(),
-                (Integer.parseInt(ageField.getText())), sexField.getText(), positionField.getText());
-
-        employeeService.add(employee);
-        employeeObservableList = FXCollections.observableArrayList(employeeService.findAll());
-//
-        baseInfoList.setItems(employeeObservableList);
-        nameField.clear();
-        surnameField.clear();
-        sexField.clear();
-        ageField.clear();
-        positionField.clear();
+        if (nameField.getText() != "" && surnameField.getText() != null&&ageField.getText()!=""
+                && (Integer.parseInt(ageField.getText())) > 0
+                && sexField.getText() != ""
+                && positionField.getText() != "") {
 
 
-        // baseInfoList.refresh();
+            // employeeObservableList = FXCollections.observableArrayList(employeeService.findAll());
+            //EmplViewHandler viewHandler = new EmplViewHandler(nameField, surnameField, ageField, sexField, positionField, employeeObservableList);
+            Employee employee = new Employee(nameField.getText(), surnameField.getText(),
+                    (Integer.parseInt(ageField.getText())), sexField.getText(), positionField.getText());
+
+            employeeService.add(employee);
+        }
+
+            employeeObservableList = FXCollections.observableArrayList(employeeService.findAll());
+
+            baseInfoList.setItems(employeeObservableList);
+            nameField.clear();
+            surnameField.clear();
+            sexField.clear();
+            ageField.clear();
+            positionField.clear();
 
 
-        // Employee employer1 = new Employee(nameField.getText(), surnameField.getText(), (Integer.parseInt(ageField.getText())), sexField.getText(), positionField.getText());
-        // employeeService.add(employer1);
-        // baseInfoList.setItems(employeeObservableList);
+            // baseInfoList.refresh();
+
+
+            // Employee employer1 = new Employee(nameField.getText(), surnameField.getText(), (Integer.parseInt(ageField.getText())), sexField.getText(), positionField.getText());
+            // employeeService.add(employer1);
+            // baseInfoList.setItems(employeeObservableList);
 
 
     }
@@ -175,25 +182,37 @@ public class AdminController implements EventHandler {
         employeeObservableList = FXCollections.observableArrayList(employeeService.findAll());
         baseInfoList.setItems(employeeObservableList);
         System.out.println("99999999");
-
-
+        btnEmpl.setSelected(true);
     }
 
     public void showListView() {
         if(baseInfoList.getSelectionModel().getSelectedItem()!= null) {
-            currentEmployee = (Employee) baseInfoList.getSelectionModel().getSelectedItem();
-            nameField.setText(currentEmployee.getName());
-            surnameField.setText(currentEmployee.getSureName());
-            ageField.setText("" + currentEmployee.getAge());
-            sexField.setText(currentEmployee.getSex());
-            positionField.setText(currentEmployee.getPosition());
-            registryField.setText("" + currentEmployee.getDate());
-            accountStatus.setSelected(userService.findUser(currentEmployee) != null);
+            if (btnUsers.isSelected()){
+                showListViewUsers();
+            }else {
+                currentEmployee = (Employee) baseInfoList.getSelectionModel().getSelectedItem();
+                nameField.setText(currentEmployee.getName());
+                surnameField.setText(currentEmployee.getSureName());
+                ageField.setText("" + currentEmployee.getAge());
+                sexField.setText(currentEmployee.getSex());
+                positionField.setText(currentEmployee.getPosition());
+                registryField.setText("" + currentEmployee.getDate());
+                accountStatus.setSelected(userService.findUser(currentEmployee) != null);
+            }
         }
-        if (btnUsers.isSelected()){
-            showListViewUsers();
+        if (baseInfoList.getSelectionModel().getSelectedItems()==null){
+            nameField.clear();
+            surnameField.clear();
+            sexField.clear();
+            ageField.clear();
+            positionField.clear();
+            registryField.clear();
+            accountStatus.setSelected(false);
+        }
 
-        }
+
+
+
         //11
 
     }
@@ -213,6 +232,10 @@ public class AdminController implements EventHandler {
 
         if(btnEmpl.isSelected()){
             btnUsers.setSelected(false);
+            CreateButton.setDisable(false);
+            ChenButton.setDisable(false);
+            DelButton.setDisable(false);
+            GenButton.setDisable(false);
             employeeObservableList = FXCollections.observableArrayList(employeeService.findAll());
             baseInfoList.setItems(employeeObservableList);
         }
@@ -222,8 +245,13 @@ public class AdminController implements EventHandler {
     @FXML
     private void onActionShowUsers(){
             btnEmpl.setSelected(false);
+            CreateButton.setDisable(true);
+            ChenButton.setDisable(true);
+            DelButton.setDisable(true);
+            GenButton.setDisable(true);
             userObservableList = FXCollections.observableArrayList(userService.findAll());
             baseInfoList.setItems(userObservableList);
+
 
 
 
