@@ -4,6 +4,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -19,7 +20,7 @@
       <Label layoutX="227.0" layoutY="156.0" text="Пол" AnchorPane.leftAnchor="227.0" />
       <Label layoutX="227.0" layoutY="190.0" text="Должность" AnchorPane.leftAnchor="227.0" />
       <Label layoutX="231.0" layoutY="228.0" text="Дата регистрации" AnchorPane.leftAnchor="227.0" />
-      <ListView fx:id="baseInfoList" layoutX="24.0" layoutY="43.0" onMousePressed="#showListView" prefHeight="342.0" prefWidth="191.0" AnchorPane.bottomAnchor="48.0" AnchorPane.topAnchor="45.0" />
+      <ListView fx:id="baseInfoList" layoutX="24.0" layoutY="45.0" onMousePressed="#showListView" prefHeight="298.0" prefWidth="191.0" AnchorPane.bottomAnchor="92.0" AnchorPane.topAnchor="45.0" />
       <Label layoutX="227.0" layoutY="265.0" text="Аккаунт" AnchorPane.leftAnchor="227.0" />
       <CheckBox fx:id="accountStatus" disable="true" layoutX="361.0" layoutY="264.0" mnemonicParsing="false" />
       <GridPane layoutX="231.0" layoutY="303.0" prefHeight="90.0" prefWidth="303.0" AnchorPane.leftAnchor="231.0" AnchorPane.rightAnchor="22.0">
@@ -59,5 +60,7 @@
             <TextField fx:id="registryField" disable="true" GridPane.rowIndex="5" />
          </children>
       </GridPane>
+      <RadioButton fx:id="btnEmpl" layoutX="67.0" layoutY="355.0" mnemonicParsing="false" onAction="#onActionShowEmpl" text="Сотрудники" />
+      <RadioButton fx:id="btnUsers" layoutX="67.0" layoutY="384.0" mnemonicParsing="false" onAction="#onActionShowUsers" text="Пользователи" />
    </children>
 </AnchorPane>
