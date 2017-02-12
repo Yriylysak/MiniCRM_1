@@ -9,6 +9,7 @@ import org.junit.Test;
  */
 public class EmployeeDaoImplTest extends Assert
 {
+    //
     @Test
     public void testCreate()
     {
