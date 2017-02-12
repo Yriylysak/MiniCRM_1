@@ -100,9 +100,10 @@ public class UserServiceImpl implements UserService {
     /*автогенерація логіна на основі імені і прізвища*/
     @Override
     public String createLogin(String name, String surname) {
-        char chars[] = new char[2];
-        name.getChars(0, 2, chars, 0);
+        char chars[] = new char[1];
+        name.getChars(0, 1, chars, 0);
         String login = new String(chars);
+        login += ".";
         login += surname;
         List<User> users = findAll();
         for(User us: users) {
@@ -146,7 +147,8 @@ public class UserServiceImpl implements UserService {
         }
 
         password.matches("[[aA-zZ]*[2-9]*]");
-
+        // 3 variants of password
+        //return password;
         //return stringBuilderPasswrod.toString();
         return "qwerty";
     }

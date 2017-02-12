@@ -50,7 +50,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employees = findAll();
         for(Employee empl : employees) {
             if (empl.getId() == id) {
-                empl = employee;
+                empl.setName(employee.getName());
+                empl.setSureName(employee.getSureName());
+                empl.setAge(employee.getAge());
+                empl.setSex(employee.getSex());
+                empl.setPosition(employee.getPosition());
                 employeeDao.update(empl);
                 return true;
             }

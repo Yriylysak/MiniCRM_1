@@ -44,17 +44,24 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public boolean update(Employee employee) {
-        Session session = factory.openSession();
-        try{
-            session.beginTransaction();
-            session.update(employee);
-            session.getTransaction().commit();
-            return  true;
-        } catch (HibernateException e) {
-            session.getTransaction().rollback();
+    public boolean update(Employee employee)  {
+        if (employee != null) {
+            List<Employee> employees = findAll();
+            for (Employee empl : employees) {
+                if (employee.getId() == empl.getId()) {
+                    Session session = factory.openSession();
+                    try {
+                        session.beginTransaction();
+                        session.update(employee);
+                        session.getTransaction().commit();
+                        return true;
+                    } catch (HibernateException e) {
+                        session.getTransaction().rollback();
+                    }
+                    session.close();
+                }
+            }
         }
-        session.close();
         return false;
     }
 
