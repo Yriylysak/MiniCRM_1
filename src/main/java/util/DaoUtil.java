@@ -1,0 +1,33 @@
+package util;
+
+import dao.*;
+
+/**
+ * Created by Comfy on 13.02.2017.
+ */
+public class DaoUtil {
+    private static EmployeeDao employeeDao;
+    private static UserDao userDao;
+    private static ClientDao clientDao;
+    private static OrderDao orderDao;
+
+    public static EmployeeDao getEmployeeDao() {
+        employeeDao = new EmployeeDaoImpl();
+        return employeeDao;
+    }
+
+    public static UserDao getUserDao() {
+        userDao = new UserDaoImpl();
+        return userDao;
+    }
+
+    public static ClientDao getClientDao() {
+        clientDao = new ClientDaoImpl();
+        return clientDao;
+    }
+
+    public static OrderDao getOrderDao() {
+        orderDao = new OrderDaoImpl();
+        return orderDao;
+    }
+}
