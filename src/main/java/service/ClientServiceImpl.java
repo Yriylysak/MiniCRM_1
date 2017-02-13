@@ -40,36 +40,96 @@ public class ClientServiceImpl implements ClientService{
     * повертає true якщо успішно видалили*/
     @Override
     public boolean delete(Long id) {
-        return false;
+        Client client = clientDao.read(id);
+        return clientDao.delete(client);
     }
 
+    /*метод заміняє дані кліента на нові*/
     @Override
     public boolean changeClient(Long id, Client client) {
+        List<Client> clients = clientDao.findAll();
+        for(Client cl : clients) {
+            if(cl.getId() == id) {
+                cl.setName(client.getName());
+                cl.setSureName(client.getSureName());
+                cl.setAge(client.getAge());
+                cl.setEmail(client.getEmail());
+                cl.setPhone(client.getPhone());
+                clientDao.update(cl);
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean changeName(Long id, String name) {
+        List<Client> clients = clientDao.findAll();
+        for (Client cl : clients) {
+            if (cl.getId() == id) {
+                cl.setName(name);
+                clientDao.update(cl);
+                return true;
+            }
+
+        }
         return false;
+
     }
 
     @Override
     public boolean changeSurename(Long id, String sureName) {
+        List<Client> clients = clientDao.findAll();
+        for (Client cl : clients) {
+            if (cl.getId() == id) {
+                cl.setSureName(sureName);
+                clientDao.update(cl);
+                return true;
+            }
+
+        }
         return false;
     }
 
     @Override
     public boolean changeAge(Long id, Integer age) {
+        List<Client> clients = clientDao.findAll();
+        for (Client cl : clients) {
+            if (cl.getId() == id) {
+                cl.setAge(age);
+                clientDao.update(cl);
+                return true;
+            }
+
+        }
         return false;
     }
 
     @Override
     public boolean changePhoneI(Long id, Integer phone) {
+        List<Client> clients = clientDao.findAll();
+        for (Client cl : clients) {
+            if (cl.getId() == id) {
+                cl.setPhone(phone);
+                clientDao.update(cl);
+                return true;
+            }
+
+        }
         return false;
     }
 
     @Override
     public boolean changeEmail(Long id, String email) {
+        List<Client> clients = clientDao.findAll();
+        for (Client cl : clients) {
+            if (cl.getId() == id) {
+                cl.setEmail(email);
+                clientDao.update(cl);
+                return true;
+            }
+
+        }
         return false;
     }
 
@@ -92,8 +152,4 @@ public class ClientServiceImpl implements ClientService{
     public boolean isCreatedClient(Client client) {
         return false;
     }
-
-    /*
-
-     */
 }
