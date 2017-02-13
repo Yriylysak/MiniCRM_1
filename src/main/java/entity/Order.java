@@ -34,10 +34,10 @@ public class Order {
     public Order() {
     }
 
-    public Order(OrderStatus status, Employee employee, Date date, Client client, Date dateDeadline) {
+    public Order(OrderStatus status, Employee employee, Client client, Date dateDeadline) {
         this.status = status;
         this.employee = employee;
-        this.date = date;
+        this.date = new Date();
         this.client = client;
         this.dateDeadline = dateDeadline;
     }
