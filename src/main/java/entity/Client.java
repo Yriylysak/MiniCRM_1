@@ -13,6 +13,9 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "NAME")
+    private String name;
+
     @Column(name = "SURENAME")
     private String sureName;
 
@@ -25,7 +28,8 @@ public class Client {
     @Column(name = "EMAIL")
     private String email;
 
-    public Client(String sureName, Integer age, Integer phone, String email) {
+    public Client(String name, String sureName, Integer age, Integer phone, String email) {
+        this.name = name;
         this.sureName = sureName;
         this.age = age;
         this.phone = phone;
@@ -72,10 +76,19 @@ public class Client {
         this.email = email;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Client{" +
                 "id=" + id +
+                ", name='" + name + '\'' +
                 ", sureName='" + sureName + '\'' +
                 ", age=" + age +
                 ", phone=" + phone +
