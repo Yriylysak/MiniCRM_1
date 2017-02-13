@@ -3,7 +3,7 @@ package util;
 import dao.*;
 
 /**
- * Created by Comfy on 13.02.2017.
+ * Created by JL on 13.02.2017.
  */
 public class DaoUtil {
     private static EmployeeDao employeeDao;
