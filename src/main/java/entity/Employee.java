@@ -7,11 +7,14 @@ import java.util.Date;
  * Created by Alexandr on 05.02.2017.
  */
 @Entity
-@Table(name = "EMPLOYER")
+@Table(name = "EMPLOYEE")
 public class Employee {
 
-    @Id
+    /*@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    */@Id
+    @Column(name = "EMPLOYEE_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "NAME")
@@ -30,7 +33,12 @@ public class Employee {
     private String position;
 
     @Column (name = "DATE")
+    //@Temporal( ? )
     private Date date;
+
+    @OneToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
     public Employee(String name, String sureName, Integer age, String sex, String position) {
         this.name = name;
@@ -76,6 +84,11 @@ public class Employee {
     public void setPosition(String position) {
         this.position = position;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Employee() {
     }
     @Override

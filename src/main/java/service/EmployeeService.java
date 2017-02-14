@@ -12,7 +12,7 @@ public interface EmployeeService {
     List<Employee> findAll();
     boolean delete(Long id);
 
-    boolean changeEmployer(Long id, Employee employee);
+    boolean changeEmployer(Employee oldEmployee, Employee newEmployee);
     boolean changePosition(Long id, String position);
     boolean changeName(Long id, String name);
     boolean changeSurname(Long id, String surname);

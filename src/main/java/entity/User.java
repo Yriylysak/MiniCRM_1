@@ -10,8 +10,12 @@ import java.util.Date;
 @Entity
 @Table(name = "USERS")
 public class User {
+   /* @Id
+    @GeneratedValue(strategy = GenerationType.AUTO) */
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "USER_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "LOGIN")
@@ -21,7 +25,9 @@ public class User {
     private String password;
 
     @OneToOne
-    @JoinColumn(name = "EMPLOYER_ID", referencedColumnName = "ID")
+    //@JoinColumn(name = "EMPLOYER_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "EMPLOYEE_ID")
+
     private Employee employee;
 
     @Column (name = "DATE")
@@ -34,6 +40,11 @@ public class User {
         date = new Date();
     }
     public User() {}
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

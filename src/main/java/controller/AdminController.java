@@ -16,6 +16,7 @@ import service.EmployeeService;
 import service.EmployeeServiceImpl;
 import service.UserService;
 import service.UserServiceImpl;
+import util.ServiceUtil;
 
 import java.io.IOException;
 
@@ -99,20 +100,17 @@ public class AdminController implements EventHandler {
 
     }
 
+    /*method changes current Employee */
     @FXML
     private void onActionChen() {
-
         Employee employee = new Employee(nameField.getText(), surnameField.getText(),
                 (Integer.parseInt(ageField.getText())), sexField.getText(), positionField.getText());
-        employeeService.add(employee);
-        userService.delete(currentUser.getId());
-        currentUser = userService.createUser(currentEmployee);
-        employeeService.delete(currentEmployee.getId());
+
+        ServiceUtil.getEmployeeService().changeEmployer(currentEmployee, employee);
 
         employeeObservableList = FXCollections.observableArrayList(employeeService.findAll());
         baseInfoList.refresh();
         baseInfoList.setItems(employeeObservableList);
-
 
     }
 

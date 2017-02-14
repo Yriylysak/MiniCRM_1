@@ -23,6 +23,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Long add(Employee employee) {
         if (employee != null && !isCreatedEmployee(employee)) {
             Long id = employeeDao.create(employee);
+            employee.setId(id);
             return id;
         }
         return null;
@@ -46,18 +47,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     /*метод заміняє дані співробітнтка на нові*/
     @Override
-    public boolean changeEmployer(Long id, Employee employee) {
-        List<Employee> employees = findAll();
-        for(Employee empl : employees) {
-            if (empl.getId() == id) {
-                empl.setName(employee.getName());
-                empl.setSureName(employee.getSureName());
-                empl.setAge(employee.getAge());
-                empl.setSex(employee.getSex());
-                empl.setPosition(employee.getPosition());
-                employeeDao.update(empl);
-                return true;
-            }
+    public boolean changeEmployer(Employee oldEmployee, Employee newEmployee) {
+        if (oldEmployee != null && newEmployee != null) {
+            System.out.println("___________________1___________________we are here!!!");
+            oldEmployee.setName(newEmployee.getName());
+            oldEmployee.setSureName(newEmployee.getSureName());
+            oldEmployee.setAge(newEmployee.getAge());
+            oldEmployee.setSex(newEmployee.getSex());
+            oldEmployee.setPosition(newEmployee.getPosition());
+            employeeDao.update(oldEmployee);
+            return true;
         }
         return false;
     }
