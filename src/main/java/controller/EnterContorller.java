@@ -12,6 +12,7 @@ import service.EmployeeService;
 import service.EmployeeServiceImpl;
 import service.UserService;
 import service.UserServiceImpl;
+import util.ServiceUtil;
 
 import java.io.IOException;
 
@@ -20,26 +21,17 @@ import java.io.IOException;
  * Created by Yura on 05.02.2017.
  */
 public class EnterContorller {
-
-    private UserService userService = new UserServiceImpl();
-    private EmployeeService employeeService = new EmployeeServiceImpl();
+    @FXML TextField loginField;
+    @FXML PasswordField passwordField;
+    @FXML Button enterButton;
+    @FXML Button cancelButton;
     private int counter = 5;
 
     @FXML
-    TextField loginField;
-    @FXML
-    PasswordField passwordField;
-    @FXML
-    Button enterButton;
-    @FXML
-    Button cancelButton;
-
-    @FXML   /*Wtf ?*/
     private void onActionLog() {
         System.out.println(loginField.getText());
     }
-
-    @FXML  /*Wtf?*/
+    @FXML
     private void onActionPass() {
         System.out.println(passwordField.getText());
     }
@@ -48,7 +40,7 @@ public class EnterContorller {
     private void onActionEnter() {
         Parent root = null;
         Stage stage = new Stage();
-        if (userService.isAdmin(loginField.getText(), passwordField.getText())) {
+        if (ServiceUtil.getUserService().isAdmin(loginField.getText(), passwordField.getText())) {
             try {
                 root = FXMLLoader.load(getClass().getResource("/view/adminWindow.fxml"));
             } catch (IOException e) {
@@ -60,8 +52,7 @@ public class EnterContorller {
             stage.show();
             stage.setResizable(false);
             GraphicsLoader.closeWindow(enterButton);
-
-        } else if (userService.isUser(loginField.getText(), passwordField.getText())) {
+        } else if (ServiceUtil.getUserService().isUser(loginField.getText(), passwordField.getText())) {
             try {
                 root = FXMLLoader.load(getClass().getResource("/view/managerWindow.fxml"));
             } catch (IOException e) {
@@ -73,13 +64,6 @@ public class EnterContorller {
             stage.show();
             stage.setResizable(false);
         } else {
-            /*loginField.clear();
-            passwordField.clear();
-            if (counter == 0) onActionCancel();
-            /*!!!  Додати сюди Text Label, на який виводити повідомлення :
-             * "Невірно введені дані! Залишилось " + counter  + " спроб!" !!!*/
-            //counter--;
-            //onActionEnter(); // і як сюди повернутись, щоб знову ввести дані??
             try {
                 root = FXMLLoader.load(getClass().getResource("/view/accessDenied.fxml"));
             } catch (IOException e) {
@@ -93,12 +77,9 @@ public class EnterContorller {
             loginField.clear();
             passwordField.clear();
         }
-
     }
-
     @FXML
     private void onActionCancel() {
         System.exit(0);
     }
-
 }
