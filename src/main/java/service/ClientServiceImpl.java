@@ -3,6 +3,8 @@ package service;
 import dao.ClientDao;
 import dao.ClientDaoImpl;
 import entity.Client;
+import util.DaoUtil;
+import util.ServiceUtil;
 
 import java.util.List;
 
@@ -11,10 +13,7 @@ import java.util.List;
  */
 public class ClientServiceImpl implements ClientService{
 
-    private ClientDao clientDao;
-    public ClientServiceImpl(){
-        clientDao = new ClientDaoImpl();
-    }
+    public ClientServiceImpl(){  }
 
     /*метод додає у базу нового кліента (Client)
     * для цього у метод треба передати об"єкт типу Client
@@ -22,7 +21,7 @@ public class ClientServiceImpl implements ClientService{
     @Override
     public Long add(Client client) {
         if(client != null && !isCreatedClient(client)) {
-            Long id = clientDao.create(client);
+            Long id = DaoUtil.getClientDao().create(client);
             return id;
         }
         return null;
@@ -31,125 +30,115 @@ public class ClientServiceImpl implements ClientService{
     /*метод без параметрів, повертає список List<> усіх кліентів*/
     @Override
     public List<Client> findAll() {
-        return clientDao.findAll();
+        return DaoUtil.getClientDao().findAll();
     }
-
 
     /*метод видаляє з бази кліента (Client)
     * для цього у метод треба передати унікальний id
     * повертає true якщо успішно видалили*/
     @Override
     public boolean delete(Long id) {
-        Client client = clientDao.read(id);
-        return clientDao.delete(client);
+        Client client = DaoUtil.getClientDao().read(id);
+        return DaoUtil.getClientDao().delete(client);
     }
 
-    /*метод заміняє дані кліента на нові*/
     @Override
-    public boolean changeClient(Long id, Client client) {
-        List<Client> clients = clientDao.findAll();
-        for(Client cl : clients) {
-            if(cl.getId() == id) {
-                cl.setName(client.getName());
-                cl.setSureName(client.getSureName());
-                cl.setAge(client.getAge());
-                cl.setEmail(client.getEmail());
-                cl.setPhone(client.getPhone());
-                clientDao.update(cl);
-                return true;
-            }
-        }
-        return false;
-    }
+    public boolean changeClient(Client oldClient, Client newClient) {
+       if (oldClient != null && newClient != null) {
+           oldClient.setName(newClient.getName());
+           oldClient.setSureName(newClient.getSureName());
+           oldClient.setAge(newClient.getAge());
+           oldClient.setEmail(newClient.getEmail());
+           oldClient.setPhone(newClient.getPhone());
 
+           System.out.println("_____________________________________________");
+           DaoUtil.getClientDao().update(oldClient);
+           return true;
+       }
+       return false;
+    }
+    /*
     @Override
     public boolean changeName(Long id, String name) {
-        List<Client> clients = clientDao.findAll();
+        List<Client> clients = DaoUtil.getClientDao().findAll();
         for (Client cl : clients) {
             if (cl.getId() == id) {
                 cl.setName(name);
-                clientDao.update(cl);
+                DaoUtil.getClientDao().update(cl);
                 return true;
             }
-
         }
         return false;
-
     }
-
     @Override
-    public boolean changeSurename(Long id, String sureName) {
-        List<Client> clients = clientDao.findAll();
+    public boolean changeSurname(Long id, String sureName) {
+        List<Client> clients = DaoUtil.getClientDao().findAll();
         for (Client cl : clients) {
             if (cl.getId() == id) {
                 cl.setSureName(sureName);
-                clientDao.update(cl);
+                DaoUtil.getClientDao().update(cl);
                 return true;
             }
-
         }
         return false;
     }
-
     @Override
     public boolean changeAge(Long id, Integer age) {
-        List<Client> clients = clientDao.findAll();
+        List<Client> clients = DaoUtil.getClientDao().findAll();
         for (Client cl : clients) {
             if (cl.getId() == id) {
                 cl.setAge(age);
-                clientDao.update(cl);
+                DaoUtil.getClientDao().update(cl);
                 return true;
             }
-
         }
         return false;
     }
-
     @Override
     public boolean changePhoneI(Long id, Integer phone) {
-        List<Client> clients = clientDao.findAll();
+        List<Client> clients = DaoUtil.getClientDao().findAll();
         for (Client cl : clients) {
             if (cl.getId() == id) {
                 cl.setPhone(phone);
-                clientDao.update(cl);
+                DaoUtil.getClientDao().update(cl);
                 return true;
             }
-
         }
         return false;
     }
-
     @Override
     public boolean changeEmail(Long id, String email) {
-        List<Client> clients = clientDao.findAll();
+        List<Client> clients = DaoUtil.getClientDao().findAll();
         for (Client cl : clients) {
             if (cl.getId() == id) {
                 cl.setEmail(email);
-                clientDao.update(cl);
+                DaoUtil.getClientDao().update(cl);
                 return true;
             }
-
         }
         return false;
     }
+    */
 
     @Override
     public Long findIdClient(Client client) {
-        return null;
-    }
-
-    @Override
-    public List<Client> findBySomeStringParam(String someParam) {
-        return null;
-    }
-
-    @Override
-    public List<Client> findByIntegerParam(Integer minAge, Integer maxAge) {
+        List<Client> clients = ServiceUtil.getClientService().findAll();
+        for (Client cl : clients) {
+            if (cl.equals(client)) {
+                return cl.getId();
+            }
+        }
         return null;
     }
 
     @Override
     public boolean isCreatedClient(Client client) {
+        List<Client> clients = ServiceUtil.getClientService().findAll();
+        for (Client cl : clients) {
+            if (cl.equals(client)) {
+                return true;
+            }
+        }
         return false;
     }
 }

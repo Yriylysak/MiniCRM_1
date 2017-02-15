@@ -57,6 +57,7 @@ public class ClientDaoImpl implements ClientDao {
             Session session = factory.openSession();
             try {
                 session.beginTransaction();
+                System.out.println("________________1_____________________");
                 session.update(client);
                 session.getTransaction().commit();
                 return true;

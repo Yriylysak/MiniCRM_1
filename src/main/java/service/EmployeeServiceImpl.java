@@ -49,7 +49,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public boolean changeEmployer(Employee oldEmployee, Employee newEmployee) {
         if (oldEmployee != null && newEmployee != null) {
-            System.out.println("___________________1___________________we are here!!!");
             oldEmployee.setName(newEmployee.getName());
             oldEmployee.setSureName(newEmployee.getSureName());
             oldEmployee.setAge(newEmployee.getAge());

@@ -28,6 +28,9 @@ public class Client {
     @Column(name = "EMAIL")
     private String email;
 
+    public Client() {
+    }
+
     public Client(String name, String sureName, Integer age, Integer phone, String email) {
         this.name = name;
         this.sureName = sureName;
