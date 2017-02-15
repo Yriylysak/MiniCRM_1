@@ -11,41 +11,40 @@ import java.util.List;
 /**
  * Created by Yura on 13.02.2017.
  */
-public class ClientDaoImpl implements ClientDao
-{
+public class ClientDaoImpl implements ClientDao {
     private SessionFactory factory;
     public ClientDaoImpl() {factory = HibernateUtil.getSessionFactory();}
-
-
-
 
     // первое приближение метода create
     @Override
     public Long create(Client client) {
-        if(client!=null)
-        {
-            Session session = factory.openSession();
-            try
-            {
-                session.beginTransaction();
-                Long id = (Long) session.save(client);
-                session.getTransaction().commit();
-                return id;
-
-            } catch (HibernateException e) {session.getTransaction().rollback();}
-            session.close();
+        if(client != null) {
+            if (!(client.getName().isEmpty())
+                    && !(client.getSureName().isEmpty())
+                    && (client.getAge() > 0)
+                    && (client.getPhone() > 0)
+                    && !(client.getEmail().isEmpty())) {
+                Session session = factory.openSession();
+                try {
+                    session.beginTransaction();
+                    Long id = (Long) session.save(client);
+                    session.getTransaction().commit();
+                    return id;
+                } catch (HibernateException e) {
+                    session.getTransaction().rollback();
+                } finally {
+                    session.close();
+                }
+            }
         }
         return null;
-
     }
 
     @Override
     public Client read(Long id) {
-
         List<Client> clients = findAll();
         for (Client client : clients) {
-            if(client.getId() == id)
-            {
+            if(client.getId() == id) {
                 return client;
             }
         }
@@ -54,27 +53,18 @@ public class ClientDaoImpl implements ClientDao
 
     @Override
     public boolean update(Client client) {
-        if(client!=null)
-        {
-            List<Client> clients = findAll();
-            for (Client client1 : clients) {
-                if (client.getId() == client1.getId())
-                {
-                    Session session = factory.openSession();
-                    try
-                    {
-                        session.beginTransaction();
-                        session.update(client);
-                        session.getTransaction().commit();
-                        return true;
+        if (client != null) {
+            Session session = factory.openSession();
+            try {
+                session.beginTransaction();
+                session.update(client);
+                session.getTransaction().commit();
+                return true;
 
-                    } catch (HibernateException e)
-                    {
-                        session.getTransaction().rollback();
-                    }
-                    session.close();
-                }
-
+            } catch (HibernateException e) {
+                session.getTransaction().rollback();
+            } finally {
+                session.close();
             }
         }
         return false;
@@ -82,23 +72,18 @@ public class ClientDaoImpl implements ClientDao
 
     @Override
     public boolean delete(Client client) {
-        if(client!=null)
-        {
-            List<Client> clients = findAll();
-            for (Client client1 : clients) {
-                if(client.getId() == client1.getId())
-                {
-                    Session session = factory.openSession();
-                    try
-                    {
-                        session.beginTransaction();
-                        session.delete(client);
-                        session.getTransaction().commit();
-                        return true;
+        if(client != null) {
+            Session session = factory.openSession();
+            try {
+                session.beginTransaction();
+                session.delete(client);
+                session.getTransaction().commit();
+                return true;
 
-                    } catch (HibernateException e) {session.getTransaction().rollback();}
-                    session.close();
-                }
+            } catch (HibernateException e) {
+                session.getTransaction().rollback();
+            } finally {
+                session.close();
             }
         }
         return false;
