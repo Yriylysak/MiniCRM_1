@@ -68,10 +68,11 @@ public class EnterContorller {
                 e.printStackTrace();
             }
             Scene scene = new Scene(root);
-            scene.getStylesheets().add("/view/adminWindow.css");
+            scene.getStylesheets().add("/view/managerWindow.css");
             stage.setScene(scene);
             stage.show();
             stage.setResizable(false);
+            GraphicsLoader.closeWindow(enterButton);
         } else {
             /*loginField.clear();
             passwordField.clear();

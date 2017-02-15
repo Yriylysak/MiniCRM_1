@@ -26,6 +26,9 @@ public class CreateClientController {
     Button btnAdd;
     @FXML
     Button btnCancelAdd;
+    @FXML
+    Button btnGetClient;
+
 
 
 
@@ -36,5 +39,9 @@ public class CreateClientController {
     @FXML
     private void onActionCancelAdd(){
         GraphicsLoader.closeWindow(btnCancelAdd);
+    }
+    @FXML
+    private void onActionGetClient(){
+
     }
 }
