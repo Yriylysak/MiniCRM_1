@@ -39,6 +39,7 @@ public class ManagerController {
     public void initialize(){
         combobox.setPromptText("Выбрать");
         combobox.setItems(FXCollections.observableArrayList(OrderStatus.values()));
+        CreateClientController createClientController = new CreateClientController();
 
     }
     @FXML

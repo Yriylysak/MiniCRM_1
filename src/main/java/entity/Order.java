@@ -4,11 +4,11 @@ import enumTypes.OrderStatus;
 import javax.persistence.*;
 import java.util.Date;
 
-import static java.util.Calendar.DATE;
-
 /**
  * Created by Олег on 12.02.2017.
  */
+@Entity
+@Table(name = "ORDERS")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,14 +17,18 @@ public class Order {
     @Enumerated(EnumType.ORDINAL)
     private OrderStatus status;
 
-    @Column(name = "MANAGER")
+    @ManyToOne
+    //@Column(name = "MANAGER")
+    @JoinColumn(name = "MANAGER_NAME", referencedColumnName = "NAME")
     private Employee employee;
 
     @Column(name = "DATE")
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    @Column(name = "CLIENT")
+    @ManyToOne
+    //@Column(name = "CLIENT")
+    @JoinColumn(name = "CLIENT_NAME", referencedColumnName = "NAME")
     private Client client;
 
     @Column(name = "DATE_DEADLINE")

@@ -10,10 +10,10 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="264.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateClientController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateClientController">
    <children>
-      <ListView fx:id="clientList" layoutX="14.0" layoutY="14.0" prefHeight="222.0" prefWidth="240.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
-      <GridPane layoutX="273.0" layoutY="28.0" prefHeight="94.0" prefWidth="299.0" AnchorPane.leftAnchor="273.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
+      <ListView fx:id="clientList" layoutX="14.0" layoutY="14.0" onMousePressed="#showClientList" prefHeight="222.0" prefWidth="240.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+      <GridPane layoutX="273.0" layoutY="28.0" prefHeight="200.0" prefWidth="299.0" AnchorPane.leftAnchor="273.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="97.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="226.0" minWidth="10.0" prefWidth="226.0" />
@@ -21,15 +21,24 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <TextField fx:id="fldName" prefHeight="27.0" prefWidth="200.0" GridPane.columnIndex="1" />
             <TextField fx:id="fldSurname" prefHeight="26.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Имя" />
             <Label prefHeight="16.0" prefWidth="64.0" text="Фамилия" GridPane.rowIndex="1" />
+            <TextField fx:id="fldClientAge" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="fldClientPhone" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="fldClientMail" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Возраст" GridPane.rowIndex="2" />
+            <Label text="Телефон" GridPane.rowIndex="3" />
+            <Label text="Email" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <GridPane layoutX="293.0" layoutY="132.0" prefHeight="54.0" prefWidth="259.0" AnchorPane.rightAnchor="48.0">
+      <GridPane layoutX="293.0" layoutY="260.0" prefHeight="54.0" prefWidth="259.0" AnchorPane.rightAnchor="48.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -46,6 +55,6 @@
             <Button fx:id="btnCancelAdd" maxHeight="34.0" maxWidth="115.0" mnemonicParsing="false" onAction="#onActionCancelAdd" prefHeight="34.0" text="Отмена" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
-      <Button fx:id="btnGetClient" layoutX="300.0" layoutY="186.0" mnemonicParsing="false" onAction="#onActionGetClient" prefHeight="34.0" prefWidth="246.0" text="Выбрать" />
+      <Button fx:id="btnGetClient" layoutX="300.0" layoutY="314.0" mnemonicParsing="false" onAction="#onActionGetClient" prefHeight="34.0" prefWidth="246.0" text="Выбрать" />
    </children>
 </AnchorPane>

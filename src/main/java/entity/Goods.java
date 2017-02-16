@@ -21,13 +21,12 @@ public class Goods {
     @Column(name = "AVAILABILITY")
     private Long availability;
 
-    public Goods() {
-    }
 
-    public Goods(String productName, Double price, Long availability) {
+
+    public Goods(String productName, Double price /*Long availability*/) {
         this.productName = productName;
         this.price = price;
-        this.availability = availability;
+        /*this.availability = availability;*/
     }
 
     public Long getId() {

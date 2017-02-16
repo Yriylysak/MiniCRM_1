@@ -32,7 +32,7 @@
         </rowConstraints>
          <children>
             <TextField fx:id="numberFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" />
-            <TextField fx:id="managerFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="managerFld" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="dateFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="goodNumFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="priceFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
