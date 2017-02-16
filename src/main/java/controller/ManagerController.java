@@ -40,6 +40,7 @@ public class ManagerController {
     @FXML Button btnClean;
     @FXML Button btnForm;
     @FXML Button btnGood;
+    @FXML ListView managerGoodsList;
     private ObservableList<Order> clientObservableList;
 
     private Date currentDate = new Date();
