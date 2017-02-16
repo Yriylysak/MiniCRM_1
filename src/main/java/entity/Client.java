@@ -20,10 +20,10 @@ public class Client {
     private String sureName;
 
     @Column(name = "AGE")
-    private Integer age;
+    private String age;//Integer
 
     @Column(name = "PHONE")
-    private Integer phone;
+    private String phone;//Integer
 
     @Column(name = "EMAIL")
     private String email;
@@ -31,7 +31,11 @@ public class Client {
     public Client() {
     }
 
+<<<<<<< Updated upstream
     public Client(String name, String sureName, Integer age, Integer phone, String email) {
+=======
+    public Client(String name, String sureName, String age, String phone, String email) {
+>>>>>>> Stashed changes
         this.name = name;
         this.sureName = sureName;
         this.age = age;
@@ -47,11 +51,11 @@ public class Client {
         return sureName;
     }
 
-    public Integer getAge() {
+    public String getAge() {
         return age;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
@@ -67,11 +71,11 @@ public class Client {
         this.sureName = sureName;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
