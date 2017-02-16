@@ -41,7 +41,7 @@ public class ManagerController {
     @FXML Button btnGood;
 
 
-//
+////
 
     public void initialize(){
         combobox.setPromptText("Выбрать");
