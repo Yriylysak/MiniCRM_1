@@ -10,6 +10,7 @@ public class DaoUtil {
     private static UserDao userDao;
     private static ClientDao clientDao;
     private static OrderDao orderDao;
+    private static GoodsDao goodsDao;
 
     public static EmployeeDao getEmployeeDao() {
         employeeDao = new EmployeeDaoImpl();
@@ -29,5 +30,10 @@ public class DaoUtil {
     public static OrderDao getOrderDao() {
         orderDao = new OrderDaoImpl();
         return orderDao;
+    }
+
+    public static GoodsDao getGoodsDao() {
+        goodsDao = new GoodsDaoImpl();
+        return goodsDao;
     }
 }

@@ -19,33 +19,32 @@ public class GoodsDaoImpl implements GoodsDao
     public GoodsDaoImpl() {factory = HibernateUtil.getSessionFactory();}
 
     @Override
-    public Long create(Goods goods)
-    {
-        if(goods!=null)
-        {
+    public Long create(Goods goods) {
+        if(goods != null
+                && !(goods.getProductName().isEmpty())
+                && (goods.getAvailability() >= 0)
+                && (goods.getPrice() > 0)) {
             Session session = factory.openSession();
-            try
-            {
+            try {
                 session.beginTransaction();
                 Long id = (Long) session.save(goods);
                 session.getTransaction().commit();
                 return id;
 
-
-            } catch (HandlerException e) {session.getTransaction().rollback();}
-            session.close();
+            } catch (HandlerException e) {
+                session.getTransaction().rollback();
+            } finally {
+                session.close();
+            }
         }
         return null;
     }
 
     @Override
     public Goods read(Long id) {
-
         List<Goods> goodss = findAll();
-        for (Goods goods : goodss)
-        {
-            if(goods.getId() == id)
-            {
+        for (Goods goods : goodss) {
+            if(goods.getId() == id) {
                 return goods;
             }
         }
@@ -54,51 +53,36 @@ public class GoodsDaoImpl implements GoodsDao
 
     @Override
     public boolean update(Goods goods) {
+        if(goods != null) {
+            Session session = factory.openSession();
+            try {
+                session.beginTransaction();
+                session.update(goods);
+                session.getTransaction().commit();
+                return true;
 
-        if(goods!=null)
-        {
-            List<Goods> goodss = findAll();
-            for (Goods goods1 : goodss) {
-
-                if(goods.getId() == goods1.getId())
-                {
-                    Session session = factory.openSession();
-                    try
-                    {
-                        session.beginTransaction();
-                        session.update(goods);
-                        session.getTransaction().commit();
-                        return true;
-
-                    } catch (HibernateException e) {session.getTransaction().rollback();}
-                    session.close();
-                }
-
+            } catch (HibernateException e) {
+                session.getTransaction().rollback();
+            } finally {
+                session.close();
             }
         }
         return false;
-
     }
 
     @Override
     public boolean delete(Goods goods) {
-
-        if(goods!=null)
-        {
-            List<Goods> goodss = findAll();
-            for (Goods goods1 : goodss) {
-                if(goods.getId() == goods1.getId())
-                {
-                    Session session = factory.openSession();
-                    try
-                    {
-                        session.beginTransaction();
-                        session.delete(goods);
-                        session.beginTransaction().commit();
-                        return  true;
-                    } catch (HibernateException e) {session.getTransaction().rollback();}
-                }
-
+        if(goods != null) {
+            Session session = factory.openSession();
+            try {
+                session.beginTransaction();
+                session.delete(goods);
+                session.beginTransaction().commit();
+                return true;
+            } catch (HibernateException e) {
+                session.getTransaction().rollback();
+            } finally {
+                session.close();
             }
         }
         return false;

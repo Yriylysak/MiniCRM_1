@@ -27,8 +27,9 @@ public class UserDaoImpl implements UserDao{
             return id;
         } catch (HibernateException e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
-        session.close();
         return null;
     }
     @Override
@@ -51,26 +52,24 @@ public class UserDaoImpl implements UserDao{
             return  true;
         } catch (HibernateException e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
-        session.close();
         return false;
     }
     @Override
     public boolean delete(User user) {
         if (user != null) {
-            List<User> users = findAll();
-            for (User us : users) {
-                if (user.getId() == us.getId()) {
-                    Session session = factory.openSession();
-                    try {
-                        session.beginTransaction();
-                        session.delete(user);
-                        session.getTransaction().commit();
-                        return true;
-                    } catch (HibernateException e) {
-                        session.getTransaction().rollback();
-                    }
-                }
+            Session session = factory.openSession();
+            try {
+                session.beginTransaction();
+                session.delete(user);
+                session.getTransaction().commit();
+                return true;
+            } catch (HibernateException e) {
+                session.getTransaction().rollback();
+            } finally {
+                session.close();
             }
         }
         return false;

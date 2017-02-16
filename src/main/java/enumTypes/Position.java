@@ -1,13 +1,15 @@
 package enumTypes;
 
 /**
- * Created by Олег on 13.02.2017.
+ * Created by JL on 16.02.2017.
  */
-public enum Gender {
-    MALE("Мужчина"), FEMALE("Женщина");
+public enum Position {
+    ADMIN("Admin"), MANAGER("Manager"),
+    CASHIER("Cashier");
+
     private String label;
 
-    Gender(String label) {
+    Position(String label) {
         this.label = label;
     }
 
@@ -15,5 +17,5 @@ public enum Gender {
     public String toString() {
         return label;
     }
-
 }
+
