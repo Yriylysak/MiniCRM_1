@@ -50,8 +50,6 @@ public class ClientServiceImpl implements ClientService{
            oldClient.setAge(newClient.getAge());
            oldClient.setEmail(newClient.getEmail());
            oldClient.setPhone(newClient.getPhone());
-
-           System.out.println("_____________________________________________");
            DaoUtil.getClientDao().update(oldClient);
            return true;
        }
