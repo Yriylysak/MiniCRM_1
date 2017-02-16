@@ -3,6 +3,8 @@ package service;
 import dao.EmployeeDao;
 import dao.EmployeeDaoImpl;
 import entity.Employee;
+import enumTypes.Gender;
+import enumTypes.Position;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -61,7 +63,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean changePosition(Long id, String position) {
+    public boolean changePosition(Long id, Position position) {
         List<Employee> employees = findAll();
         for(Employee empl : employees) {
             if (empl.getId() == id) {
@@ -113,7 +115,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean changeSex(Long id, String sex) {
+    public boolean changeSex(Long id, Gender sex) {
         List<Employee> employees = findAll();
         for(Employee empl : employees) {
             if (empl.getId() == id) {
@@ -140,7 +142,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         for(Employee empl : employees) {
             if ((empl.getName() == someParam) || (empl.getSureName() == someParam)
-                || (empl.getPosition() == someParam) || (empl.getSex() == someParam)) {
+                || (empl.getPosition().toString() == someParam) || (empl.getSex().toString() == someParam)) {
                 returnList.add(empl);
             }
         }

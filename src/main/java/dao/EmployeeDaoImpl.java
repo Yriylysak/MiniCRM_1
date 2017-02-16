@@ -25,8 +25,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
             if (!(employee.getName().isEmpty()) &&
                     !(employee.getSureName().isEmpty()) &&
                     (employee.getAge() > 0) &&
-                    !(employee.getPosition().isEmpty()) &&
-                    !(employee.getSex().isEmpty())) {
+                    !(employee.getPosition() == null) &&
+                    !(employee.getSex() == null)) {
                 Session session = factory.openSession();
                 try {
                     session.beginTransaction();

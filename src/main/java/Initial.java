@@ -2,6 +2,8 @@ import controller.EnterContorller;
 import controller.GraphicsLoader;
 import entity.Employee;
 import entity.User;
+import enumTypes.Gender;
+import enumTypes.Position;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,7 +30,7 @@ public class Initial extends Application
         UserService userService = new UserServiceImpl();
 
     /*Створюємо і записуємо у базу співробітників і користувачів сутність адміна*/
-    Employee employerAdmin = new Employee("NameAdmin", "SurnameAdmin", 21, "m", "Admin");
+    Employee employerAdmin = new Employee("NameAdmin", "SurnameAdmin", 21, Gender.MALE, Position.ADMIN);
      User userAdmin = new User("Admin", "1", employerAdmin);
     employerService.add(employerAdmin);
     userService.add(userAdmin);
@@ -36,7 +38,7 @@ public class Initial extends Application
     // для легших і швидших перевірок створюємо і додаємо у базу співробітника і користувача.
     // після закінчення роботи запис можна видалити.
     // але це директор, тому можна і залишити :)*/
-    Employee employer1 = new Employee("Name", "Surname", 89, "fm", "Director");
+    Employee employer1 = new Employee("Name", "Surname", 89, Gender.FEMALE, Position.MANAGER);
     User user1 = new User("Director", "1", employer1);
     employerService.add(employer1);
     userService.add(user1);

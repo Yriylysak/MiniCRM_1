@@ -1,5 +1,8 @@
 package entity;
 
+import enumTypes.Gender;
+import enumTypes.Position;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -26,11 +29,17 @@ public class Employee {
     @Column(name = "AGE")
     private Integer age;
 
-    @Column(name = "SEX")
-    private String sex;
+//    @Column(name = "SEX")
+//    private String sex;
 
-    @Column(name = "POSITION")
-    private String position;
+    @Enumerated(EnumType.ORDINAL)
+    private Gender gender;
+
+//    @Column(name = "POSITION")
+//    private String position;
+
+    @Enumerated(EnumType.ORDINAL)
+    private Position position;
 
     @Column (name = "DATE")
     //@Temporal( ? )
@@ -40,11 +49,11 @@ public class Employee {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    public Employee(String name, String sureName, Integer age, String sex, String position) {
+    public Employee(String name, String sureName, Integer age, Gender gender, Position position) {
         this.name = name;
         this.sureName = sureName;
         this.age = age;
-        this.sex = sex;
+        this.gender = gender;
         this.position = position;
         date = new Date();
     }
@@ -60,10 +69,10 @@ public class Employee {
     public Integer getAge() {
         return age;
     }
-    public String getSex() {
-        return sex;
+    public Gender getSex() {
+        return gender;
     }
-    public String getPosition() {
+    public Position getPosition() {
         return position;
     }
     public Date getDate() {
@@ -78,10 +87,10 @@ public class Employee {
     public void setAge(Integer age) {
         this.age = age;
     }
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setSex(Gender sex) {
+        this.gender = gender;
     }
-    public void setPosition(String position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 

@@ -40,7 +40,7 @@ public class EnterContorller {
     private void onActionEnter() {
         Parent root = null;
         Stage stage = new Stage();
-        if (ServiceUtil.getUserService().isAdmin(loginField.getText(), passwordField.getText())) {
+        if (ServiceUtil.getUserService().isUser(loginField.getText(), passwordField.getText())) {
             try {
                 root = FXMLLoader.load(getClass().getResource("/view/adminWindow.fxml"));
             } catch (IOException e) {
