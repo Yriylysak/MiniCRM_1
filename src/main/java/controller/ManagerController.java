@@ -1,8 +1,9 @@
 package controller;
 
-import entity.Client;
+import entity.Order;
 import enumTypes.OrderStatus;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,11 +12,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import service.ClientService;
+import util.ServiceUtil;
 
 import java.io.IOException;
-
-import static controller.CreateClientController.currentClient;
-import static controller.CreateClientController.isOpenWindowClient;
+import java.util.Date;
 
 /**
  * Created by Comfy on 05.02.2017.
@@ -39,17 +40,19 @@ public class ManagerController {
     @FXML Button btnClean;
     @FXML Button btnForm;
     @FXML Button btnGood;
+    private ObservableList<Order> clientObservableList;
 
-
-////
-
+    private Date currentDate = new Date();
     public void initialize(){
+//        Order order = new Order();
+//        ServiceUtil.getOrderService().add(order);
+//        clientObservableList = FXCollections.observableArrayList(ServiceUtil.getOrderService().findAll());
+
+//        numberFld.setText(""+order.getId());
+        dateFld.setText("" + currentDate.getDate() + ".0" + (currentDate.getMonth()+ 1) + "." + (currentDate.getYear()+1900));
         combobox.setPromptText("Выбрать");
         combobox.setItems(FXCollections.observableArrayList(OrderStatus.values()));
-        if(isOpenWindowClient)
-        {
-            clientField.setText(currentClient.getName());
-        }
+        CreateClientController createClientController = new CreateClientController();
 
     }
     @FXML
@@ -58,14 +61,12 @@ public class ManagerController {
         Stage stage = new Stage();
         try {
             root = FXMLLoader.load(getClass().getResource("/view/createClient.fxml"));
-            // clientField.setText(currentClient.getName());
         } catch (IOException e) {
             e.printStackTrace();
         }
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/view/managerWindow.css");
         stage.setScene(scene);
-        stage.setTitle("Окно покупателя");
         stage.show();
         stage.setResizable(false);
     }
