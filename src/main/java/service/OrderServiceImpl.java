@@ -47,10 +47,12 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public Long findIdOrder(Order order) {
-        List<Order> orders = findAll();
-        for(Order ord : orders) {
-            if (ord.equals(order)) {
-                return ord.getId();
+        if (order != null) {
+            List<Order> orders = findAll();
+            for (Order ord : orders) {
+                if (ord.equals(order)) {
+                    return ord.getId();
+                }
             }
         }
         return null;

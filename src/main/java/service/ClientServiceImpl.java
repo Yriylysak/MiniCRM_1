@@ -120,10 +120,12 @@ public class ClientServiceImpl implements ClientService{
 
     @Override
     public Long findIdClient(Client client) {
-        List<Client> clients = ServiceUtil.getClientService().findAll();
-        for (Client cl : clients) {
-            if (cl.equals(client)) {
-                return cl.getId();
+        if (client != null) {
+            List<Client> clients = ServiceUtil.getClientService().findAll();
+            for (Client cl : clients) {
+                if (cl.equals(client)) {
+                    return cl.getId();
+                }
             }
         }
         return null;
