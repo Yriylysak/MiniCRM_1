@@ -1,16 +1,17 @@
 package controller;
 
+import dao.ClientDao;
+import dao.ClientDaoImpl;
 import entity.Client;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import service.ClientService;
+import service.ClientServiceImpl;
 
-import java.io.IOException;
 
 /**
  * Created by dmitry on 15.02.17.
@@ -21,6 +22,12 @@ public class CreateClientController {
     @FXML
     TextField fldSurname;
     @FXML
+    TextField fldClientAge;
+    @FXML
+    TextField fldClientPhone;
+    @FXML
+    TextField fldClientMail;
+    @FXML
     ListView clientList;
     @FXML
     Button btnAdd;
@@ -28,12 +35,37 @@ public class CreateClientController {
     Button btnCancelAdd;
     @FXML
     Button btnGetClient;
+    public static Client currentClient;
 
+    ClientServiceImpl clientService = new ClientServiceImpl();
+    private ObservableList<Client> clientObservableList;
+
+
+    public void initialize(){
+        clientObservableList = FXCollections.observableArrayList(clientService.findAll());
+        clientList.setItems(clientObservableList);
+    }
 
 
 
     @FXML
     private void onActionAdd(){
+
+
+        Client client = new Client();
+        client.setName(fldName.getText());
+        client.setSureName(fldSurname.getText());
+        client.setAge(fldClientAge.getText());
+        client.setPhone(fldClientPhone.getText());
+        client.setEmail(fldClientMail.getText());
+        // clientService.add(client);
+        ClientDao clientDao = new ClientDaoImpl();
+        clientDao.create(client);
+        initialize();
+
+
+
+//        ListView<Client> clientListView = (ListView<Client>) clientService.findAll();
 
     }
     @FXML
@@ -42,6 +74,27 @@ public class CreateClientController {
     }
     @FXML
     private void onActionGetClient(){
-
+        /*ClientService clientService = new ClientServiceImpl();
+        ListView<Client> clientListView = (ListView<Client>) clientService.findAll();
+        currentClient = (Client) clientListView.getSelectionModel().getSelectedItem();*/
+        // currentClient = new ClientServiceImpl();
+        /*ManagerController managerController = new ManagerController();
+        managerController.clientField.setText(currentClient.getName());*/
+        // showClientList();
+        GraphicsLoader.closeWindow(btnGetClient);
     }
+    @FXML
+    private void showClientList() {
+        if (clientList.getSelectionModel().getSelectedItem() != null){
+            System.out.println("1111111111111111");
+            ClientService clientService = new ClientServiceImpl();
+            clientObservableList = (ObservableList<Client>) clientService.findAll();
+            clientList.setItems(clientObservableList);
+            System.out.println("22222222222222");
+            currentClient =  (Client) clientList.getSelectionModel().getSelectedItem();
+            ManagerController managerController = new ManagerController();
+            managerController.clientField.setText(currentClient.getName());
+        }
+    }
+
 }
