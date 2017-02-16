@@ -20,7 +20,7 @@ public class Employee {
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "SURENAME")
+    @Column(name = "SURNAME")
     private String sureName;
 
     @Column(name = "AGE")

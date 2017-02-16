@@ -61,6 +61,7 @@ public class EnterContorller {
             Scene scene = new Scene(root);
             scene.getStylesheets().add("/view/managerWindow.css");
             stage.setScene(scene);
+            stage.setTitle("Окно менеджера");
             stage.show();
             stage.setResizable(false);
             GraphicsLoader.closeWindow(enterButton);

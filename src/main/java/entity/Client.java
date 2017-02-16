@@ -29,13 +29,10 @@ public class Client {
     private String email;
 
     public Client() {
+
     }
 
-<<<<<<< Updated upstream
-    public Client(String name, String sureName, Integer age, Integer phone, String email) {
-=======
     public Client(String name, String sureName, String age, String phone, String email) {
->>>>>>> Stashed changes
         this.name = name;
         this.sureName = sureName;
         this.age = age;

@@ -1,5 +1,6 @@
 package controller;
 
+import entity.Client;
 import enumTypes.OrderStatus;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -12,6 +13,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
+import static controller.CreateClientController.currentClient;
+import static controller.CreateClientController.isOpenWindowClient;
 
 /**
  * Created by Comfy on 05.02.2017.
@@ -36,10 +40,16 @@ public class ManagerController {
     @FXML Button btnForm;
     @FXML Button btnGood;
 
+
+
+
     public void initialize(){
         combobox.setPromptText("Выбрать");
         combobox.setItems(FXCollections.observableArrayList(OrderStatus.values()));
-        CreateClientController createClientController = new CreateClientController();
+        if(isOpenWindowClient)
+        {
+            clientField.setText(currentClient.getName());
+        }
 
     }
     @FXML
@@ -48,12 +58,14 @@ public class ManagerController {
         Stage stage = new Stage();
         try {
             root = FXMLLoader.load(getClass().getResource("/view/createClient.fxml"));
+            // clientField.setText(currentClient.getName());
         } catch (IOException e) {
             e.printStackTrace();
         }
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/view/managerWindow.css");
         stage.setScene(scene);
+        stage.setTitle("Окно покупателя");
         stage.show();
         stage.setResizable(false);
     }

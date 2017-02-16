@@ -7,7 +7,8 @@ import service.*;
  */
 
 //factory of Services
-public class ServiceUtil {
+public class ServiceUtil
+{
     private static EmployeeService employeeService;
     private static UserService userService;
     private static ClientService clientService;

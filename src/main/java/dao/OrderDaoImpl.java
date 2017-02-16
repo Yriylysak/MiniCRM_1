@@ -1,6 +1,5 @@
 package dao;
 
-import entity.Employee;
 import entity.Order;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

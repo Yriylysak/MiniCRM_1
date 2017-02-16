@@ -9,8 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import service.ClientService;
-import service.ClientServiceImpl;
+import util.ServiceUtil;
 
 
 /**
@@ -35,14 +34,16 @@ public class CreateClientController {
     Button btnCancelAdd;
     @FXML
     Button btnGetClient;
+
     public static Client currentClient;
 
-    ClientServiceImpl clientService = new ClientServiceImpl();
     private ObservableList<Client> clientObservableList;
+
+    public static boolean isOpenWindowClient;
 
 
     public void initialize(){
-        clientObservableList = FXCollections.observableArrayList(clientService.findAll());
+        clientObservableList = FXCollections.observableArrayList(ServiceUtil.getClientService().findAll());
         clientList.setItems(clientObservableList);
     }
 
@@ -72,8 +73,11 @@ public class CreateClientController {
     private void onActionCancelAdd(){
         GraphicsLoader.closeWindow(btnCancelAdd);
     }
+    // по кнопке выбрать
     @FXML
     private void onActionGetClient(){
+        currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
+
         /*ClientService clientService = new ClientServiceImpl();
         ListView<Client> clientListView = (ListView<Client>) clientService.findAll();
         currentClient = (Client) clientListView.getSelectionModel().getSelectedItem();*/
@@ -81,19 +85,26 @@ public class CreateClientController {
         /*ManagerController managerController = new ManagerController();
         managerController.clientField.setText(currentClient.getName());*/
         // showClientList();
+
         GraphicsLoader.closeWindow(btnGetClient);
     }
+   // по мышке
     @FXML
     private void showClientList() {
-        if (clientList.getSelectionModel().getSelectedItem() != null){
+        if (clientList.getSelectionModel().getSelectedItem() != null)
+        {
             System.out.println("1111111111111111");
-            ClientService clientService = new ClientServiceImpl();
-            clientObservableList = (ObservableList<Client>) clientService.findAll();
+            clientObservableList = (ObservableList<Client>) ServiceUtil.getClientService().findAll();
+
             clientList.setItems(clientObservableList);
+
             System.out.println("22222222222222");
+
             currentClient =  (Client) clientList.getSelectionModel().getSelectedItem();
-            ManagerController managerController = new ManagerController();
-            managerController.clientField.setText(currentClient.getName());
+            isOpenWindowClient = true;
+
+            // ManagerController managerController = new ManagerController();
+            // managerController.clientField.setText(currentClient.getName());
         }
     }
 

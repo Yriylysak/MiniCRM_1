@@ -41,8 +41,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
         }
         return null;
     }
+
+
     @Override
     public Employee read(Long id) {
+
         List<Employee> employees = findAll();
         for(Employee empl : employees) {
             if(empl.getId() == id) {
@@ -53,7 +56,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public boolean update(Employee employee)  {
+    public boolean update(Employee employee)
+    {
         if (employee != null) {
             Session session = factory.openSession();
             try {

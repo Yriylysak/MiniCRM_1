@@ -21,8 +21,8 @@ public class ClientDaoImpl implements ClientDao {
         if(client != null) {
             if (!(client.getName().isEmpty())
                     && !(client.getSureName().isEmpty())
-                    && (client.getAge() > 0)
-                    && (client.getPhone() > 0)
+                    && !(client.getAge().isEmpty())
+                    && !(client.getPhone().isEmpty())
                     && !(client.getEmail().isEmpty())) {
                 Session session = factory.openSession();
                 try {
