@@ -65,7 +65,20 @@ public class EnterContorller {
             stage.show();
             stage.setResizable(false);
             GraphicsLoader.closeWindow(enterButton);
-        } else {
+        } else if (ServiceUtil.getUserService().isUser(loginField.getText(), passwordField.getText())){
+            try{
+                root = FXMLLoader.load(getClass().getResource("/view/sellerWindow.fxml"));
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            Scene scene= new Scene(root);
+            scene.getStylesheets().add("/view/managerWindow.css");
+            stage.setScene(scene);
+            stage.setTitle("Окно касира");
+            stage.show();
+            stage.setResizable(false);
+            GraphicsLoader.closeWindow(enterButton);
+        } else{
             try {
                 root = FXMLLoader.load(getClass().getResource("/view/accessDenied.fxml"));
             } catch (IOException e) {

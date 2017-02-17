@@ -43,6 +43,11 @@ public class Initial extends Application
     employerService.add(employer1);
     userService.add(user1);
 
+    Employee employeeCashier = new Employee("NameCashier", "SurnameCashier", 33, Gender.MALE, Position.CASHIER);
+    User userCashier = new User("Cashier", "1", employeeCashier);
+    employerService.add(employeeCashier);
+    userService.add(userCashier);
+
     List<User> userList = userService.findAll();
     for(User us : userList) {
        System.out.println("============ " +  us );}
