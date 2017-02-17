@@ -22,7 +22,6 @@ public class GoodsDaoImpl implements GoodsDao
     public Long create(Goods goods) {
         if(goods != null
                 && !(goods.getProductName().isEmpty())
-                && (goods.getAvailability() >= 0)
                 && (goods.getPrice() > 0)) {
             Session session = factory.openSession();
             try {

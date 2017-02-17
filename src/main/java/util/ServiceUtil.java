@@ -13,6 +13,12 @@ public class ServiceUtil
     private static UserService userService;
     private static ClientService clientService;
     private static OrderService orderService;
+    private static GoodsService goodsService;
+
+    public static GoodsService getGoodsService() {
+        goodsService = new GoodsServiceImpl();
+        return goodsService;
+    }
 
     public static ClientService getClientService() {
         clientService = new ClientServiceImpl();

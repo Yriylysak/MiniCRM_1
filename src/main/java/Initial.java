@@ -1,4 +1,4 @@
-import controller.EnterContorller;
+import controller.EnterController;
 import controller.GraphicsLoader;
 import entity.Employee;
 import entity.User;
@@ -42,6 +42,11 @@ public class Initial extends Application
     User user1 = new User("Director", "1", employer1);
     employerService.add(employer1);
     userService.add(user1);
+
+    Employee employeeCashier = new Employee("NameCashier", "SurnameCashier", 33, Gender.MALE, Position.CASHIER);
+    User userCashier = new User("Cashier", "1", employeeCashier);
+    employerService.add(employeeCashier);
+    userService.add(userCashier);
 
     List<User> userList = userService.findAll();
     for(User us : userList) {

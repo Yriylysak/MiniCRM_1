@@ -22,6 +22,8 @@ public class Goods {
     private Long availability;
 
 
+    public Goods() {
+    }
 
     public Goods(String productName, Double price /*Long availability*/) {
         this.productName = productName;
@@ -59,5 +61,9 @@ public class Goods {
 
     public void setAvailability(Long availability) {
         this.availability = availability;
+    }
+    @Override
+    public String toString() {
+        return  productName + " = " + price;
     }
 }
