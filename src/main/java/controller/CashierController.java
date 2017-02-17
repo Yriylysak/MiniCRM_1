@@ -34,8 +34,22 @@ public class CashierController {
 
     public void showCashList(MouseEvent mouseEvent) {
     }
+
+
     @FXML
     public void onActionClose() {
         GraphicsLoader.closeWindow(btnCloseWin);
+    }
+
+    public void onActionPaid() {
+        if (paidCheck.isSelected()){
+            canceledCheck.setSelected(false);
+        }
+    }
+
+    public void onActionCanceled() {
+        if (canceledCheck.isSelected()){
+            paidCheck.setSelected(false);
+        }
     }
 }

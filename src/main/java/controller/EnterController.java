@@ -95,7 +95,7 @@ public class EnterController {
                     }
                     scene = new Scene(root);
                     stage.setTitle("Cashier window");
-                    scene.getStylesheets().add("/view/adminWindow.css");
+                    scene.getStylesheets().add("/view/sellerWindow.css");
                     stage.setScene(scene);
                     stage.show();
                     stage.setResizable(false);

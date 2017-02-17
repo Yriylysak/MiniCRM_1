@@ -1,4 +1,4 @@
-import controller.EnterContorller;
+import controller.EnterController;
 import controller.GraphicsLoader;
 import entity.Employee;
 import entity.User;

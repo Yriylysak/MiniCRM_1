@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="enterWindow" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="192.0" prefWidth="345.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EnterContorller">
+<AnchorPane fx:id="enterWindow" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="192.0" prefWidth="345.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EnterController">
     <children>
         <Label alignment="CENTER_RIGHT" layoutX="41.0" layoutY="40.0" prefHeight="39.0" prefWidth="62.0" text="Логин:" textAlignment="RIGHT" />
         <Label alignment="CENTER_RIGHT" layoutX="33.0" layoutY="72.0" prefHeight="49.0" prefWidth="70.0" text="Пароль:" />
