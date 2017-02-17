@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -27,6 +28,10 @@ public class GoodsController {
     TextField fldGoodsName;
     @FXML
     TextField fldGoodsPrice;
+    @FXML
+    CheckBox statusCheckY;
+    @FXML
+    CheckBox statusCheckN;
 
 
     @FXML
@@ -40,7 +45,20 @@ public class GoodsController {
         GraphicsLoader.closeWindow(btnClose);
     }
 
-    public void onActionEnterGoods() {
+    @FXML
+    private void onActionEnterGoods() {
 
+    }
+    @FXML
+    private void onActionY() {
+        if (statusCheckY.isSelected()){
+            statusCheckN.setSelected(false);
+        }
+    }
+    @FXML
+    private void onActionN() {
+        if (statusCheckN.isSelected()){
+            statusCheckY.setSelected(false);
+        }
     }
 }

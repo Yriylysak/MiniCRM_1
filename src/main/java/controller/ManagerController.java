@@ -90,7 +90,7 @@ public class ManagerController {
             e.printStackTrace();
         }
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/view/adminWindow.css");
+        scene.getStylesheets().add("/view/goodsWindow.css");
         stage.setScene(scene);
         stage.show();
         stage.setResizable(false);
