@@ -22,6 +22,8 @@ public class Goods {
     private Long availability;
 
 
+    public Goods() {
+    }
 
     public Goods(String productName, Double price /*Long availability*/) {
         this.productName = productName;
