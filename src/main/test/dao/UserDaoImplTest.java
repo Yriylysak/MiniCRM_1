@@ -13,12 +13,13 @@ public class UserDaoImplTest extends Assert
     @Test
     public void testCreate()
     {
-        // EmployeeDao employeeDao = new EmployeeDaoImpl();
-        Employee employee = new Employee();
-        UserDao userDao = new UserDaoImpl();
-        User user = new User("Name","Surname",employee);
-        assertEquals("testCreate",null,userDao.create(null));
-        assertNotEquals("testCreate",null , userDao.create(user));
+     // // EmployeeDao employeeDao = new EmployeeDaoImpl();
+     // Employee employee = new Employee("Name","Surname",20,"Men","junior");
+     // UserDao userDao = new UserDaoImpl();
+     // User user = new User("Name","Surname",employee);
+
+     // assertEquals("testCreate",null,userDao.create(null));
+     // // assertNotEquals("testCreate",null , userDao.create(user));
 
     }
 }

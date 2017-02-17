@@ -149,18 +149,23 @@ public class AdminController implements EventHandler {
         positionBox.setItems(FXCollections.observableArrayList(Position.values()));
     }
 
-    public void showListView() {
-        if(baseInfoList.getSelectionModel().getSelectedItem()!= null) {
-            if (btnUsers.isSelected()) {
+    public void showListView()
+    {
+        if(baseInfoList.getSelectionModel().getSelectedItem()!= null)
+        {
+            if (btnUsers.isSelected())
+            {
                 showListViewUsers();
             } else {
                 currentEmployee = (Employee) baseInfoList.getSelectionModel().getSelectedItem();
+
                 nameField.setText(currentEmployee.getName());
                 surnameField.setText(currentEmployee.getSureName());
                 ageField.setText("" + currentEmployee.getAge());
                 sexBox.setValue(currentEmployee.getSex());
                 positionBox.setValue(currentEmployee.getPosition());
                 registryField.setText("" + currentEmployee.getDate());
+
                 accountStatus.setSelected(ServiceUtil.getUserService().findUser(currentEmployee) != null);
             }
         }

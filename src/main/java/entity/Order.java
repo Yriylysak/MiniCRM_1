@@ -12,6 +12,7 @@ import java.util.Date;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ORDER_ID")
     private Long id;
 
     @Enumerated(EnumType.ORDINAL)
@@ -34,6 +35,11 @@ public class Order {
     @Column(name = "DATE_DEADLINE")
     @Temporal(TemporalType.DATE)
     private Date dateDeadline;
+
+//    // @Column(name = "MANAGER")
+//    @ManyToOne
+//    @JoinColumn(name = "ORDER_ID", referencedColumnName = "MANAGER_ID")
+//    private Employee employee;
 
     public Order() {
     }

@@ -73,6 +73,7 @@ public class CreateClientController {
     private void onActionCancelAdd(){
         GraphicsLoader.closeWindow(btnCancelAdd);
     }
+
     // по кнопке выбрать
     @FXML
     private void onActionGetClient(){
@@ -90,11 +91,13 @@ public class CreateClientController {
     }
    // по мышке
     @FXML
-    private void showClientList() {
+    private void showClientList()
+    {
         if (clientList.getSelectionModel().getSelectedItem() != null)
         {
             System.out.println("1111111111111111");
-            clientObservableList = (ObservableList<Client>) ServiceUtil.getClientService().findAll();
+            // clientObservableList = (ObservableList<Client>) ServiceUtil.getClientService().findAll();
+            // clientObservableList = FXCollections.observableList(ServiceUtil.getClientService().findAll());
 
             clientList.setItems(clientObservableList);
 
