@@ -9,10 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import service.EmployeeService;
-import service.EmployeeServiceImpl;
-import service.UserService;
-import service.UserServiceImpl;
 import util.ServiceUtil;
 
 import java.io.IOException;
@@ -41,6 +37,7 @@ public class EnterController {
     private void onActionEnter() {
         Parent root = null;
         Stage stage = new Stage();
+
         Position position = ServiceUtil.getUserService().isUser(loginField.getText(), passwordField.getText());
 
         if (position == null) {
@@ -57,6 +54,11 @@ public class EnterController {
             stage.setResizable(false);
             loginField.clear();
             passwordField.clear();
+            --counter;
+            if (counter <= 0) {
+                System.exit(0);
+            }
+            return;
         } else {
             switch (position) {
                 case ADMIN:
