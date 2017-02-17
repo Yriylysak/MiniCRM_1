@@ -2,6 +2,7 @@ package service;
 
 import entity.Employee;
 import entity.User;
+import enumTypes.Position;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface UserService {
     boolean changePassword(Long id, String oldPassword, String newPassword);
 
     boolean isAdmin(String login, String password);
-    boolean isUser(String login, String password);
+    Position isUser(String login, String password);
     User createUser(Employee employee);
     String createLogin(String name, String surname);
     String createPassword();

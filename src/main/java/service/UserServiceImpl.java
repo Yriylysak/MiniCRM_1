@@ -4,6 +4,7 @@ import dao.UserDao;
 import dao.UserDaoImpl;
 import entity.Employee;
 import entity.User;
+import enumTypes.Position;
 
 import java.util.List;
 import java.util.Random;
@@ -77,16 +78,15 @@ public class UserServiceImpl implements UserService {
 
     /*перевірка введені логін і пароль співпадають з даними з бази юзерів*/
     @Override
-    public boolean isUser(String login, String password) {
+    public Position isUser(String login, String password) {
         List<User> users = userDao.findAll();
         for(User us : users) {
-            if ( ! (us.getEmployee().getPosition().equals("Admin")) //якщо не Адмін, а юзер з бази
-                    && (us.getLogin().equals(login))
+            if ( (us.getLogin().equals(login))
                     && (us.getPassword().equals(password))) {
-                return true;
+                return us.getEmployee().getPosition();
             }
         }
-        return false;
+        return null;
     }
 
     /*автогенерація юзера, метод отримує об"єкт типу Employee*/
