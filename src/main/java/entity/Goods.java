@@ -62,4 +62,8 @@ public class Goods {
     public void setAvailability(Long availability) {
         this.availability = availability;
     }
+    @Override
+    public String toString() {
+        return  productName + " = " + price;
+    }
 }

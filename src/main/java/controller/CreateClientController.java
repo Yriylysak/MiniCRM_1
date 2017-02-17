@@ -42,17 +42,13 @@ public class CreateClientController {
     public static boolean isOpenWindowClient;
 
 
-    public void initialize(){
+    public void initialize() {
         clientObservableList = FXCollections.observableArrayList(ServiceUtil.getClientService().findAll());
         clientList.setItems(clientObservableList);
     }
 
-
-
     @FXML
-    private void onActionAdd(){
-
-
+    private void onActionAdd() {
         Client client = new Client();
         client.setName(fldName.getText());
         client.setSureName(fldSurname.getText());
@@ -64,10 +60,7 @@ public class CreateClientController {
         clientDao.create(client);
         initialize();
 
-
-
 //        ListView<Client> clientListView = (ListView<Client>) clientService.findAll();
-
     }
     @FXML
     private void onActionCancelAdd(){
@@ -76,7 +69,7 @@ public class CreateClientController {
     // по кнопке выбрать
     @FXML
     private void onActionGetClient(){
-        currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
+        //currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
 
         /*ClientService clientService = new ClientServiceImpl();
         ListView<Client> clientListView = (ListView<Client>) clientService.findAll();
@@ -91,20 +84,12 @@ public class CreateClientController {
    // по мышке
     @FXML
     private void showClientList() {
-        if (clientList.getSelectionModel().getSelectedItem() != null)
-        {
-            System.out.println("1111111111111111");
-            clientObservableList = (ObservableList<Client>) ServiceUtil.getClientService().findAll();
-
-            clientList.setItems(clientObservableList);
-
-            System.out.println("22222222222222");
-
-            currentClient =  (Client) clientList.getSelectionModel().getSelectedItem();
+        //if (clientList.getSelectionModel().getSelectedItem() != null) {
+        if(true) {
+            //clientObservableList = FXCollections.observableArrayList (ServiceUtil.getClientService().findAll());
+            currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
+            //clientList.setItems(clientObservableList);
             isOpenWindowClient = true;
-
-            // ManagerController managerController = new ManagerController();
-            // managerController.clientField.setText(currentClient.getName());
         }
     }
 
