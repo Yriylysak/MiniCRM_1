@@ -45,12 +45,12 @@ public class Order {
     public Order() {
     }
 
-    public Order(OrderStatus status, Employee employee, Client client, Date dateDeadline) {
+    public Order(OrderStatus status, Employee employee, Client client/*, Date dateDeadline*/) {
         this.status = status;
         this.employee = employee;
         this.date = new Date();
         this.client = client;
-        this.dateDeadline = dateDeadline;
+       // this.dateDeadline = dateDeadline;
     }
 
     public Long getId() {
