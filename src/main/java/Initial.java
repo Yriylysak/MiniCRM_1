@@ -1,8 +1,10 @@
 import controller.EnterController;
 import controller.GraphicsLoader;
 import entity.Employee;
+import entity.Order;
 import entity.User;
 import enumTypes.Gender;
+import enumTypes.OrderStatus;
 import enumTypes.Position;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +16,9 @@ import service.EmployeeService;
 import service.EmployeeServiceImpl;
 import service.UserService;
 import service.UserServiceImpl;
+import util.DaoUtil;
 import util.HibernateUtil;
+import util.ServiceUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -47,6 +51,9 @@ public class Initial extends Application
     User userCashier = new User("Cashier", "1", employeeCashier);
     employerService.add(employeeCashier);
     userService.add(userCashier);
+
+       /* Order order = new Order(OrderStatus.FORMED, employer1, DaoUtil.getClientDao().read(1L) );
+        ServiceUtil.getOrderService().add(order);*/
 
     List<User> userList = userService.findAll();
     for(User us : userList) {

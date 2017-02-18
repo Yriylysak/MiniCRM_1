@@ -49,6 +49,8 @@ public class Employee {
     @JoinColumn(name = "USER_ID")
     private User user;
 
+
+
     public Employee(String name, String sureName, Integer age, Gender gender, Position position) {
         this.name = name;
         this.sureName = sureName;

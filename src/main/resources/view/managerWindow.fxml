@@ -58,7 +58,7 @@
          </children>
       </GridPane>
       <Label alignment="CENTER" layoutX="441.0" layoutY="23.0" text="ЗАКАЗЫ" />
-      <TableView layoutX="25.0" layoutY="375.0" prefHeight="213.0" prefWidth="869.0">
+      <TableView fx:id="tabView" layoutX="25.0" layoutY="375.0" prefHeight="213.0" prefWidth="869.0">
         <columns>
           <TableColumn fx:id="columnNumber" prefWidth="75.0" text="№" />
           <TableColumn fx:id="columnName" prefWidth="159.0" text="Наименование" />
@@ -69,8 +69,9 @@
             <TableColumn fx:id="columnSumNDS" prefWidth="129.0" text="сумма с ндс" />
         </columns>
       </TableView>
-      <GridPane layoutX="272.0" layoutY="621.0" prefHeight="43.0" prefWidth="551.0">
+      <GridPane layoutX="176.0" layoutY="621.0" prefHeight="43.0" prefWidth="647.0">
         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -79,9 +80,10 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="btnClean" maxHeight="34.0" maxWidth="150.0" mnemonicParsing="false" onAction="#onActionClean" text="Очистить" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-            <Button fx:id="btnForm" maxHeight="34.0" maxWidth="150.0" mnemonicParsing="false" onAction="#onActionForm" text="Сформировать" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-            <Button fx:id="btnGood" maxHeight="34.0" maxWidth="150.0" mnemonicParsing="false" onAction="#onActionAddGood" text="Товар" GridPane.halignment="CENTER" />
+            <Button fx:id="btnClean" maxHeight="34.0" maxWidth="150.0" mnemonicParsing="false" onAction="#onActionClean" text="Очистить" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+            <Button fx:id="btnForm" maxHeight="34.0" maxWidth="150.0" mnemonicParsing="false" onAction="#onActionForm" text="Сформировать" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+            <Button fx:id="btnGood" maxHeight="34.0" maxWidth="150.0" mnemonicParsing="false" onAction="#onActionAddGood" text="Товар" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Button fx:id="btnAddManagGood" mnemonicParsing="false" onAction="#onActionAddGoods" prefHeight="34.0" prefWidth="150.0" text="Добавить" GridPane.halignment="CENTER" />
          </children>
       </GridPane>
       <TabPane layoutX="26.0" layoutY="59.0" prefHeight="298.0" prefWidth="329.0" tabClosingPolicy="UNAVAILABLE">
