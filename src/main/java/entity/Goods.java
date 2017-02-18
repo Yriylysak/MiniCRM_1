@@ -21,14 +21,24 @@ public class Goods {
     @Column(name = "AVAILABILITY")
     private Long availability;
 
+    @Column(name = "AMOUNT")
+    private Integer amount;
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
 
     public Goods() {
     }
 
-    public Goods(String productName, Double price /*Long availability*/) {
+    public Goods(String productName, Double price, Integer amount) {
         this.productName = productName;
         this.price = price;
-        /*this.availability = availability;*/
+        this.amount = amount;
     }
 
     public Long getId() {
