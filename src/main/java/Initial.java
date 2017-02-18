@@ -1,5 +1,4 @@
-import controller.EnterController;
-import controller.GraphicsLoader;
+import entity.Client;
 import entity.Employee;
 import entity.Order;
 import entity.User;
@@ -16,7 +15,6 @@ import service.EmployeeService;
 import service.EmployeeServiceImpl;
 import service.UserService;
 import service.UserServiceImpl;
-import util.DaoUtil;
 import util.HibernateUtil;
 import util.ServiceUtil;
 
@@ -26,42 +24,52 @@ import java.util.List;
 /**
  * Created by Yura on 04.02.2017.
  */
-public class Initial extends Application
-{
-    public static void main(String[] args)
-    {
-        EmployeeService employerService = new EmployeeServiceImpl();
-        UserService userService = new UserServiceImpl();
+public class Initial extends Application {
+    public static void main(String[] args) {
+        //EmployeeService employerService = new EmployeeServiceImpl();
+        //UserService userService = new UserServiceImpl();
 
     /*Створюємо і записуємо у базу співробітників і користувачів сутність адміна*/
-    Employee employerAdmin = new Employee("NameAdmin", "SurnameAdmin", 21, Gender.MALE, Position.ADMIN);
-     User userAdmin = new User("Admin", "1", employerAdmin);
-    employerService.add(employerAdmin);
-    userService.add(userAdmin);
+        Employee employerAdmin = new Employee("NameAdmin", "SurnameAdmin", 21, Gender.MALE, Position.ADMIN);
+        User userAdmin = new User("Admin", "1", employerAdmin);
+        ServiceUtil.getEmployeeService().add(employerAdmin);
+        ServiceUtil.getUserService().add(userAdmin);
 
-    // для легших і швидших перевірок створюємо і додаємо у базу співробітника і користувача.
-    // після закінчення роботи запис можна видалити.
-    // але це директор, тому можна і залишити :)*/
-    Employee employer1 = new Employee("Name", "Surname", 89, Gender.FEMALE, Position.MANAGER);
-    User user1 = new User("Director", "1", employer1);
-    employerService.add(employer1);
-    userService.add(user1);
+        // для легших і швидших перевірок створюємо і додаємо у базу співробітника і користувача.
+        // після закінчення роботи запис можна видалити.
+        // але це директор, тому можна і залишити :)*/
+        Employee employer1 = new Employee("Name", "Surname", 89, Gender.FEMALE, Position.MANAGER);
+        User user1 = new User("Director", "1", employer1);
+        ServiceUtil.getEmployeeService().add(employer1);
+        ServiceUtil.getUserService().add(user1);
 
-    Employee employeeCashier = new Employee("NameCashier", "SurnameCashier", 33, Gender.MALE, Position.CASHIER);
-    User userCashier = new User("Cashier", "1", employeeCashier);
-    employerService.add(employeeCashier);
-    userService.add(userCashier);
+        Employee employeeCashier = new Employee("NameCashier", "SurnameCashier", 33, Gender.MALE, Position.CASHIER);
+        User userCashier = new User("Cashier", "1", employeeCashier);
+        ServiceUtil.getEmployeeService().add(employeeCashier);
+        ServiceUtil.getUserService().add(userCashier);
 
-       /* Order order = new Order(OrderStatus.FORMED, employer1, DaoUtil.getClientDao().read(1L) );
-        ServiceUtil.getOrderService().add(order);*/
+       /*Client client2 = new Client("client2", "cli1", "age", "phone", "bla@bla.com");
+        Client client3 = new Client("client3", "cli1", "age", "phone", "bla@bla.com");
+        ServiceUtil.getClientService().add(client1);
+        ServiceUtil.getClientService().add(client2);
+        ServiceUtil.getClientService().add(client3);*/
 
-    List<User> userList = userService.findAll();
-    for(User us : userList) {
-       System.out.println("============ " +  us );}
+        Client client1 = new Client("client1", "cli1", "age", "phone", "bla@bla.com");
+        Order order1 = new Order(OrderStatus.FORMED, employer1, client1);
+        client1.getOrderList().add(order1);
+        ServiceUtil.getClientService().add(client1);
+
+    /*Order order2 = new Order(OrderStatus.FORMED,  employer1, client2 );
+    Order order3 = new Order(OrderStatus.NEW,  employer1, client3 );
+        ServiceUtil.getOrderService().add(order1);
+        ServiceUtil.getOrderService().add(order2);
+        ServiceUtil.getOrderService().add(order3);*/
 
 
-
-
+        List<User> userList = ServiceUtil.getUserService().findAll();
+        for (User us : userList) {
+            System.out.println("============ " + us);
+        }
 
 
         Application.launch(args);
@@ -73,7 +81,7 @@ public class Initial extends Application
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("view/enterWindow.fxml"));
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         primaryStage.setTitle("Авторизация");
