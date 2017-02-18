@@ -59,8 +59,8 @@ public class Initial extends Application {
         client1.getOrderList().add(order1);
         ServiceUtil.getClientService().add(client1);
 
-    /*Order order2 = new Order(OrderStatus.FORMED,  employer1, client2 );
-    Order order3 = new Order(OrderStatus.NEW,  employer1, client3 );
+        /*Order order2 = new Order(OrderStatus.FORMED,  employer1, client2 );
+        Order order3 = new Order(OrderStatus.NEW,  employer1, client3 );
         ServiceUtil.getOrderService().add(order1);
         ServiceUtil.getOrderService().add(order2);
         ServiceUtil.getOrderService().add(order3);*/
