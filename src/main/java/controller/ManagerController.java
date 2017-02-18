@@ -53,6 +53,8 @@ public class ManagerController {
     private ObservableList<Client> clientObservableList;
     private ObservableList<Goods> goodsObservableList;
 
+    public static String managerLogin;
+    private String tmp = managerLogin.toString();
     public static Goods currentGoods;
     public static Client currentClient;
     private Date currentDate = new Date();
@@ -63,7 +65,7 @@ public class ManagerController {
 //        clientObservableList = FXCollections.observableArrayList(ServiceUtil.getOrderService().findAll());
 
 //        numberFld.setText(""+order.getId());
-
+        managerFld.setText(tmp);
         clientObservableList = FXCollections.observableArrayList(ServiceUtil.getClientService().findAll());
         clientList.setItems(clientObservableList);
         orderObservableList = FXCollections.observableArrayList(ServiceUtil.getOrderService().findAll());

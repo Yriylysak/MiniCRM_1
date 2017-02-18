@@ -16,6 +16,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<!-- -->
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="692.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
    <children>
       <GridPane layoutX="372.0" layoutY="59.0" prefHeight="298.0" prefWidth="487.0" AnchorPane.bottomAnchor="335.0" AnchorPane.topAnchor="59.0">
@@ -35,7 +37,7 @@
         </rowConstraints>
          <children>
             <TextField fx:id="numberFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" />
-            <TextField fx:id="managerFld" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="managerFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="dateFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="goodNumFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="priceFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
@@ -107,4 +109,3 @@
       </TabPane>
    </children>
 </AnchorPane>
-<!-- -->

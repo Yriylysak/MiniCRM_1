@@ -10,6 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import util.ServiceUtil;
+import static controller.ManagerController.managerLogin;
 
 import java.io.IOException;
 
@@ -77,6 +78,7 @@ public class EnterController {
                     break;
                 case MANAGER:
                     try {
+                        managerLogin = loginField.getText();
                         root = FXMLLoader.load(getClass().getResource("/view/managerWindow.fxml"));
                     } catch (IOException e) {
                         e.printStackTrace();
