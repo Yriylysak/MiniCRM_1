@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,8 +31,8 @@ public class Client {
     @Column(name = "EMAIL")
     private String email;
 
-    @OneToMany(targetEntity = Order.class)
-    private List<Order> orderList;
+    @OneToMany(targetEntity = Order.class, cascade = CascadeType.ALL)
+    private List<Order> orderList = new ArrayList<>();
 
     public Client() {
 
@@ -103,5 +104,13 @@ public class Client {
                 ", phone=" + phone +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
     }
 }
