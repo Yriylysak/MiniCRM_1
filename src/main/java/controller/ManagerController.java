@@ -11,7 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import util.ServiceUtil;
 
@@ -30,13 +29,7 @@ public class ManagerController {
     @FXML TextField clientField;
     @FXML Button btnNewClient;
     @FXML TableView tabView;
-    @FXML TableColumn<Goods, Long> columnNumber;
-    @FXML TableColumn<Goods, String> columnName;
-    @FXML TableColumn <Goods, Integer>columnNmbr;
-    @FXML TableColumn <Goods, Double> columnPrice;
-    @FXML TableColumn <Goods, Double>columnSum;
-    @FXML TableColumn <Goods, Double>columnPriceNDS;
-    @FXML TableColumn <Goods, Double>columnSumNDS;
+
     @FXML private ComboBox<OrderStatus> combobox;
     @FXML Button btnClean;
     @FXML Button btnForm;
@@ -47,54 +40,42 @@ public class ManagerController {
     @FXML Tab tabOrders;
     @FXML Tab tabGoods;
     @FXML Tab tabClient;
+    @FXML ListView<Goods> listViewGoods;
 
 
-    private ObservableList<Order> orderObservableList;
+    private ObservableList<Order> orderObservableList = FXCollections.observableArrayList();
     private ObservableList<Client> clientObservableList;
     private ObservableList<Goods> goodsObservableList;
+    private ObservableList<Goods> currentGoodsObservableList= FXCollections.observableArrayList();
 
     public static String managerLogin;
     private String tmp = managerLogin.toString();
+
     public static Goods currentGoods;
     public static Client currentClient;
+    public static Order currentOrder;
     private Date currentDate = new Date();
 
     public void initialize() {
-//        Order order = new Order();
-//        ServiceUtil.getOrderService().add(order);
-//        clientObservableList = FXCollections.observableArrayList(ServiceUtil.getOrderService().findAll());
+       managerFld.setText(tmp);
 
-//        numberFld.setText(""+order.getId());
-        managerFld.setText(tmp);
         clientObservableList = FXCollections.observableArrayList(ServiceUtil.getClientService().findAll());
         clientList.setItems(clientObservableList);
-        orderObservableList = FXCollections.observableArrayList(ServiceUtil.getOrderService().findAll());
-        orderList.setItems(orderObservableList);
+
+        //orderObservableList = FXCollections.observableArrayList(ServiceUtil.getOrderService().findAll());
+        //orderList.setItems(orderObservableList);
 
         goodsObservableList = FXCollections.observableArrayList(ServiceUtil.getGoodsService().findAll());
         goodsList.setItems(goodsObservableList);
 
+        numberFld.setText("123456"); //замінити на:
+        //numberFld.setText(currentOrder.getId());
+
         dateFld.setText("" + currentDate.getDate() + ".0" + (currentDate.getMonth() + 1) + "." + (currentDate.getYear() + 1900));
         combobox.setPromptText("Выбрать");
         combobox.setItems(FXCollections.observableArrayList(OrderStatus.values()));
-
-        CreateClientController createClientController = new CreateClientController();
-
-        columnNumber.setCellValueFactory(new PropertyValueFactory<>("№"));
-        columnName.setCellValueFactory(new PropertyValueFactory<>("Наименование"));
-        columnNmbr.setCellValueFactory(new PropertyValueFactory<>("количество"));
-        columnPrice.setCellValueFactory(new PropertyValueFactory<>("цена без ндс"));
-        columnSum.setCellValueFactory(new PropertyValueFactory<>("сумма без ндс"));
-        columnPriceNDS.setCellValueFactory(new PropertyValueFactory<>("цена с ндс"));
-        columnSumNDS.setCellValueFactory(new PropertyValueFactory<>("сумма с ндс"));
-
-
-
-
-
-
-
     }
+
     @FXML
     private void onActionNewClient() {
         Parent root = null;
@@ -142,15 +123,8 @@ public class ManagerController {
     }
     @FXML
     public void onMousePressedGoods() {
-
-        ObservableList<Goods> goodsObservableList;
-        goodsObservableList = FXCollections.observableArrayList();
-        tabView.setItems(goodsObservableList);
         currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
-        tabView.setItems((ObservableList) currentGoods);
-        System.out.println("88888888888888888888888888888888");
-
-
+        //currentGoodsObservableList.add(currentGoods);
     }
     @FXML
     public void onMousePressedClients() {
@@ -160,15 +134,11 @@ public class ManagerController {
     @FXML
     private void onActionAddGoods() {
         currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
+        currentGoodsObservableList.add(currentGoods);
+
+        listViewGoods.setItems(currentGoodsObservableList);
+
         // columnName.setText(currentGoods.getProductName());
-
-
-
-
-
-
-
-
 
     }
 }
