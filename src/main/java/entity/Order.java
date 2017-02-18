@@ -20,7 +20,6 @@ public class Order {
     private OrderStatus status;
 
     @ManyToOne
-    //@Column(name = "MANAGER")
     @JoinColumn(name = "MANAGER_NAME", referencedColumnName = "NAME")
     private Employee employee;
 
@@ -29,18 +28,11 @@ public class Order {
     private Date date;
 
     @ManyToOne(targetEntity = Client.class, cascade = CascadeType.ALL)
-    //@Column(name = "CLIENT")
-    // @JoinColumn(name = "CLIENT_NAME", referencedColumnName = "NAME")
-    private Client client;
+     private Client client;
 
     @Column(name = "DATE_DEADLINE")
     @Temporal(TemporalType.DATE)
     private Date dateDeadline;
-
-//    // @Column(name = "MANAGER")
-//    @ManyToOne
-//    @JoinColumn(name = "ORDER_ID", referencedColumnName = "MANAGER_ID")
-//    private Employee employee;
 
     public Order() {
     }
