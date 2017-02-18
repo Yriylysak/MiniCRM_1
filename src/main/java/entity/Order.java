@@ -28,7 +28,7 @@ public class Order {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Client.class, cascade = CascadeType.ALL)
     //@Column(name = "CLIENT")
     // @JoinColumn(name = "CLIENT_NAME", referencedColumnName = "NAME")
     private Client client;
