@@ -10,6 +10,7 @@ import java.util.Date;
 @Entity
 @Table(name = "ORDERS")
 public class Order {
+    //
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ORDER_ID")
@@ -29,7 +30,7 @@ public class Order {
 
     @ManyToOne
     //@Column(name = "CLIENT")
-    @JoinColumn(name = "CLIENT_NAME", referencedColumnName = "NAME")
+    // @JoinColumn(name = "CLIENT_NAME", referencedColumnName = "NAME")
     private Client client;
 
     @Column(name = "DATE_DEADLINE")

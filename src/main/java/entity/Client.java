@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Олег on 12.02.2017.
@@ -8,8 +9,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "CLIENT")
 public class Client {
-
+//
     @Id
+    @Column(name = "CLIENT_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -27,6 +29,9 @@ public class Client {
 
     @Column(name = "EMAIL")
     private String email;
+
+    @OneToMany(targetEntity = Order.class)
+    private List<Order> orderList;
 
     public Client() {
 
