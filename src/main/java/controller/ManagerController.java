@@ -121,7 +121,7 @@ public class ManagerController {
     private void onActionAddGood(){
         Parent root = null;
         Stage stage = new Stage();
-
+//
         try {
             root = FXMLLoader.load(getClass().getResource("/view/goodsWindow.fxml"));
         } catch (IOException e) {
