@@ -86,6 +86,7 @@ public class ManagerController {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/view/managerWindow.css");
         stage.setScene(scene);
+        stage.setTitle("Создание клиента");
         stage.show();
         stage.setResizable(false);
     }
@@ -110,6 +111,7 @@ public class ManagerController {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/view/goodsWindow.css");
         stage.setScene(scene);
+        stage.setTitle("Создание товара");
         stage.show();
         stage.setResizable(false);
     }

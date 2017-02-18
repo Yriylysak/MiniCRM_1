@@ -37,6 +37,10 @@ public class GoodsController {
     CheckBox statusCheckY;
     @FXML
     CheckBox statusCheckN;
+    @FXML
+    TextField fldNum;
+
+
     private ObservableList<Goods> goodsObservableList;
     private Goods currentGoods;
 
@@ -52,6 +56,7 @@ public class GoodsController {
             currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
             fldGoodsName.setText(currentGoods.getProductName());
             fldGoodsPrice.setText(currentGoods.getPrice().toString());
+            fldNum.setText(currentGoods.getAmount().toString());
         } else if (goodsList.getSelectionModel().getSelectedItems() == null) {
             System.out.println("___________ELSE____________");
             fldGoodsName.clear();
@@ -62,14 +67,15 @@ public class GoodsController {
     private void onActionAddGoods(){
         if (fldGoodsName.getText() != ""
                 && fldGoodsPrice.getText() != "") {
-            //Goods goods = new Goods(fldGoodsName.getText(), fldGoodsPrice.getText(),statusCheckY.getText(),statusCheckN.getText());
-            Goods goods = new Goods(fldGoodsName.getText(), Double.parseDouble(fldGoodsPrice.getText()));
+            Goods goods = new Goods(fldGoodsName.getText(), Double.parseDouble(fldGoodsPrice.getText()),
+                    Integer.parseInt(fldNum.getText()));
             ServiceUtil.getGoodsService().add(goods);
         }
         goodsObservableList = FXCollections.observableArrayList(ServiceUtil.getGoodsService().findAll());
         goodsList.setItems(goodsObservableList);
         fldGoodsName.clear();
         fldGoodsPrice.clear();
+        fldNum.clear();
     }
     @FXML
     private void onActionClose(){
@@ -78,6 +84,12 @@ public class GoodsController {
 
     @FXML
     private void onActionEnterGoods() {
+        Goods goods = new Goods(fldGoodsName.getText(), Double.parseDouble(fldGoodsPrice.getText()),
+                (Integer.parseInt(fldNum.getText())));
+        ServiceUtil.getGoodsService().changeGoods(currentGoods, goods);
+        goodsObservableList = FXCollections.observableArrayList(ServiceUtil.getGoodsService().findAll());
+        goodsList.refresh();
+        goodsList.setItems(goodsObservableList);
 
     }
     @FXML
