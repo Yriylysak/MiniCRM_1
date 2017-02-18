@@ -1,18 +1,23 @@
 package controller;
 
+import entity.Employee;
 import entity.Goods;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import util.ServiceUtil;
 
 import java.io.IOException;
-
-import static controller.ManagerController.managerFld;
 
 /**
  * Created by dmitry on 15.02.17.
@@ -32,16 +37,13 @@ public class GoodsController {
     CheckBox statusCheckY;
     @FXML
     CheckBox statusCheckN;
+    @FXML
+    TextField fldNum;
+
+
     private ObservableList<Goods> goodsObservableList;
+    private Goods currentGoods;
 
-    public static Goods currentGoods;
-
-    public GoodsController() {
-    }
-
-    public Goods getCurrentGoods() {
-        return currentGoods;
-    }
 
     @FXML
     public void initialize() {
@@ -54,7 +56,9 @@ public class GoodsController {
             currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
             fldGoodsName.setText(currentGoods.getProductName());
             fldGoodsPrice.setText(currentGoods.getPrice().toString());
+            fldNum.setText(currentGoods.getAmount().toString());
         } else if (goodsList.getSelectionModel().getSelectedItems() == null) {
+            System.out.println("___________ELSE____________");
             fldGoodsName.clear();
             fldGoodsPrice.clear();
         }
@@ -63,25 +67,30 @@ public class GoodsController {
     private void onActionAddGoods(){
         if (fldGoodsName.getText() != ""
                 && fldGoodsPrice.getText() != "") {
-            Goods goods = new Goods(fldGoodsName.getText(), Double.parseDouble(fldGoodsPrice.getText()));
+            Goods goods = new Goods(fldGoodsName.getText(), Double.parseDouble(fldGoodsPrice.getText()),
+                    Integer.parseInt(fldNum.getText()));
             ServiceUtil.getGoodsService().add(goods);
         }
         goodsObservableList = FXCollections.observableArrayList(ServiceUtil.getGoodsService().findAll());
         goodsList.setItems(goodsObservableList);
         fldGoodsName.clear();
         fldGoodsPrice.clear();
+        fldNum.clear();
     }
     @FXML
     private void onActionClose(){
         GraphicsLoader.closeWindow(btnClose);
     }
 
-    //if it will work...
     @FXML
     private void onActionEnterGoods() {
-        currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
+        Goods goods = new Goods(fldGoodsName.getText(), Double.parseDouble(fldGoodsPrice.getText()),
+                (Integer.parseInt(fldNum.getText())));
+        ServiceUtil.getGoodsService().changeGoods(currentGoods, goods);
+        goodsObservableList = FXCollections.observableArrayList(ServiceUtil.getGoodsService().findAll());
+        goodsList.refresh();
+        goodsList.setItems(goodsObservableList);
 
-        managerFld.setText("+++");
     }
     @FXML
     private void onActionY() {

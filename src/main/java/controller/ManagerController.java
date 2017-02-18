@@ -1,5 +1,7 @@
 package controller;
 
+import entity.Client;
+import entity.Goods;
 import entity.Order;
 import enumTypes.OrderStatus;
 import javafx.collections.FXCollections;
@@ -40,9 +42,19 @@ public class ManagerController {
     @FXML Button btnClean;
     @FXML Button btnForm;
     @FXML Button btnGood;
-    @FXML ListView managerGoodsList;
-    private ObservableList<Order> clientObservableList;
+    @FXML ListView orderList;
+    @FXML ListView goodsList;
+    @FXML ListView clientList;
+    @FXML Tab tabOrders;
+    @FXML Tab tabGoods;
+    @FXML Tab tabClient;
 
+    private ObservableList<Order> orderObservableList;
+    private ObservableList<Client> clientObservableList;
+    private ObservableList<Goods> goodsObservableList;
+
+    public static Goods currentGoods;
+    public static Client currentClient;
     private Date currentDate = new Date();
     public void initialize(){
 //        Order order = new Order();
@@ -50,6 +62,12 @@ public class ManagerController {
 //        clientObservableList = FXCollections.observableArrayList(ServiceUtil.getOrderService().findAll());
 
 //        numberFld.setText(""+order.getId());
+        clientObservableList = FXCollections.observableArrayList(ServiceUtil.getClientService().findAll());
+        clientList.setItems(clientObservableList);
+        orderObservableList= FXCollections.observableArrayList(ServiceUtil.getOrderService().findAll());
+        orderList.setItems(orderObservableList);
+        goodsObservableList = FXCollections.observableArrayList(ServiceUtil.getGoodsService().findAll());
+        goodsList.setItems(goodsObservableList);
         dateFld.setText("" + currentDate.getDate() + ".0" + (currentDate.getMonth()+ 1) + "." + (currentDate.getYear()+1900));
         combobox.setPromptText("Выбрать");
         combobox.setItems(FXCollections.observableArrayList(OrderStatus.values()));
@@ -68,6 +86,7 @@ public class ManagerController {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/view/managerWindow.css");
         stage.setScene(scene);
+        stage.setTitle("Создание клиента");
         stage.show();
         stage.setResizable(false);
     }
@@ -92,7 +111,22 @@ public class ManagerController {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/view/goodsWindow.css");
         stage.setScene(scene);
+        stage.setTitle("Создание товара");
         stage.show();
         stage.setResizable(false);
+    }
+    @FXML
+    public void onMousePressedOrders() {
+
+    }
+    @FXML
+    public void onMousePressedGoods() {
+        currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
+       // goodsList.setText(currentGoods.getName() + currentClient.getSureName());
+    }
+    @FXML
+    public void onMousePressedClients() {
+        currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
+        clientField.setText(currentClient.getName() + currentClient.getSureName());
     }
 }
