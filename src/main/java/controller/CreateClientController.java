@@ -67,6 +67,11 @@ public class CreateClientController {
         clientDao.create(client);
         initialize();
         clientList.refresh();
+        fldName.clear();
+        fldSurname.clear();
+        fldClientAge.clear();
+        fldClientPhone.clear();
+        fldClientMail.clear();
 
 //        ListView<Client> clientListView = (ListView<Client>) clientService.findAll();
     }
@@ -101,10 +106,15 @@ public class CreateClientController {
     @FXML
     private void onActionEditClient() {
         Client client = new Client(fldName.getText(), fldSurname.getText(),
-        fldClientAge.getText(), fldClientMail.getText(), fldClientPhone.getText());
+        fldClientAge.getText(), fldClientPhone.getText(), fldClientMail.getText());
         ServiceUtil.getClientService().changeClient(currentClient, client);
         clientObservableList = FXCollections.observableArrayList(ServiceUtil.getClientService().findAll());
         clientList.refresh();
         clientList.setItems(clientObservableList);
+        fldName.clear();
+        fldSurname.clear();
+        fldClientAge.clear();
+        fldClientPhone.clear();
+        fldClientMail.clear();
     }
 }
