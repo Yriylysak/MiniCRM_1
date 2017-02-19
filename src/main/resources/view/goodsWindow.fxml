@@ -24,7 +24,7 @@
          <children>
             <Button fx:id="btnAddGoods" maxHeight="34.0" maxWidth="140.0" mnemonicParsing="false" onAction="#onActionAddGoods" text="Добавить" />
             <Button fx:id="btnEnterGoods" maxHeight="34.0" maxWidth="140.0" mnemonicParsing="false" onAction="#onActionEnterGoods" text="Изменить" GridPane.rowIndex="1" />
-            <Button fx:id="btnClose" maxHeight="34.0" maxWidth="140.0" mnemonicParsing="false" onAction="#onActionClose" text="Закрыть" GridPane.rowIndex="2" />
+            <Button fx:id="btnDelGoods" maxHeight="34.0" maxWidth="140.0" mnemonicParsing="false" onAction="#onActionDelGoods" text="Удалить" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <GridPane layoutX="213.0" layoutY="14.0" prefHeight="111.0" prefWidth="319.0">

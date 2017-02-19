@@ -89,7 +89,6 @@ public class CreateClientController {
             currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
             //clientList.setItems(clientObservableList);
             isOpenWindowClient = true;
-            currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
             fldName.setText(currentClient.getName());
             fldSurname.setText(currentClient.getSureName());
             fldClientAge.setText(currentClient.getAge());

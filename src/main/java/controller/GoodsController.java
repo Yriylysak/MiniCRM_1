@@ -1,5 +1,6 @@
 package controller;
 
+import entity.Client;
 import entity.Employee;
 import entity.Goods;
 import javafx.collections.FXCollections;
@@ -28,7 +29,7 @@ public class GoodsController {
     @FXML
     Button btnAddGoods;
     @FXML
-    Button btnClose;
+    Button btnDelGoods;
     @FXML
     TextField fldGoodsName;
     @FXML
@@ -77,10 +78,6 @@ public class GoodsController {
         fldGoodsPrice.clear();
         fldNum.clear();
     }
-    @FXML
-    private void onActionClose(){
-        GraphicsLoader.closeWindow(btnClose);
-    }
 
     @FXML
     private void onActionEnterGoods() {
@@ -90,6 +87,9 @@ public class GoodsController {
         goodsObservableList = FXCollections.observableArrayList(ServiceUtil.getGoodsService().findAll());
         goodsList.refresh();
         goodsList.setItems(goodsObservableList);
+        fldGoodsName.clear();
+        fldGoodsPrice.clear();
+        fldNum.clear();
 
     }
     @FXML
@@ -103,5 +103,15 @@ public class GoodsController {
         if (statusCheckN.isSelected()){
             statusCheckY.setSelected(false);
         }
+    }
+    @FXML
+    private void onActionDelGoods() {
+        currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
+        ServiceUtil.getGoodsService().delete(currentGoods.getId());
+        goodsList.refresh();
+        fldGoodsName.clear();
+        fldGoodsPrice.clear();
+        fldNum.clear();
+        initialize();
     }
 }
