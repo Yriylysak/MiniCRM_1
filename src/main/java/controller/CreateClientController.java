@@ -4,6 +4,7 @@ import dao.ClientDao;
 import dao.ClientDaoImpl;
 import entity.Client;
 import entity.Goods;
+import entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -83,7 +84,12 @@ public class CreateClientController {
             currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
             //clientList.setItems(clientObservableList);
             isOpenWindowClient = true;
-
+            currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
+            fldName.setText(currentClient.getName());
+            fldSurname.setText(currentClient.getSureName());
+            fldClientAge.setText(currentClient.getAge());
+            fldClientPhone.setText(currentClient.getPhone());
+            fldClientMail.setText(currentClient.getEmail());
         }
     }
     @FXML
