@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import util.ServiceUtil;
 import static controller.ManagerController.managerLogin;
@@ -111,5 +112,9 @@ public class EnterController {
     @FXML
     private void onActionCancel() {
         System.exit(0);
+    }
+    @FXML
+    private void onKeyEntered() {
+        onActionEnter();
     }
 }

@@ -12,7 +12,7 @@
         <Label alignment="CENTER_RIGHT" layoutX="33.0" layoutY="72.0" prefHeight="49.0" prefWidth="70.0" text="Пароль:" />
         <TextField fx:id="loginField" layoutX="141.0" layoutY="47.0" onAction="#onActionLog" />
         <PasswordField fx:id="passwordField" layoutX="141.0" layoutY="83.0" onAction="#onActionPass" />
-        <Button fx:id="enterButton" layoutX="37.0" layoutY="129.0" mnemonicParsing="false" onAction="#onActionEnter" prefHeight="32.0" prefWidth="111.0" text="Вход" />
+        <Button fx:id="enterButton" layoutX="37.0" layoutY="129.0" mnemonicParsing="false" onAction="#onActionEnter" onKeyPressed="#onKeyEntered" prefHeight="32.0" prefWidth="111.0" text="Вход" />
         <Button fx:id="cancelButton" layoutX="203.0" layoutY="129.0" mnemonicParsing="false" onAction="#onActionCancel" prefHeight="32.0" prefWidth="111.0" text="Отмена" />
     </children>
 </AnchorPane>
