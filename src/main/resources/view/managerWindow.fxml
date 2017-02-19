@@ -116,7 +116,7 @@
         </rowConstraints>
          <children>
             <Button fx:id="btnAddManagGood" mnemonicParsing="false" onAction="#onActionAddGoods" prefHeight="34.0" prefWidth="150.0" text="Добавить товар" GridPane.halignment="CENTER" />
-            <Button fx:id="btnGood" maxHeight="34.0" maxWidth="150.0" mnemonicParsing="false" onAction="#onActionAddGood" prefHeight="30.0" prefWidth="133.0" text="Товар" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Button fx:id="btnGood" maxHeight="34.0" maxWidth="150.0" mnemonicParsing="false" onAction="#onActionAddGood" prefHeight="30.0" prefWidth="133.0" text="Новый товар" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
          </children>
       </GridPane>
       <Button fx:id="btnLogOut" layoutX="750.0" layoutY="14.0" maxHeight="34.0" maxWidth="150.0" minHeight="34.0" minWidth="109.0" mnemonicParsing="false" onAction="#onActionBtnLogOut" prefHeight="34.0" prefWidth="109.0" text="Выход" />
