@@ -1,7 +1,9 @@
 package controller;
 
+import com.sun.org.apache.xpath.internal.operations.Or;
 import entity.Client;
 import entity.Goods;
+import entity.GoodsInOrder;
 import entity.Order;
 import enumTypes.OrderStatus;
 import javafx.collections.FXCollections;
@@ -24,11 +26,13 @@ public class ManagerController {
     @FXML TextField numberFld;
     @FXML TextField managerFld;
     @FXML TextField dateFld;
+    @FXML TextField goodNumFld;
     @FXML TextField priceFld;
     @FXML DatePicker termFld;
     @FXML TextField clientField;
     @FXML Button btnNewClient;
-    @FXML TableView tabView;
+
+    @FXML ListView<GoodsInOrder> listViewGoods;
 
     @FXML private ComboBox<OrderStatus> combobox;
     @FXML Button btnClean;
@@ -40,30 +44,30 @@ public class ManagerController {
     @FXML Tab tabOrders;
     @FXML Tab tabGoods;
     @FXML Tab tabClient;
-    @FXML ListView<Goods> listViewGoods;
 
 
     private ObservableList<Order> orderObservableList = FXCollections.observableArrayList();
     private ObservableList<Client> clientObservableList;
     private ObservableList<Goods> goodsObservableList;
-    private ObservableList<Goods> currentGoodsObservableList= FXCollections.observableArrayList();
+    private ObservableList<GoodsInOrder> currentGoodsObservableList= FXCollections.observableArrayList();
 
     public static String managerLogin;
     private String tmp = managerLogin.toString();
 
+    public static GoodsInOrder currentGoodsInOrder;
     public static Goods currentGoods;
     public static Client currentClient;
     public static Order currentOrder;
     private Date currentDate = new Date();
 
     public void initialize() {
-       managerFld.setText(tmp);
+        managerFld.setText(tmp);
 
         clientObservableList = FXCollections.observableArrayList(ServiceUtil.getClientService().findAll());
         clientList.setItems(clientObservableList);
 
         //orderObservableList = FXCollections.observableArrayList(ServiceUtil.getOrderService().findAll());
-        //orderList.setItems(orderObservableList);
+        orderList.setItems(clientObservableList);
 
         goodsObservableList = FXCollections.observableArrayList(ServiceUtil.getGoodsService().findAll());
         goodsList.setItems(goodsObservableList);
@@ -94,17 +98,42 @@ public class ManagerController {
     }
     @FXML
     private void onActionClean(){
-
+        numberFld.clear();
+        managerFld.clear();
+        dateFld.clear();
+        priceFld.clear();
+        clientField.clear();
+        currentGoodsObservableList.clear();
+        listViewGoods.setItems(null);
     }
     @FXML
     private void onActionForm(){
+        //Order order1 = new Order(combobox.getValue(), managerLogin);
+        //ServiceUtil.getOrderService().add(order1);
 
+        Double summ = 0.0;
+        Integer amount = 0;
+        for (GoodsInOrder gio : currentGoodsObservableList) {
+            summ += gio.getAmount() * gio.getPrice();
+            amount +=gio.getAmount();
+        }
+        priceFld.setText(summ.toString());
+        goodNumFld.setText(amount.toString());
+
+        /* очистка всіх полів після сформування замовлення
+        numberFld.clear();
+        managerFld.clear();
+        dateFld.clear();
+        priceFld.clear();
+        clientField.clear();
+        currentGoodsObservableList.clear();
+        listViewGoods.setItems(null);
+        */
     }
     @FXML
     private void onActionAddGood(){
         Parent root = null;
         Stage stage = new Stage();
-//
         try {
             root = FXMLLoader.load(getClass().getResource("/view/goodsWindow.fxml"));
         } catch (IOException e) {
@@ -119,13 +148,15 @@ public class ManagerController {
     }
     @FXML
     public void onMousePressedOrders() {
-
+        currentOrder = (Order) orderList.getSelectionModel().getSelectedItem();
+        /*setText() to text fields*/
     }
     @FXML
     public void onMousePressedGoods() {
         currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
-        //currentGoodsObservableList.add(currentGoods);
     }
+
+    //дії по кліку мишки на вкладці Клієнти
     @FXML
     public void onMousePressedClients() {
         currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
@@ -134,7 +165,8 @@ public class ManagerController {
     @FXML
     private void onActionAddGoods() {
         currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
-        currentGoodsObservableList.add(currentGoods);
+        currentGoodsInOrder = new GoodsInOrder(currentGoods, 1);
+        currentGoodsObservableList.add(currentGoodsInOrder);
 
         listViewGoods.setItems(currentGoodsObservableList);
 
