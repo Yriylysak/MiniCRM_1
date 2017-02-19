@@ -18,11 +18,10 @@ public class Goods {
     @Column(name = "PRICE")
     private Double price;
 
-    @Column(name = "AVAILABILITY")
-    private Long availability;
-
     @Column(name = "AMOUNT")
     private Integer amount;
+
+
 
     public Integer getAmount() {
         return amount;
@@ -65,15 +64,8 @@ public class Goods {
         this.price = price;
     }
 
-    public Long getAvailability() {
-        return availability;
-    }
-
-    public void setAvailability(Long availability) {
-        this.availability = availability;
-    }
     @Override
     public String toString() {
-        return  productName + " = " + price;
+        return  "Товар :  " + productName + ".  Цена = " + price + ". Количество  = " + amount;
     }
 }

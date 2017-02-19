@@ -20,7 +20,8 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public Long create(Order order) {
-        if(order != null) {
+       //if(order != null) {
+        if(true) {
             Session session = factory.openSession();
             try  {
                 Long id = (Long) session.save(order);

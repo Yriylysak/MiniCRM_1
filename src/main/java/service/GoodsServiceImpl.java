@@ -11,7 +11,7 @@ import java.util.List;
 public class GoodsServiceImpl  implements GoodsService {
     @Override
     public Long add(Goods goods) {
-        if (goods != null) {
+        if (goods != null ) {
             Long id = DaoUtil.getGoodsDao().create(goods);
             return id;
         }
@@ -38,7 +38,7 @@ public class GoodsServiceImpl  implements GoodsService {
     @Override
     public boolean changeGoods(Goods oldGoods, Goods newGoods) {
         if (oldGoods != null && newGoods != null) {
-            oldGoods.setAvailability(newGoods.getAvailability());
+            oldGoods.setAmount(newGoods.getAmount());
             oldGoods.setPrice(newGoods.getPrice());
             oldGoods.setProductName(newGoods.getProductName());
 

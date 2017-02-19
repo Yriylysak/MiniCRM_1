@@ -33,11 +33,8 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public boolean changeOrder(Order oldOrder, Order newOrder) {
         if (oldOrder != null && newOrder != null) {
-            oldOrder.setStatus(newOrder.getStatus());
-            oldOrder.setClient(newOrder.getClient());
-            oldOrder.setDate(newOrder.getDate());
-            oldOrder.setDateDeadline(newOrder.getDateDeadline());
-            oldOrder.setEmployee(newOrder.getEmployee());
+            oldOrder.setOrderStatus(newOrder.getOrderStatus());
+            oldOrder.setGoodsString(newOrder.getGoodsString());
 
             DaoUtil.getOrderDao().update(oldOrder);
             return true;

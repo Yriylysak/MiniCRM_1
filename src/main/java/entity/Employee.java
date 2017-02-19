@@ -5,6 +5,7 @@ import enumTypes.Position;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by Alexandr on 05.02.2017.
@@ -29,14 +30,8 @@ public class Employee {
     @Column(name = "AGE")
     private Integer age;
 
-//    @Column(name = "SEX")
-//    private String sex;
-
     @Enumerated(EnumType.ORDINAL)
     private Gender gender;
-
-//    @Column(name = "POSITION")
-//    private String position;
 
     @Enumerated(EnumType.ORDINAL)
     private Position position;
@@ -48,7 +43,6 @@ public class Employee {
     @OneToOne
     @JoinColumn(name = "USER_ID")
     private User user;
-
 
 
     public Employee(String name, String sureName, Integer age, Gender gender, Position position) {
@@ -95,6 +89,29 @@ public class Employee {
     public void setPosition(Position position) {
         this.position = position;
     }
+
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setGender(Gender gender) {
+
+        this.gender = gender;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 
     public void setId(Long id) {
         this.id = id;

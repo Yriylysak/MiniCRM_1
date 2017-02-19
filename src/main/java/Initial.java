@@ -10,14 +10,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import service.EmployeeService;
-import service.EmployeeServiceImpl;
-import service.UserService;
-import service.UserServiceImpl;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import util.HibernateUtil;
 import util.ServiceUtil;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -26,8 +23,6 @@ import java.util.List;
  */
 public class Initial extends Application {
     public static void main(String[] args) {
-        //EmployeeService employerService = new EmployeeServiceImpl();
-        //UserService userService = new UserServiceImpl();
 
     /*Створюємо і записуємо у базу співробітників і користувачів сутність адміна*/
         Employee employerAdmin = new Employee("NameAdmin", "SurnameAdmin", 21, Gender.MALE, Position.ADMIN);
@@ -55,15 +50,22 @@ public class Initial extends Application {
         ServiceUtil.getClientService().add(client3);*/
 
         Client client1 = new Client("client1", "cli1", "age", "phone", "bla@bla.com");
-        Order order1 = new Order(OrderStatus.FORMED, employer1, client1);
-        client1.getOrderList().add(order1);
         ServiceUtil.getClientService().add(client1);
 
-        /*Order order2 = new Order(OrderStatus.FORMED,  employer1, client2 );
+        Order order1 = new Order(OrderStatus.FORMED, "Goods");
+        //ServiceUtil.getOrderService().add(order1);
+
+        /*Order order1 = new Order(OrderStatus.FORMED, employer1, client1);
+        client1.getOrderList().add(order1);
+        ServiceUtil.getClientService().add(client1);
+        //ServiceUtil.getOrderService().add(order1);*/
+
+/*
+        Order order2 = new Order(OrderStatus.FORMED,  employer1, client2 );
         Order order3 = new Order(OrderStatus.NEW,  employer1, client3 );
-        ServiceUtil.getOrderService().add(order1);
         ServiceUtil.getOrderService().add(order2);
-        ServiceUtil.getOrderService().add(order3);*/
+        ServiceUtil.getOrderService().add(order3);
+        */
 
 
         List<User> userList = ServiceUtil.getUserService().findAll();

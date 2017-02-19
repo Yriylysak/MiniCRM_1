@@ -1,95 +1,65 @@
 package entity;
-import enumTypes.OrderStatus;
 
+import enumTypes.OrderStatus;
 import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Created by Олег on 12.02.2017.
- */
 @Entity
-@Table(name = "ORDERS")
+@Table (name = "ORDER")
 public class Order {
-    //
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ORDER_ID")
+    @Column (name = "ORDER_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.ORDINAL)
-    private OrderStatus status;
+    @Column (name = "ORDER_STATUS")
+    @Enumerated
+    private OrderStatus orderStatus;
 
-    @ManyToOne
-    @JoinColumn(name = "MANAGER_NAME", referencedColumnName = "NAME")
-    private Employee employee;
 
-    @Column(name = "DATE")
-    @Temporal(TemporalType.DATE)
-    private Date date;
 
-    @ManyToOne(targetEntity = Client.class, cascade = CascadeType.ALL)
-     private Client client;
-
-    @Column(name = "DATE_DEADLINE")
-    @Temporal(TemporalType.DATE)
-    private Date dateDeadline;
+    @Column (name = "GOODS")
+    private String goodsString;
 
     public Order() {
     }
 
-    public Order(OrderStatus status, Employee employee, Client client/*, Date dateDeadline*/) {
-        this.status = status;
-        this.employee = employee;
-        this.date = new Date();
-        this.client = client;
-       // this.dateDeadline = dateDeadline;
+    public Order(OrderStatus orderStatus, String goodsString) {
+        this.orderStatus = orderStatus;
+        this.goodsString = goodsString;
     }
 
     public Long getId() {
         return id;
     }
 
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public String getGoodsString() {
+        return goodsString;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
 
-    public OrderStatus getStatus() {
-        return status;
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
-    public void setStatus(OrderStatus status) {
-        this.status = status;
+    public void setGoodsString(String goodsString) {
+        this.goodsString = goodsString;
     }
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Date getDateDeadline() {
-        return dateDeadline;
-    }
-
-    public void setDateDeadline(Date dateDeadline) {
-        this.dateDeadline = dateDeadline;
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", orderStatus=" + orderStatus +
+                ", goodsString='" + goodsString + '\'' +
+                '}';
     }
 }

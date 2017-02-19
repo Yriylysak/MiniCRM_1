@@ -2,7 +2,9 @@ package entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Олег on 12.02.2017.
@@ -31,9 +33,9 @@ public class Client {
     @Column(name = "EMAIL")
     private String email;
 
-    @OneToMany(targetEntity = Order.class, cascade = CascadeType.ALL)
-    private List<Order> orderList = new ArrayList<>();
-
+    /*@OneToMany(targetEntity = Order.class, cascade = CascadeType.ALL)
+     private List<Order> orderList = new ArrayList<>();
+*/
     public Client() {
 
     }
@@ -96,21 +98,9 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", sureName='" + sureName + '\'' +
-                ", age=" + age +
-                ", phone=" + phone +
-                ", email='" + email + '\'' +
-                '}';
+        return  id + ". " + name + " " + sureName
+                + ". Телефон : " + phone + ". E-mail : " + email + ".";
     }
 
-    public List<Order> getOrderList() {
-        return orderList;
-    }
 
-    public void setOrderList(List<Order> orderList) {
-        this.orderList = orderList;
-    }
 }
