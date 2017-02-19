@@ -79,7 +79,6 @@ public class CreateClientController {
     private void onActionCancelAdd(){
         GraphicsLoader.closeWindow(btnCancelAdd);
     }
-
    // по мышке
     @FXML
     private void showClientList() {

@@ -90,7 +90,6 @@ public class GoodsController {
         fldGoodsName.clear();
         fldGoodsPrice.clear();
         fldNum.clear();
-
     }
     @FXML
     private void onActionY() {
