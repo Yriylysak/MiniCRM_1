@@ -141,19 +141,30 @@ public class ManagerController {
     }
     @FXML
     public void onMousePressedOrders() {
-        currentOrder = (Order) orderList.getSelectionModel().getSelectedItem();
+        initialize();
+        if((Order) orderList.getSelectionModel().getSelectedItem() != null) {
+            currentOrder = (Order) orderList.getSelectionModel().getSelectedItem();
         /*setText() to text fields*/
+        }
     }
     @FXML
     public void onMousePressedGoods() {
-        currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
+        initialize();
+        if(goodsList.getSelectionModel().getSelectedItem() != null) {
+            currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
+        }
+
     }
 
     //дії по кліку мишки на вкладці Клієнти
     @FXML
     public void onMousePressedClients() {
-        currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
-        clientField.setText(currentClient.getName() + " "+ currentClient.getSureName());
+
+        initialize();
+        if(clientList.getSelectionModel().getSelectedItem() != null) {
+            currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
+            clientField.setText(currentClient.getName() + " " + currentClient.getSureName());
+        }
     }
     @FXML
     private void onActionAddGoods() {
