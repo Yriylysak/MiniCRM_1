@@ -1,6 +1,5 @@
 package controller;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 import entity.Client;
 import entity.Goods;
 import entity.GoodsInOrder;
@@ -38,6 +37,7 @@ public class ManagerController {
     @FXML Button btnClean;
     @FXML Button btnForm;
     @FXML Button btnGood;
+    @FXML Button btnLogOut;
     @FXML ListView orderList;
     @FXML ListView goodsList;
     @FXML ListView clientList;
@@ -96,16 +96,7 @@ public class ManagerController {
         stage.show();
         stage.setResizable(false);
     }
-    @FXML
-    private void onActionClean(){
-        numberFld.clear();
-        managerFld.clear();
-        dateFld.clear();
-        priceFld.clear();
-        clientField.clear();
-        currentGoodsObservableList.clear();
-        listViewGoods.setItems(null);
-    }
+
     @FXML
     private void onActionForm(){
         //Order order1 = new Order(combobox.getValue(), managerLogin);
@@ -171,6 +162,34 @@ public class ManagerController {
         listViewGoods.setItems(currentGoodsObservableList);
 
         // columnName.setText(currentGoods.getProductName());
+
+    }
+    @FXML
+    private void onActionClean(){
+        numberFld.clear();
+        managerFld.clear();
+        dateFld.clear();
+        priceFld.clear();
+        clientField.clear();
+        currentGoodsObservableList.clear();
+        listViewGoods.setItems(null);
+    }
+    @FXML
+    private void onActionBtnLogOut() {
+        GraphicsLoader.closeWindow(btnLogOut);
+        Parent root = null;
+        Stage primaryStage = new Stage();
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/enterWindow.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        primaryStage.setTitle("Авторизация");
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/view/enterWindow.css");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        primaryStage.setResizable(false);
 
     }
 }
