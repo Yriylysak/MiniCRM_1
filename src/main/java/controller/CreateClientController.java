@@ -59,6 +59,7 @@ public class CreateClientController {
         ClientDao clientDao = new ClientDaoImpl();
         clientDao.create(client);
         initialize();
+        clientList.refresh();
 
 //        ListView<Client> clientListView = (ListView<Client>) clientService.findAll();
     }

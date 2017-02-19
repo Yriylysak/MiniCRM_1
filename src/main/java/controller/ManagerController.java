@@ -7,6 +7,7 @@ import entity.Order;
 import enumTypes.OrderStatus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,11 +31,12 @@ public class ManagerController {
     @FXML DatePicker termFld;
     @FXML TextField clientField;
     @FXML Button btnNewClient;
+    @FXML Button btnNewOrder;
 
     @FXML ListView<GoodsInOrder> listViewGoods;
 
     @FXML private ComboBox<OrderStatus> combobox;
-    @FXML Button btnClean;
+    @FXML Button btnEdit;
     @FXML Button btnForm;
     @FXML Button btnGood;
     @FXML Button btnLogOut;
@@ -165,7 +167,7 @@ public class ManagerController {
 
     }
     @FXML
-    private void onActionClean(){
+    private void onActionEdit(){
         numberFld.clear();
         managerFld.clear();
         dateFld.clear();
@@ -191,5 +193,9 @@ public class ManagerController {
         primaryStage.show();
         primaryStage.setResizable(false);
 
+    }
+
+    @FXML
+    private void onActionNewOrder() {
     }
 }

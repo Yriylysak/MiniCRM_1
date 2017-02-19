@@ -6,6 +6,7 @@ import enumTypes.Gender;
 import enumTypes.Position;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,6 +28,7 @@ public class AdminController {
     @FXML private ComboBox<Position> positionBox;
     @FXML private ComboBox<Gender> sexBox;
 
+    @FXML private Button btnAdminLogOut;
     @FXML private TextField registryField;
     @FXML private Button CreateButton;
     @FXML private Button ChenButton;
@@ -185,5 +187,22 @@ public class AdminController {
         GenButton.setDisable(true);
         userObservableList = FXCollections.observableArrayList(ServiceUtil.getUserService().findAll());
         baseInfoList.setItems(userObservableList);
+    }
+    @FXML
+    private void onActionAdminLogOut() {
+        GraphicsLoader.closeWindow(btnAdminLogOut);
+        Parent root = null;
+        Stage primaryStage = new Stage();
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/enterWindow.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        primaryStage.setTitle("Авторизация");
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/view/enterWindow.css");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        primaryStage.setResizable(false);
     }
 }
