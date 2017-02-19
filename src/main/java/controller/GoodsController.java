@@ -107,10 +107,18 @@ public class GoodsController {
     private void onActionDelGoods() {
         currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
         ServiceUtil.getGoodsService().delete(currentGoods.getId());
+
         goodsList.refresh();
         fldGoodsName.clear();
         fldGoodsPrice.clear();
         fldNum.clear();
         initialize();
+       // fxmlLoader.getController();
+
     }
+
+   // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/managerWindow"));
+
+
+
 }

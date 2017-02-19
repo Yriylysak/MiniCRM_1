@@ -143,17 +143,18 @@ public class ManagerController {
     @FXML
     public void onMousePressedOrders() {
        // if(orderList.getSelectionModel().getSelectedItem() != null) {
-            currentOrder = (Order) orderList.getSelectionModel().getSelectedItem();
+        currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
+        clientField.setText(currentClient.getName() + " " + currentClient.getSureName());
         /*setText() to text fields*/
        // }
-        initialize();
+       // initialize();
     }
     @FXML
     public void onMousePressedGoods() {
         //if(goodsList.getSelectionModel().getSelectedItem() != null) {
             currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
        // }
-        initialize();
+       // initialize();
     }
 
     //дії по кліку мишки на вкладці Клієнти
@@ -163,7 +164,7 @@ public class ManagerController {
             currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
             clientField.setText(currentClient.getName() + " " + currentClient.getSureName());
        // }
-        initialize();
+       // initialize();
     }
     @FXML
     private void onActionAddGoods() {
@@ -210,6 +211,6 @@ public class ManagerController {
     }
     @FXML
     private void onActionRef() {
-
+        initialize();
     }
 }
