@@ -120,5 +120,6 @@
          </children>
       </GridPane>
       <Button fx:id="btnLogOut" layoutX="750.0" layoutY="14.0" maxHeight="34.0" maxWidth="150.0" minHeight="34.0" minWidth="109.0" mnemonicParsing="false" onAction="#onActionBtnLogOut" prefHeight="34.0" prefWidth="109.0" text="Выход" />
+      <Button fx:id="btnRef" layoutX="26.0" layoutY="18.0" mnemonicParsing="false" onAction="#onActionRef" text="Refresh" />
    </children>
 </AnchorPane>

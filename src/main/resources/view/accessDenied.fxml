@@ -12,6 +12,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="btnCancel" cancelButton="true" layoutX="114.0" layoutY="103.0" mnemonicParsing="false" onAction="#onActionClose" prefHeight="34.0" prefWidth="98.0" text="Ой все" />
+      <Button fx:id="btnCancel" cancelButton="true" layoutX="114.0" layoutY="103.0" mnemonicParsing="false" onAction="#onActionClose" onKeyPressed="#onKeyCanceled" prefHeight="34.0" prefWidth="98.0" text="Ой все" />
    </children>
 </AnchorPane>

@@ -32,6 +32,7 @@ public class ManagerController {
     @FXML TextField clientField;
     @FXML Button btnNewClient;
     @FXML Button btnNewOrder;
+    @FXML Button btnRef;
 
     @FXML ListView<GoodsInOrder> listViewGoods;
 
@@ -141,30 +142,28 @@ public class ManagerController {
     }
     @FXML
     public void onMousePressedOrders() {
-        initialize();
-        if((Order) orderList.getSelectionModel().getSelectedItem() != null) {
+       // if(orderList.getSelectionModel().getSelectedItem() != null) {
             currentOrder = (Order) orderList.getSelectionModel().getSelectedItem();
         /*setText() to text fields*/
-        }
+       // }
+        initialize();
     }
     @FXML
     public void onMousePressedGoods() {
-        initialize();
-        if(goodsList.getSelectionModel().getSelectedItem() != null) {
+        //if(goodsList.getSelectionModel().getSelectedItem() != null) {
             currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
-        }
-
+       // }
+        initialize();
     }
 
     //дії по кліку мишки на вкладці Клієнти
     @FXML
     public void onMousePressedClients() {
-
-        initialize();
-        if(clientList.getSelectionModel().getSelectedItem() != null) {
+        //if(clientList.getSelectionModel().getSelectedItem() != null) {
             currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
             clientField.setText(currentClient.getName() + " " + currentClient.getSureName());
-        }
+       // }
+        initialize();
     }
     @FXML
     private void onActionAddGoods() {
@@ -208,5 +207,9 @@ public class ManagerController {
 
     @FXML
     private void onActionNewOrder() {
+    }
+    @FXML
+    private void onActionRef() {
+
     }
 }

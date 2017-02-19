@@ -2,6 +2,7 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -14,5 +15,9 @@ public class AccessController {
     @FXML
     private void onActionClose(){
         GraphicsLoader.closeWindow(btnCancel);
+    }
+    @FXML
+    private void onKeyCanceled() {
+        onActionClose();
     }
 }
