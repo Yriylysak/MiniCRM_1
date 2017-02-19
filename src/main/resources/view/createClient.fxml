@@ -64,7 +64,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="btnGetClient" mnemonicParsing="false" onAction="#onActionGetClient" prefHeight="34.0" prefWidth="115.0" text="Выбрать" />
+            <Button fx:id="btnEditClient" mnemonicParsing="false" onAction="#onActionEditClient" prefHeight="34.0" prefWidth="115.0" text="Изменить" />
             <Button fx:id="btnDelClient" mnemonicParsing="false" onAction="#onActionDelClient" prefHeight="34.0" prefWidth="115.0" text="Удалить" GridPane.columnIndex="1" />
          </children>
       </GridPane>

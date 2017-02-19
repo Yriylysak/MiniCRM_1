@@ -3,6 +3,7 @@ package controller;
 import dao.ClientDao;
 import dao.ClientDaoImpl;
 import entity.Client;
+import entity.Goods;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import util.ServiceUtil;
+
+import static controller.ManagerController.currentGoods;
 
 
 /**
@@ -34,7 +37,7 @@ public class CreateClientController {
     @FXML
     Button btnCancelAdd;
     @FXML
-    Button btnGetClient;
+    Button btnEditClient;
     @FXML
     Button btnDelClient;
 
@@ -70,21 +73,7 @@ public class CreateClientController {
     private void onActionCancelAdd(){
         GraphicsLoader.closeWindow(btnCancelAdd);
     }
-    // по кнопке выбрать
-    @FXML
-    private void onActionGetClient(){
-        //currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
 
-        /*ClientService clientService = new ClientServiceImpl();
-        ListView<Client> clientListView = (ListView<Client>) clientService.findAll();
-        currentClient = (Client) clientListView.getSelectionModel().getSelectedItem();*/
-        // currentClient = new ClientServiceImpl();
-        /*ManagerController managerController = new ManagerController();
-        managerController.clientField.setText(currentClient.getName());*/
-        // showClientList();
-
-        GraphicsLoader.closeWindow(btnGetClient);
-    }
    // по мышке
     @FXML
     private void showClientList() {
@@ -94,6 +83,7 @@ public class CreateClientController {
             currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
             //clientList.setItems(clientObservableList);
             isOpenWindowClient = true;
+
         }
     }
     @FXML
@@ -101,5 +91,14 @@ public class CreateClientController {
         ServiceUtil.getClientService().delete(currentClient.getId());
         initialize();
 
+    }
+    @FXML
+    private void onActionEditClient() {
+        Client client = new Client(fldName.getText(), fldSurname.getText(),
+        fldClientAge.getText(), fldClientMail.getText(), fldClientPhone.getText());
+        ServiceUtil.getClientService().changeClient(currentClient, client);
+        clientObservableList = FXCollections.observableArrayList(ServiceUtil.getClientService().findAll());
+        clientList.refresh();
+        clientList.setItems(clientObservableList);
     }
 }
