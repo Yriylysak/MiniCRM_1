@@ -5,6 +5,7 @@ import dao.ClientDaoImpl;
 import entity.Client;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -34,6 +35,8 @@ public class CreateClientController {
     Button btnCancelAdd;
     @FXML
     Button btnGetClient;
+    @FXML
+    Button btnDelClient;
 
     public static Client currentClient;
 
@@ -93,5 +96,10 @@ public class CreateClientController {
             isOpenWindowClient = true;
         }
     }
+    @FXML
+    private void onActionDelClient() {
+        ServiceUtil.getClientService().delete(currentClient.getId());
+        initialize();
 
+    }
 }

@@ -135,10 +135,13 @@ public class ClientServiceImpl implements ClientService{
     public boolean isCreatedClient(Client client) {
         List<Client> clients = ServiceUtil.getClientService().findAll();
         for (Client cl : clients) {
-            if (cl.equals(client)) {
+            if (cl.getName().equals(client.getName())
+                    && cl.getSureName().equals(client.getSureName())
+                    && cl.getPhone().equals(client.getPhone())
+                    && cl.getAge().equals(client.getAge())
+                    && cl.getEmail().equals(client.getEmail())) {
                 return true;
             }
-        }
-        return false;
+        }        return false;
     }
 }
