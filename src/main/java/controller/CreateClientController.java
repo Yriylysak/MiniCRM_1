@@ -99,6 +99,11 @@ public class CreateClientController {
     private void onActionDelClient() {
         ServiceUtil.getClientService().delete(currentClient.getId());
         initialize();
+        fldName.clear();
+        fldSurname.clear();
+        fldClientAge.clear();
+        fldClientPhone.clear();
+        fldClientMail.clear();
 
     }
     @FXML
