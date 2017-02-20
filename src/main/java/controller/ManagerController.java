@@ -14,10 +14,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import util.ServiceUtil;
 
 import java.io.IOException;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.sql.Date;
 
 /**
  * Created by Comfy on 05.02.2017.
@@ -48,7 +51,7 @@ public class ManagerController {
     @FXML Tab tabGoods;
     @FXML Tab tabClient;
 
-
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private ObservableList<Order> orderObservableList = FXCollections.observableArrayList();
     private ObservableList<Client> clientObservableList;
     private ObservableList<Goods> goodsObservableList;
@@ -61,7 +64,8 @@ public class ManagerController {
     public static Goods currentGoods;
     public static Client currentClient;
     public static Order currentOrder;
-    private Date currentDate = new Date();
+    private Date currentDate;
+    private Date dedlineDate;
 
     public void initialize() {
         managerFld.setText(tmp);
@@ -78,9 +82,22 @@ public class ManagerController {
         numberFld.setText("123456"); //замінити на:
         //numberFld.setText(currentOrder.getId());
 
-        dateFld.setText("" + currentDate.getDate() + ".0" + (currentDate.getMonth() + 1) + "." + (currentDate.getYear() + 1900));
+        dateFld.setText(LocalDate.now().format(formatter));
         combobox.setPromptText("Выбрать");
         combobox.setItems(FXCollections.observableArrayList(OrderStatus.values()));
+        termFld.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                if(localDate == null || localDate.isBefore(LocalDate.now())) return "";
+                else return localDate.format(formatter);
+            }
+
+            @Override
+            public LocalDate fromString(String dateString) {
+                if(dateString == null || dateString.trim().isEmpty()) return null;
+                else return LocalDate.parse(dateString, formatter);
+            }
+        });
     }
 
     @FXML

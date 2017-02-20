@@ -5,7 +5,7 @@ package enumTypes;
  */
 public enum Position {
     ADMIN("Admin"), MANAGER("Manager"),
-    CASHIER("Cashier");
+    CASHIER("Cashier"), STOREKEEPER("Storekeeper");
 
     private String label;
 
