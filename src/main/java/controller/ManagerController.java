@@ -7,7 +7,6 @@ import entity.Order;
 import enumTypes.OrderStatus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -16,14 +15,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import util.ServiceUtil;
-
-import javax.swing.table.*;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -43,7 +38,12 @@ public class ManagerController {
     @FXML Button btnNewClient;
     @FXML Button btnNewOrder;
     @FXML Button btnRef;
+
     @FXML TableView tabView;
+    @FXML TableColumn<Goods, Long> columnNumber;
+    @FXML TableColumn<Goods, String> columnName;
+
+
     @FXML AnchorPane anchorPane;
 
     @FXML ListView<GoodsInOrder> listViewGoods;
@@ -76,6 +76,8 @@ public class ManagerController {
     public static Order currentOrder;
     private Date currentDate;
     private Date dedlineDate;
+    private Long count;
+
     private ManagerController children;  // Ссылка на контроллер поражаемой формы
     ManagerController parent;     // Ссылка на родительский контроллер (если таковой есть для данной формы)
 
@@ -245,31 +247,12 @@ public class ManagerController {
         currentGoodsInOrder = new GoodsInOrder(currentGoods, 1);
         currentGoodsObservableList.add(currentGoodsInOrder);
 
-        TableColumn firstCol = new TableColumn();
-        firstCol.setMinWidth(300);
-        firstCol.setCellValueFactory(new PropertyValueFactory<Goods, String>("N"));
+        columnNumber.setCellValueFactory(new PropertyValueFactory<Goods, Long>("id"));
+        columnName.setCellValueFactory(new PropertyValueFactory<Goods, String>(columnName.toString()));
+        tabView.setItems(goodsObservableList);
 
-        firstCol.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        firstCol.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<Goods, Long>>() {
-                    @Override
-                    public void handle(TableColumn.CellEditEvent<Goods, Long> t) {
-                        ((Goods) t.getTableView().getItems().get(
-                                t.getTablePosition().getRow()
-                        )).setId(t.getNewValue());
 
-                    }
-                }
-        );
-
-        tabView.setEditable(true);
-        System.out.println(currentGoods);
-        tabView.setItems(currentGoodsObservableList);
-        tabView.getColumns().addAll(firstCol);
-
-        //((Group) scene.getRoot()).getChildren().addAll(tabView);
-        anchorPane.getChildren().addAll(tabView);
 
 
 
