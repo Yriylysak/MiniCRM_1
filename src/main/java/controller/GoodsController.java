@@ -20,6 +20,8 @@ import util.ServiceUtil;
 
 import java.io.IOException;
 
+
+
 /**
  * Created by dmitry on 15.02.17.
  */
@@ -62,6 +64,7 @@ public class GoodsController {
             System.out.println("___________ELSE____________");
             fldGoodsName.clear();
             fldGoodsPrice.clear();
+            ManagerController.managerController.parent.initialize();
         }
     }
     @FXML
@@ -77,6 +80,7 @@ public class GoodsController {
         fldGoodsName.clear();
         fldGoodsPrice.clear();
         fldNum.clear();
+
     }
 
     @FXML
@@ -113,11 +117,13 @@ public class GoodsController {
         fldGoodsPrice.clear();
         fldNum.clear();
         initialize();
+
+       // managerController.initialize();
        // fxmlLoader.getController();
 
     }
 
-   // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/managerWindow"));
+
 
 
 

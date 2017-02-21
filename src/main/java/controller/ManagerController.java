@@ -7,15 +7,22 @@ import entity.Order;
 import enumTypes.OrderStatus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import util.ServiceUtil;
+
+import javax.swing.table.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -36,6 +43,8 @@ public class ManagerController {
     @FXML Button btnNewClient;
     @FXML Button btnNewOrder;
     @FXML Button btnRef;
+    @FXML TableView tabView;
+    @FXML AnchorPane anchorPane;
 
     @FXML ListView<GoodsInOrder> listViewGoods;
 
@@ -50,6 +59,7 @@ public class ManagerController {
     @FXML Tab tabOrders;
     @FXML Tab tabGoods;
     @FXML Tab tabClient;
+    public static ManagerController managerController;
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private ObservableList<Order> orderObservableList = FXCollections.observableArrayList();
@@ -66,6 +76,44 @@ public class ManagerController {
     public static Order currentOrder;
     private Date currentDate;
     private Date dedlineDate;
+    private ManagerController children;  // Ссылка на контроллер поражаемой формы
+    ManagerController parent;     // Ссылка на родительский контроллер (если таковой есть для данной формы)
+
+    public ManagerController getChildren() {
+        return children;
+    }
+    public ManagerController getParent() {
+        return parent;
+    }
+    public void setChildren(ManagerController children) {
+        this.children = children;
+    }
+    public void setParent(ManagerController parent) {
+        this.parent = parent;
+    }
+
+    @FXML
+    private void onActionAddGood(){
+        Parent root = null;
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/goodsWindow.fxml"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/view/goodsWindow.css");
+        stage.setScene(scene);
+        stage.setTitle("Создание товара");
+        stage.show();
+        stage.setResizable(false);
+        children = loader.getController();  // Теперь текущий контроллер "знает" о существовании "потомка"
+        children.setParent(this);                // А теперь и "потомок" знает своего "отца"
+        System.out.println("ONE");
+    }
 
     public void initialize() {
         managerFld.setText(tmp);
@@ -99,6 +147,28 @@ public class ManagerController {
             }
         });
     }
+
+  //// public void initRootLayout() {
+  ////     try {
+  ////         // Загружаем корневой макет из fxml файла.
+  ////         FXMLLoader loader = new FXMLLoader();
+  ////         loader.setLocation(GoodsController.class
+  ////                 .getResource("view/managerWindow.fxml"));
+  ////
+
+  ////         // Отображаем сцену, содержащую корневой макет.
+  ////
+
+  ////         // Даём контроллеру доступ к главному прилодению.
+  ////         RootLayoutController controller = loader.getController();
+  ////         controller.setMainApp(this);
+
+  ////         primaryStage.show();
+  ////     } catch (IOException e) {
+  ////         e.printStackTrace();
+  ////     }
+  //// }
+
 
     @FXML
     private void onActionNewClient() {
@@ -141,22 +211,7 @@ public class ManagerController {
         listViewGoods.setItems(null);
         */
     }
-    @FXML
-    private void onActionAddGood(){
-        Parent root = null;
-        Stage stage = new Stage();
-        try {
-            root = FXMLLoader.load(getClass().getResource("/view/goodsWindow.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/view/goodsWindow.css");
-        stage.setScene(scene);
-        stage.setTitle("Создание товара");
-        stage.show();
-        stage.setResizable(false);
-    }
+
     @FXML
     public void onMousePressedOrders() {
        // if(orderList.getSelectionModel().getSelectedItem() != null) {
@@ -185,11 +240,42 @@ public class ManagerController {
     }
     @FXML
     private void onActionAddGoods() {
+        Scene scene = new Scene(new Group());
         currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
         currentGoodsInOrder = new GoodsInOrder(currentGoods, 1);
         currentGoodsObservableList.add(currentGoodsInOrder);
 
+        TableColumn firstCol = new TableColumn();
+        firstCol.setMinWidth(300);
+        firstCol.setCellValueFactory(new PropertyValueFactory<Goods, String>("N"));
+
+        firstCol.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        firstCol.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Goods, Long>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Goods, Long> t) {
+                        ((Goods) t.getTableView().getItems().get(
+                                t.getTablePosition().getRow()
+                        )).setId(t.getNewValue());
+
+                    }
+                }
+        );
+
+        tabView.setEditable(true);
+        System.out.println(currentGoods);
+        tabView.setItems(currentGoodsObservableList);
+        tabView.getColumns().addAll(firstCol);
+
+        //((Group) scene.getRoot()).getChildren().addAll(tabView);
+        anchorPane.getChildren().addAll(tabView);
+
+
+
         listViewGoods.setItems(currentGoodsObservableList);
+
+
 
         // columnName.setText(currentGoods.getProductName());
 
@@ -229,5 +315,8 @@ public class ManagerController {
     @FXML
     private void onActionRef() {
         initialize();
+
     }
+
+
 }
