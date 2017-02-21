@@ -5,11 +5,11 @@ import entity.Goods;
 import entity.GoodsInOrder;
 import entity.Order;
 import enumTypes.OrderStatus;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
+import java.util.List;
 
 /**
  * Created by Comfy on 05.02.2017.
@@ -42,6 +43,7 @@ public class ManagerController {
     @FXML TableView tabView;
     @FXML TableColumn<Goods, Long> columnNumber;
     @FXML TableColumn<Goods, String> columnName;
+    @FXML TableColumn<Goods, Integer> columnNmbr;
 
 
     @FXML AnchorPane anchorPane;
@@ -65,6 +67,7 @@ public class ManagerController {
     private ObservableList<Order> orderObservableList = FXCollections.observableArrayList();
     private ObservableList<Client> clientObservableList;
     private ObservableList<Goods> goodsObservableList;
+    private ObservableList<Goods> kvasolka = FXCollections.observableArrayList();
     private ObservableList<GoodsInOrder> currentGoodsObservableList= FXCollections.observableArrayList();
 
     public static String managerLogin;
@@ -77,6 +80,8 @@ public class ManagerController {
     private Date currentDate;
     private Date dedlineDate;
     private Long count;
+
+
 
     private ManagerController children;  // Ссылка на контроллер поражаемой формы
     ManagerController parent;     // Ссылка на родительский контроллер (если таковой есть для данной формы)
@@ -150,27 +155,6 @@ public class ManagerController {
         });
     }
 
-  //// public void initRootLayout() {
-  ////     try {
-  ////         // Загружаем корневой макет из fxml файла.
-  ////         FXMLLoader loader = new FXMLLoader();
-  ////         loader.setLocation(GoodsController.class
-  ////                 .getResource("view/managerWindow.fxml"));
-  ////
-
-  ////         // Отображаем сцену, содержащую корневой макет.
-  ////
-
-  ////         // Даём контроллеру доступ к главному прилодению.
-  ////         RootLayoutController controller = loader.getController();
-  ////         controller.setMainApp(this);
-
-  ////         primaryStage.show();
-  ////     } catch (IOException e) {
-  ////         e.printStackTrace();
-  ////     }
-  //// }
-
 
     @FXML
     private void onActionNewClient() {
@@ -242,21 +226,25 @@ public class ManagerController {
     }
     @FXML
     private void onActionAddGoods() {
-        Scene scene = new Scene(new Group());
+
         currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
         currentGoodsInOrder = new GoodsInOrder(currentGoods, 1);
-        currentGoodsObservableList.add(currentGoodsInOrder);
-
-        columnNumber.setCellValueFactory(new PropertyValueFactory<Goods, Long>("id"));
-        columnName.setCellValueFactory(new PropertyValueFactory<Goods, String>(columnName.toString()));
-        tabView.setItems(goodsObservableList);
+        //currentGoodsObservableList.add(currentGoodsInOrder);
+        kvasolka.add(currentGoods);
 
 
+        columnNumber.setCellValueFactory(p -> new ReadOnlyObjectWrapper(goodsList.getItems().indexOf(p.getValue()) + 1 + ""));
+        columnName.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        columnNmbr.setCellValueFactory(new PropertyValueFactory<>("amount"));
+
+        tabView.setItems(kvasolka);
 
 
 
 
-        listViewGoods.setItems(currentGoodsObservableList);
+
+
+        //listViewGoods.setItems(currentGoods.getProductName());
 
 
 
