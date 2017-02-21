@@ -253,9 +253,6 @@ public class ManagerController {
     }
     @FXML
     private void onActionEdit(){
-        numberFld.clear();
-        managerFld.clear();
-        dateFld.clear();
         priceFld.clear();
         clientField.clear();
         currentGoodsObservableList.clear();
