@@ -44,6 +44,8 @@ public class ManagerController {
     @FXML TableColumn<Goods, Long> columnNumber;
     @FXML TableColumn<Goods, String> columnName;
     @FXML TableColumn<Goods, Integer> columnNmbr;
+    @FXML TableColumn<Goods, Double> columnPrice;
+    @FXML TableColumn<Goods, Double> columnSum;
 
 
     @FXML AnchorPane anchorPane;
@@ -228,14 +230,20 @@ public class ManagerController {
     private void onActionAddGoods() {
 
         currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
-        currentGoodsInOrder = new GoodsInOrder(currentGoods, 1);
+        // currentGoodsInOrder = new GoodsInOrder(currentGoods, 1);
         //currentGoodsObservableList.add(currentGoodsInOrder);
         kvasolka.add(currentGoods);
 
 
-        columnNumber.setCellValueFactory(p -> new ReadOnlyObjectWrapper(goodsList.getItems().indexOf(p.getValue()) + 1 + ""));
+        //columnNumber.setCellValueFactory(p -> new ReadOnlyObjectWrapper(goodsList.getItems().indexOf(p.getValue()) + 1 + ""));
+        columnNumber.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnName.setCellValueFactory(new PropertyValueFactory<>("productName"));
         columnNmbr.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        columnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        String priceSum = ""+(currentGoods.getPrice()*1.2);
+        //columnSum.setCellValueFactory(p -> new ReadOnlyObjectWrapper(currentGoods.getPrice()*1.2));
+        //columnSum.setCellValueFactory(currentGoods.getPrice()*1.2));
+
 
         tabView.setItems(kvasolka);
 
