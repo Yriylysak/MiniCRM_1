@@ -25,6 +25,20 @@ public class StoreKeeperController {
     ListView goodsInStoreList;
     @FXML
     Button btnEscape;
+    @FXML
+    Button btnFormOrder;
+    @FXML
+    Button btnFormPart;
+
+    //Формирование заказа(btnFormOrder)
+    @FXML
+    private void onActionFormOrder(){
+    }
+
+    //Неполное формирование заказа(btnFormPart)
+    @FXML
+    private void onActionFormPart(){
+    }
 
     //Метод для клика мышкой по товарам из выбранного заказа(goodsInStoreList)
     @FXML

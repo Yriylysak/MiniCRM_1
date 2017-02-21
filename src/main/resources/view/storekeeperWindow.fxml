@@ -38,8 +38,8 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button minHeight="34.0" minWidth="150.0" mnemonicParsing="false" text="Button" GridPane.halignment="CENTER" />
-            <Button minHeight="34.0" minWidth="150.0" mnemonicParsing="false" text="Button" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button fx:id="btnFormOrder" minHeight="34.0" minWidth="150.0" mnemonicParsing="false" onAction="#onActionFormOrder" text="Button" GridPane.halignment="CENTER" />
+            <Button fx:id="btnFormPart" minHeight="34.0" minWidth="150.0" mnemonicParsing="false" onAction="#onActionFormPart" text="Button" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Button minHeight="34.0" minWidth="150.0" mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
             <Button minHeight="34.0" minWidth="150.0" mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
          </children>
