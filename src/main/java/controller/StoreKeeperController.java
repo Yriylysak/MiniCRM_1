@@ -29,6 +29,16 @@ public class StoreKeeperController {
     Button btnFormOrder;
     @FXML
     Button btnFormPart;
+    @FXML
+    Button btnDelForm;
+    @FXML
+    Button btnEditForm;
+    @FXML
+    Button btnDelStore;
+    @FXML
+    Button btnEditStore;
+    @FXML
+    Button btnAddStore;
 
     //Формирование заказа(btnFormOrder)
     @FXML
@@ -72,6 +82,31 @@ public class StoreKeeperController {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
+    }
+
+    //Удаление товара из заказа
+    @FXML
+    private void onActionDelForm() {
+    }
+
+    //Изменение товара в заказе
+    @FXML
+    private void onActionEditForm(){
+    }
+
+    //Изменение товара на складе
+    @FXML
+    private void onActionEditStore() {
+    }
+
+    //Удаление товара со склада
+    @FXML
+    private void onActionDelStore(){
+    }
+
+    //Добавление товара в список товаров
+    @FXML
+    private void onActionAddStore(){
     }
 
 }
