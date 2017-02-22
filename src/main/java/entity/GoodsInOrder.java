@@ -18,8 +18,13 @@ public class GoodsInOrder {
     @Column(name = "PRICE", nullable = false)
     private Double price;
 
-    @Column(name = "AMOUNT", nullable = false)
-    private Integer amount;
+    @Column(name = "CLIENTAMOUNT", nullable = false)
+    private Integer clienamount;
+
+    @Column(name = "ENABLEAMOUNT", nullable = false)
+    private Integer enableamount;
+
+
 
     /*@ManyToOne
     @JoinColumn(name = "ORDER_ID", nullable = false)
@@ -29,10 +34,12 @@ public class GoodsInOrder {
     public GoodsInOrder() {
     }
 
-    public GoodsInOrder(Goods goods, Integer amount) {
+    public GoodsInOrder(Goods goods, Integer clienamount) {
         this.goods = goods;
         this.price = goods.getPrice();
-        this.amount = amount;
+        this.clienamount = clienamount;
+        enableamount = 0;
+
     }
 
     public Long getId() {
@@ -59,18 +66,30 @@ public class GoodsInOrder {
         this.price = price;
     }
 
-    public Integer getAmount() {
-        return amount;
+    public Integer getClienamount() {
+        return clienamount;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
+    public Integer getEnableamount() {
+        return enableamount;
+    }
+
+    public void setClienamount(Integer clienamount) {
+        this.clienamount = clienamount;
+    }
+
+    public void setEnableamount(Integer enableamount) {
+        this.enableamount = enableamount;
     }
 
     @Override
     public String toString() {
-        return  "Товар :  " + goods.getProductName() + ".  Цена = " + price
-                + ". Количество  = " + amount + ". Сумма = " + amount * price;
-
+        return "GoodsInOrder{" +
+                "id=" + id +
+                ", goods=" + goods +
+                ", price=" + price +
+                ", clienamount=" + clienamount +
+                ", enableamount=" + enableamount +
+                '}';
     }
 }

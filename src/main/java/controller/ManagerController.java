@@ -5,7 +5,6 @@ import entity.Goods;
 import entity.GoodsInOrder;
 import entity.Order;
 import enumTypes.OrderStatus;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,7 +22,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
-import java.util.List;
+
 
 /**
  * Created by Comfy on 05.02.2017.
@@ -184,8 +183,8 @@ public class ManagerController {
         Double summ = 0.0;
         Integer amount = 0;
         for (GoodsInOrder gio : currentGoodsObservableList) {
-            summ += gio.getAmount() * gio.getPrice();
-            amount +=gio.getAmount();
+            summ += gio.getClienamount() * gio.getPrice();
+            amount +=gio.getClienamount();
         }
         priceFld.setText(summ.toString());
         goodNumFld.setText(amount.toString());
@@ -231,8 +230,10 @@ public class ManagerController {
     private void onActionAddGoods() {
 
         currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
-        // currentGoodsInOrder = new GoodsInOrder(currentGoods, 1);
-        //currentGoodsObservableList.add(currentGoodsInOrder);
+        currentGoodsInOrder = new GoodsInOrder(currentGoods, 1);
+        currentGoodsObservableList.add(currentGoodsInOrder);
+
+
         kvasolka.add(currentGoods);
 
 
@@ -244,7 +245,7 @@ public class ManagerController {
         String priceSum = ""+(currentGoods.getPrice()*1.2);
         //columnSum.setCellValueFactory(p -> new ReadOnlyObjectWrapper(currentGoods.getPrice()*1.2));
         //columnSum.setCellValueFactory(currentGoods.getPrice()*1.2));
-
+        System.out.println(currentGoodsObservableList);
 
         tabView.setItems(kvasolka);
 

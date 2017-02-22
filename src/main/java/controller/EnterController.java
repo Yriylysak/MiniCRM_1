@@ -80,7 +80,7 @@ public class EnterController {
                     break;
                 case MANAGER:
                     try {
-                        managerLogin = loginField.getText();
+                       managerLogin = loginField.getText();
                         root = FXMLLoader.load(getClass().getResource("/view/managerWindow.fxml"));
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -111,7 +111,9 @@ public class EnterController {
                 case STOREKEEPER:
                     try {
                         root = FXMLLoader.load(getClass().getResource("/view/storekeeperWindow.fxml"));
-                    } catch (IOException e) {e.printStackTrace();}
+                    } catch (IOException e) {e.printStackTrace()
+                    ;System.out.println("______________Ne tyt_______________");
+                    }
                     scene = new Scene(root);
                     stage.setTitle("Storekeeper window");
                     scene.getStylesheets().add("/view/sellerWindow.css");

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ListView?>
@@ -8,10 +11,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StoreKeeperController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StoreKeeperController">
    <children>
-      <ChoiceBox fx:id="orderBox" layoutX="28.0" layoutY="49.0" onMousePressed="#onMousePressedOrderList" prefHeight="26.0" prefWidth="396.0" />
-      <ListView fx:id="goodsInOrderList" layoutX="28.0" layoutY="95.0" onMousePressed="#onMousePressedGoodsInOrder" prefHeight="380.0" prefWidth="396.0" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="95.0" />
+      <ChoiceBox fx:id="orderBox" layoutX="28.0" layoutY="49.0" onMousePressed="#onMousePressedOrderList" prefHeight="26.0" prefWidth="380.0" />
       <GridPane layoutX="55.0" layoutY="475.0" prefHeight="111.0" prefWidth="342.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -44,7 +46,14 @@
             <Button fx:id="btnDelStore" minHeight="34.0" minWidth="150.0" mnemonicParsing="false" onAction="#onActionDelStore" text="Удалить" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
          </children>
       </GridPane>
-      <ListView fx:id="goodsInStoreList" layoutX="425.0" layoutY="95.0" onMousePressed="#onMousePressedGoodsInStore" prefHeight="380.0" prefWidth="396.0" AnchorPane.rightAnchor="28.0" />
-      <Button fx:id="btnEscape" layoutX="684.0" layoutY="45.0" minHeight="34.0" minWidth="150.0" mnemonicParsing="false" onAction="#onActionEsc" text="Выход" />
+      <ListView fx:id="goodsInOrderList" layoutX="28.0" layoutY="79.0" onMousePressed="#onMousePressedGoodsInStore" prefHeight="380.0" prefWidth="380.0" AnchorPane.rightAnchor="454.0" />
+      <Button fx:id="btnEscape" layoutX="677.0" layoutY="32.0" minHeight="34.0" minWidth="150.0" mnemonicParsing="false" onAction="#onActionEsc" text="Выход" />
+      <TableView fx:id="tableInOrder" layoutX="441.0" layoutY="79.0" prefHeight="380.0" prefWidth="386.0">
+        <columns>
+          <TableColumn fx:id="numberCLm" prefWidth="45.0" text="N" />
+          <TableColumn fx:id="nameClm" prefWidth="164.0" text="Name" />
+            <TableColumn fx:id="sureNameClm" prefWidth="186.0" text="SureName" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
