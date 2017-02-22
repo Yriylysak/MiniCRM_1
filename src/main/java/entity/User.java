@@ -27,7 +27,6 @@ public class User {
     @OneToOne
     //@JoinColumn(name = "EMPLOYER_ID", referencedColumnName = "ID")
     @JoinColumn(name = "EMPLOYEE_ID")
-
     private Employee employee;
 
     @Column (name = "DATE")

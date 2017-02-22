@@ -1,6 +1,4 @@
 package controller;
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -40,32 +37,32 @@ public class StoreKeeperController {
     @FXML
     Button btnAddStore;
 
-    //Формирование заказа(btnFormOrder)
+    // Формирование заказа(btnFormOrder)
     @FXML
     private void onActionFormOrder(){
     }
 
-    //Неполное формирование заказа(btnFormPart)
+    // Неполное формирование заказа(btnFormPart)
     @FXML
     private void onActionFormPart(){
     }
 
-    //Метод для клика мышкой по товарам из выбранного заказа(goodsInStoreList)
+    // Метод для клика мышкой по товарам из выбранного заказа(goodsInStoreList)
     @FXML
     private void onMousePressedGoodsInOrder() {
     }
 
-    //Метод для клика мышкой по товарам из склада(goodsInStoreList)
+    // Метод для клика мышкой по товарам из склада(goodsInStoreList)
     @FXML
     private void onMousePressedGoodsInStore() {
     }
 
-    //Метод для вызова списка заказов(orderBox)
+    // Метод для вызова списка заказов(orderBox)
     @FXML
     private void onMousePressedOrderList(){
     }
 
-    //Выход к окну авторизации
+    // Выход к окну авторизации
     @FXML
     private void onActionEsc() {
         GraphicsLoader.closeWindow(btnEscape);
@@ -84,27 +81,27 @@ public class StoreKeeperController {
         primaryStage.setResizable(false);
     }
 
-    //Удаление товара из заказа
+    // Удаление товара из заказа
     @FXML
     private void onActionDelForm() {
     }
 
-    //Изменение товара в заказе
+    // Изменение товара в заказе
     @FXML
     private void onActionEditForm(){
     }
 
-    //Изменение товара на складе
+    // Изменение товара на складе
     @FXML
     private void onActionEditStore() {
     }
 
-    //Удаление товара со склада
+    // Удаление товара со склада
     @FXML
     private void onActionDelStore(){
     }
 
-    //Добавление товара в список товаров
+    // Добавление товара в список товаров
     @FXML
     private void onActionAddStore(){
     }

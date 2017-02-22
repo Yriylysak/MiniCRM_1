@@ -66,8 +66,8 @@
       <Label alignment="CENTER" layoutX="441.0" layoutY="23.0" text="ЗАКАЗЫ" />
       <TableView fx:id="tabView" layoutX="29.0" layoutY="408.0" prefHeight="213.0" prefWidth="869.0">
         <columns>
-          <TableColumn fx:id="columnNumber" prefWidth="75.0" text="№" />
-          <TableColumn fx:id="columnName" prefWidth="159.0" text="Наименование" />
+          <TableColumn fx:id="columnNumber" prefWidth="75.0" text="id" />
+          <TableColumn fx:id="columnName" prefWidth="159.0" text="Name" />
             <TableColumn fx:id="columnNmbr" prefWidth="121.0" text="количество" />
             <TableColumn fx:id="columnPrice" prefWidth="123.0" text="цена без ндс" />
             <TableColumn fx:id="columnSum" prefWidth="139.0" text="сумма без ндс" />

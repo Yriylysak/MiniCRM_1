@@ -4,8 +4,11 @@ package enumTypes;
  * Created by JL on 16.02.2017.
  */
 public enum Position {
-    ADMIN("Admin"), MANAGER("Manager"),
-    CASHIER("Cashier"), STOREKEEPER("Storekeeper");
+
+    ADMIN("Admin"),
+    MANAGER("Manager"),
+    CASHIER("Cashier"),
+    STOREKEEPER("Storekeeper");
 
     private String label;
 

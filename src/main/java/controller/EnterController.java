@@ -1,5 +1,4 @@
 package controller;
-
 import enumTypes.Position;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,12 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import util.ServiceUtil;
-import static controller.ManagerController.managerLogin;
-
 import java.io.IOException;
+import static controller.ManagerController.managerLogin;
 
 
 /**
@@ -48,8 +45,12 @@ public class EnterController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            stage.getModality();
+
             Scene scene = new Scene(root);
             scene.getStylesheets().add("/view/adminWindow.css");
+            // scene.getWindow();
             stage.setScene(scene);
             stage.setTitle("Login error");
             stage.show();
@@ -100,6 +101,19 @@ public class EnterController {
                     }
                     scene = new Scene(root);
                     stage.setTitle("Cashier window");
+                    scene.getStylesheets().add("/view/sellerWindow.css");
+                    stage.setScene(scene);
+                    stage.show();
+                    stage.setResizable(false);
+                    GraphicsLoader.closeWindow(enterButton);
+                    break;
+
+                case STOREKEEPER:
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("/view/storekeeperWindow.fxml"));
+                    } catch (IOException e) {e.printStackTrace();}
+                    scene = new Scene(root);
+                    stage.setTitle("Storekeeper window");
                     scene.getStylesheets().add("/view/sellerWindow.css");
                     stage.setScene(scene);
                     stage.show();

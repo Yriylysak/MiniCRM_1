@@ -69,6 +69,7 @@ public class ManagerController {
     private ObservableList<Order> orderObservableList = FXCollections.observableArrayList();
     private ObservableList<Client> clientObservableList;
     private ObservableList<Goods> goodsObservableList;
+
     private ObservableList<Goods> kvasolka = FXCollections.observableArrayList();
     private ObservableList<GoodsInOrder> currentGoodsObservableList= FXCollections.observableArrayList();
 
