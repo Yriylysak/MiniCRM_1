@@ -39,19 +39,7 @@ public class ProfileController {
     @FXML
     private void onActionEsc() {
         GraphicsLoader.closeWindow(btnEscProfile);
-        Parent root = null;
-        Stage primaryStage = new Stage();
-        try {
-            root = FXMLLoader.load(getClass().getResource("/view/enterWindow.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        primaryStage.setTitle("Авторизация");
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/view/enterWindow.css");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-        primaryStage.setResizable(false);
+
     }
 
     @FXML

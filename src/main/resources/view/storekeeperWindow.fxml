@@ -13,7 +13,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StoreKeeperController">
    <children>
-      <ChoiceBox fx:id="orderBox" layoutX="28.0" layoutY="49.0" onMousePressed="#onMousePressedOrderList" prefHeight="26.0" prefWidth="380.0" />
       <GridPane layoutX="55.0" layoutY="475.0" prefHeight="111.0" prefWidth="342.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -46,13 +45,21 @@
             <Button fx:id="btnDelStore" minHeight="34.0" minWidth="150.0" mnemonicParsing="false" onAction="#onActionDelStore" text="Удалить" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
          </children>
       </GridPane>
-      <ListView fx:id="goodsInOrderList" layoutX="28.0" layoutY="79.0" onMousePressed="#onMousePressedGoodsInStore" prefHeight="380.0" prefWidth="380.0" AnchorPane.rightAnchor="454.0" />
       <Button fx:id="btnEscape" layoutX="677.0" layoutY="32.0" minHeight="34.0" minWidth="150.0" mnemonicParsing="false" onAction="#onActionEsc" text="Выход" />
       <TableView fx:id="tableInOrder" layoutX="441.0" layoutY="79.0" prefHeight="380.0" prefWidth="386.0">
         <columns>
           <TableColumn fx:id="numberCLm" prefWidth="45.0" text="N" />
           <TableColumn fx:id="nameClm" prefWidth="164.0" text="Name" />
             <TableColumn fx:id="sureNameClm" prefWidth="186.0" text="SureName" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnownCabinet" layoutX="441.0" layoutY="32.0" mnemonicParsing="false" onAction="#enterOwnCabinet" prefHeight="34.0" prefWidth="150.0" text="Личный кабинет" />
+      <TableView fx:id="tableOrdering" layoutX="30.0" layoutY="80.0" onMousePressed="#oderGetItems" prefHeight="380.0" prefWidth="393.0">
+        <columns>
+          <TableColumn fx:id="OrderNumberClm" prefWidth="42.0" text="N" />
+          <TableColumn fx:id="orderDataClm" prefWidth="81.0" text="Дата заказа" />
+            <TableColumn fx:id="orderDataDedlineClm" prefWidth="123.0" text="Дата выполнения" />
+            <TableColumn fx:id="orderManagerClm" prefWidth="146.0" text="Менеджер" />
         </columns>
       </TableView>
    </children>
