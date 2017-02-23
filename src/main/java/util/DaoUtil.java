@@ -11,6 +11,15 @@ public class DaoUtil {
     private static ClientDao clientDao;
     private static OrderDao orderDao;
     private static GoodsDao goodsDao;
+    private static OrderingDao orderingDao;
+
+    public DaoUtil() {
+    }
+
+    public static OrderingDao getOrderingDao() {
+        orderingDao = new OrderingDaoImpl();
+        return orderingDao;
+    }
 
     public static EmployeeDao getEmployeeDao() {
         employeeDao = new EmployeeDaoImpl();
