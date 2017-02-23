@@ -150,7 +150,6 @@ public class ManagerController {
                 if(localDate == null || localDate.isBefore(LocalDate.now())) return "";
                 else return localDate.format(formatter);
             }
-
             @Override
             public LocalDate fromString(String dateString) {
                 if(dateString == null || dateString.trim().isEmpty()) return null;

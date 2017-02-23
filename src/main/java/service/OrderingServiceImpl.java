@@ -5,7 +5,7 @@ import util.DaoUtil;
 
 import java.util.List;
 
-/**
+/***
  * Created by julia on 23.02.17.
  */
 public class OrderingServiceImpl implements OrderingService {

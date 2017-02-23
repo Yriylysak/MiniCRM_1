@@ -59,6 +59,7 @@ public class Ordering {
         this.orderStatus = orderStatus;
         this.amount = amount;
         this.summ = summ;
+
     }
 
     public String getManager() {

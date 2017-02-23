@@ -8,7 +8,7 @@ import util.HibernateUtil;
 
 import java.util.List;
 
-/**
+/***
  * Created by JL on 19.02.2017.
  */
 public class OrderingDaoImpl implements OrderingDao {
