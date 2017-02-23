@@ -3,7 +3,9 @@ package entity;
 import enumTypes.OrderStatus;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -27,7 +29,7 @@ public class Ordering {
     private Date date;
 
     @Column (name = "DATE_END")
-    private Date dateEnd;
+    private LocalDate dateEnd;
 
     @Column (name = "ORDER_STATUS")
     @Enumerated
@@ -39,12 +41,15 @@ public class Ordering {
     @Column (name = "SUMM")
     private Double summ;
 
+    //@Column (name = "GOODS_IN_ORDER")
+    //private List<GoodsInOrder> goodsInOrderList;
+
 
     public Ordering() {
     }
 
     public Ordering(String manager, String client,
-                    Date date, Date dateEnd,
+                    Date date, LocalDate dateEnd,
                     OrderStatus orderStatus,
                     Integer amount, Double summ) {
         this.manager = manager;
@@ -80,11 +85,11 @@ public class Ordering {
         this.date = date;
     }
 
-    public Date getDateEnd() {
+    public LocalDate getDateEnd() {
         return dateEnd;
     }
 
-    public void setDateEnd(Date dateEnd) {
+    public void setDateEnd(LocalDate dateEnd) {
         this.dateEnd = dateEnd;
     }
 

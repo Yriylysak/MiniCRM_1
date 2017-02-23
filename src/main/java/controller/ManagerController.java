@@ -1,9 +1,6 @@
 package controller;
 
-import entity.Client;
-import entity.Goods;
-import entity.GoodsInOrder;
-import entity.Order;
+import entity.*;
 import enumTypes.OrderStatus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,14 +11,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
+import util.DaoUtil;
 import util.ServiceUtil;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.sql.Date;
+import java.util.Date;
 
 
 /**
@@ -45,7 +45,6 @@ public class ManagerController {
     @FXML TableColumn<Goods, Integer> columnNmbr;
     @FXML TableColumn<Goods, Double> columnPrice;
     @FXML TableColumn<Goods, Double> columnSum;
-
 
     @FXML AnchorPane anchorPane;
 
@@ -126,6 +125,7 @@ public class ManagerController {
 
     public void initialize() {
         managerFld.setText(tmp);
+        tabView.setEditable(true);
 
         clientObservableList = FXCollections.observableArrayList(ServiceUtil.getClientService().findAll());
         clientList.setItems(clientObservableList);
@@ -177,8 +177,7 @@ public class ManagerController {
 
     @FXML
     private void onActionForm(){
-        //Order order1 = new Order(combobox.getValue(), managerLogin);
-        //ServiceUtil.getOrderService().add(order1);
+        tabView.setEditable(true);
 
         Double summ = 0.0;
         Integer amount = 0;
@@ -189,15 +188,14 @@ public class ManagerController {
         priceFld.setText(summ.toString());
         goodNumFld.setText(amount.toString());
 
-        /* очистка всіх полів після сформування замовлення
-        numberFld.clear();
-        managerFld.clear();
-        dateFld.clear();
-        priceFld.clear();
-        clientField.clear();
-        currentGoodsObservableList.clear();
-        listViewGoods.setItems(null);
-        */
+        Ordering ordering = new Ordering(managerLogin, clientField.getText(),
+                new Date(), termFld.getValue(),  combobox.getValue(), amount, summ );
+
+        System.out.println("_____________________________" + managerLogin + "  " +  clientField.getText() + " "
+                + " " + new Date() + " " + termFld.getValue()
+                + " "  + combobox.getValue() + " " +  amount +  " "  +summ);
+
+        DaoUtil.getOrderingDao().create(ordering);
     }
 
     @FXML
@@ -233,14 +231,32 @@ public class ManagerController {
         currentGoodsInOrder = new GoodsInOrder(currentGoods, 1);
         currentGoodsObservableList.add(currentGoodsInOrder);
 
-
         kvasolka.add(currentGoods);
 
-
-        //columnNumber.setCellValueFactory(p -> new ReadOnlyObjectWrapper(goodsList.getItems().indexOf(p.getValue()) + 1 + ""));
         columnNumber.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnName.setCellValueFactory(new PropertyValueFactory<>("productName"));
+
+        //тут встановлюємо можливість редагування значень в таблиці
+        columnName.setCellFactory(TextFieldTableCell.forTableColumn());
+
+
         columnNmbr.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        //columnNmbr.setCellFactory(TextFieldTableCell.for);
+
+        Callback<TableColumn<Goods, Integer>, TableCell<Goods, Integer>> cellFactoryFor
+                 = p -> new TextFieldTableCell(new StringConverter() {
+            @Override
+            public String toString(Object t) {
+                return t.toString();
+            }
+            @Override
+            public Object fromString(String string) {
+                return string;
+            }
+        });
+
+        columnNmbr.setCellFactory(cellFactoryFor);
+
         columnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         String priceSum = ""+(currentGoods.getPrice()*1.2);
         //columnSum.setCellValueFactory(p -> new ReadOnlyObjectWrapper(currentGoods.getPrice()*1.2));

@@ -15,6 +15,16 @@ public class ServiceUtil
     private static OrderService orderService;
     private static GoodsService goodsService;
 
+    public static OrderingService getOrderingService() {
+        return orderingService;
+    }
+
+    public static void setOrderingService(OrderingService orderingService) {
+        ServiceUtil.orderingService = orderingService;
+    }
+
+    private static OrderingService orderingService;
+
     public static GoodsService getGoodsService() {
         goodsService = new GoodsServiceImpl();
         return goodsService;
