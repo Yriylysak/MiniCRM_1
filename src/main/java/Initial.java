@@ -1,7 +1,5 @@
-import entity.Client;
-import entity.Employee;
-import entity.Order;
-import entity.User;
+import dao.OrderingDaoImpl;
+import entity.*;
 import enumTypes.Gender;
 import enumTypes.OrderStatus;
 import enumTypes.Position;
@@ -10,10 +8,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import util.DaoUtil;
 import util.HibernateUtil;
 import util.ServiceUtil;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,6 +58,12 @@ public class Initial extends Application {
         Order order1 = new Order(OrderStatus.FORMED, "Goods");
         //ServiceUtil.getOrderService().add(order1);
 
+        /*Ordering ordering = new Ordering("manager", "client",
+                new Date(), new Date(),
+                OrderStatus.FORMED, 12, 12.0 );
+        DaoUtil.getOrderingDao().create(ordering);
+        */
+
         /*Order order1 = new Order(OrderStatus.FORMED, employer1, client1);
         client1.getOrderList().add(order1);
         ServiceUtil.getClientService().add(client1);
@@ -75,7 +81,6 @@ public class Initial extends Application {
         for (User us : userList) {
             System.out.println("============ " + us);
         }
-
 
         Application.launch(args);
         HibernateUtil.getSessionFactory().close();
