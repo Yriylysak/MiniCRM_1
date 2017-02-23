@@ -121,6 +121,6 @@
       </GridPane>
       <Button fx:id="btnLogOut" layoutX="750.0" layoutY="14.0" maxHeight="34.0" maxWidth="150.0" minHeight="34.0" minWidth="109.0" mnemonicParsing="false" onAction="#onActionBtnLogOut" prefHeight="34.0" prefWidth="109.0" text="Выход" />
       <Button fx:id="btnRef" layoutX="26.0" layoutY="18.0" mnemonicParsing="false" onAction="#onActionRef" prefHeight="25.0" prefWidth="137.0" text="Обновить списки" />
-      <Button fx:id="btnMyProfile" layoutX="591.0" layoutY="14.0" minHeight="34.0" minWidth="150.0" mnemonicParsing="false" onAction="#onActionProfile" text="Button" />
+      <Button fx:id="btnMyProfile" layoutX="616.0" layoutY="14.0" minHeight="34.0" minWidth="109.0" mnemonicParsing="false" onAction="#onActionProfile" text="Кабинет" />
    </children>
 </AnchorPane>
