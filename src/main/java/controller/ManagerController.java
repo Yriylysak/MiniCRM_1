@@ -4,6 +4,7 @@ import entity.*;
 import enumTypes.OrderStatus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -38,6 +39,7 @@ public class ManagerController {
     @FXML Button btnNewClient;
     @FXML Button btnNewOrder;
     @FXML Button btnRef;
+    @FXML Button btnMyProfile;
 
     @FXML TableView tabView;
     @FXML TableColumn<Goods, Long> columnNumber;
@@ -312,5 +314,20 @@ public class ManagerController {
 
     }
 
-
+    @FXML
+    private void onActionProfile() {
+        Parent root = null;
+        Stage primaryStage = new Stage();
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/myProfileWindow.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        primaryStage.setTitle("Мой профиль");
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/view/myProfileWindow.css");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        primaryStage.setResizable(false);
+    }
 }

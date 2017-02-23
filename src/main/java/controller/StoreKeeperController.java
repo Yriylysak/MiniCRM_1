@@ -1,19 +1,29 @@
 package controller;
 import entity.Client;
+import entity.Goods;
+import entity.Order;
+import entity.Ordering;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import util.DaoUtil;
 import util.ServiceUtil;
 import javafx.scene.control.TableView;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import java.sql.Date;
+
 
 import java.io.IOException;
 
@@ -25,7 +35,8 @@ public class StoreKeeperController {
     @FXML
     public TableView tableInOrder;
     @FXML
-    ChoiceBox orderBox;
+    public TableView tableOrdering;
+
     @FXML
     ListView goodsInOrderList;
 
@@ -51,19 +62,28 @@ public class StoreKeeperController {
      @FXML TableColumn<Client, String> nameClm;
      @FXML TableColumn<Client, String> sureNameClm;
 
+    @FXML TableColumn<Ordering, Long> OrderNumberClm;
+    @FXML TableColumn<Ordering, Date> orderDataClm;
+    @FXML TableColumn<Ordering, Date> orderDataDedlineClm ;
+    @FXML TableColumn<Ordering, String> orderManagerClm;
 
 
-    private static Client currentClient1;
-
-    private ObservableList<Client> clientObservableList;
+    private ObservableList<Ordering> orderingObservableList;
 
 
     @FXML
     public void initialize(){
+        orderingObservableList = FXCollections.observableArrayList(DaoUtil.getOrderingDao().findAll());
 
-        clientObservableList = FXCollections.observableList(ServiceUtil.getClientService().findAll());
+        //clientObservableList = FXCollections.observableList(ServiceUtil.getClientService().findAll());
         // System.out.println(clientObservableList);
-        goodsInOrderList.setItems(clientObservableList);
+        //goodsInOrderList.setItems(clientObservableList);
+
+        OrderNumberClm.setCellValueFactory(new PropertyValueFactory<Ordering, Long>("id"));
+        orderDataClm.setCellValueFactory(new PropertyValueFactory<Ordering, Date>("date"));
+        orderDataDedlineClm.setCellValueFactory(new PropertyValueFactory<Ordering, Date>("dateEnd"));
+        orderManagerClm.setCellValueFactory(new PropertyValueFactory<Ordering, String>("manager"));
+        tableOrdering.setItems(orderingObservableList);
 
     }
 
@@ -89,15 +109,15 @@ public class StoreKeeperController {
     // Метод для клика мышкой по товарам из склада(goodsInStoreList)
     @FXML
     private void onMousePressedGoodsInStore() {
-        ObservableList<Client> currentClientList = FXCollections.observableArrayList();
-        currentClient1 = (Client) goodsInOrderList.getSelectionModel().getSelectedItem();
-        currentClientList.add(currentClient1);
+    //   ObservableList<Client> currentClientList = FXCollections.observableArrayList();
+    //   currentClient1 = (Client) goodsInOrderList.getSelectionModel().getSelectedItem();
+    //   currentClientList.add(currentClient1);
 
-        numberCLm.setCellValueFactory(new PropertyValueFactory<Client, Long>("id"));
-        nameClm.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
-        sureNameClm.setCellValueFactory(new PropertyValueFactory<Client, String>("sureName"));
+    //   numberCLm.setCellValueFactory(new PropertyValueFactory<Client, Long>("id"));
+    //   nameClm.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
+    //   sureNameClm.setCellValueFactory(new PropertyValueFactory<Client, String>("sureName"));
 
-        tableInOrder.setItems(currentClientList);
+    //   tableInOrder.setItems(currentClientList);
     }
 
     // Метод для вызова списка заказов(orderBox)
@@ -150,4 +170,25 @@ public class StoreKeeperController {
     private void onActionAddStore(){
     }
 
+    public void enterOwnCabinet(ActionEvent event) {
+        Parent root = null;
+        Stage stage = new Stage();
+
+        try {
+
+            root = FXMLLoader.load(getClass().getResource("/view/myProfileWindow.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+        stage.setTitle("My profile");
+        scene.getStylesheets().add("/view/adminWindow.css");
+        stage.setScene(scene);
+        stage.show();
+        stage.setResizable(false);
+
+    }
+
+    public void oderGetItems(MouseEvent mouseEvent) {
+    }
 }

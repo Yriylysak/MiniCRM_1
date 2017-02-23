@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="398.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProfileController">
    <children>
       <Button fx:id="btnEscProfile" layoutX="566.0" layoutY="28.0" mnemonicParsing="false" onAction="#onActionEsc" prefHeight="36.0" prefWidth="125.0" text="Выход" />
@@ -20,9 +19,9 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ImageView fitHeight="114.0" fitWidth="128.0" layoutX="166.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="image" fitHeight="114.0" fitWidth="128.0" layoutX="166.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../Загрузки/Image_from_Skype.jpg" />
+            <Image url="@Image_from_Skype.jpg" />
          </image>
       </ImageView>
       <GridPane layoutX="41.0" layoutY="209.0" prefHeight="163.0" prefWidth="365.0">
