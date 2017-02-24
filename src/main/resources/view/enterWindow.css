@@ -1,5 +1,6 @@
 .root {
-    -fx-background-image: url("background_main.jpg");
+    -fx-background-image: url("protect.jpg");
+    -fx-background-size: 100%;
 }
 /*Ссылка на все компоненты TextField*/
 .text-field {
