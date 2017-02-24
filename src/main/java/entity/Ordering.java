@@ -29,7 +29,7 @@ public class Ordering {
     private Date date;
 
     @Column (name = "DATE_END")
-    private LocalDate dateEnd;
+    private String dateEnd;
 
     @Column (name = "ORDER_STATUS")
     @Enumerated
@@ -49,7 +49,7 @@ public class Ordering {
     }
 
     public Ordering(String manager, String client,
-                    Date date, LocalDate dateEnd,
+                    Date date, String dateEnd,
                     OrderStatus orderStatus,
                     Integer amount, Double summ) {
         this.manager = manager;
@@ -86,11 +86,11 @@ public class Ordering {
         this.date = date;
     }
 
-    public LocalDate getDateEnd() {
+    public String getDateEnd() {
         return dateEnd;
     }
 
-    public void setDateEnd(LocalDate dateEnd) {
+    public void setDateEnd(String dateEnd) {
         this.dateEnd = dateEnd;
     }
 
@@ -126,9 +126,16 @@ public class Ordering {
         this.orderStatus = orderStatus;
     }
 
-
     @Override
     public String toString() {
-        return "Id: " + id + "  Status: " + orderStatus;
+        return "Ordering  " +
+                "id=" + id +
+                ", manager='" + manager + '\'' +
+                ", client='" + client + '\'' +
+                ", date=" + date +
+                ", dateEnd='" + dateEnd + '\'' +
+                ", orderStatus=" + orderStatus +
+                ", amount=" + amount +
+                ", summ=" + summ ;
     }
 }
