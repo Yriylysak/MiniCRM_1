@@ -1,5 +1,5 @@
 .root {
-    -fx-background-image: url("background_main.jpg");
+    -fx-background-image: url("fon.jpg");
 }
 /*Ссылка на все компоненты TextField*/
 .text-field {
