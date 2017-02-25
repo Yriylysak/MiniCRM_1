@@ -4,6 +4,8 @@ import enumTypes.OrderStatus;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -39,12 +41,20 @@ public class Ordering {
     @Column (name = "SUMM")
     private Double summ;
 
-    //@Column (name = "GOODS_IN_ORDER")
-    //private List<GoodsInOrder> goodsInOrderList;
+
+   /* @OneToMany(targetEntity = GoodsInOrder.class)
+    private List<GoodsInOrder> goodsInOrderList;
+    */
+/*
+   @OneToMany(mappedBy = "ordering", fetch = FetchType.LAZY)
+    private Set<GoodsInOrder> goodsInOrderSet;
+*/
 
 
     public Ordering() {
     }
+
+
 
     public Ordering(String manager, String client,
                     Date date, String dateEnd,

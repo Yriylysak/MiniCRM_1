@@ -1,6 +1,8 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.Set;
+
 /**
  * Created by JL on 19.02.2017.
  */
@@ -24,12 +26,8 @@ public class GoodsInOrder {
     @Column(name = "ENABLEAMOUNT", nullable = false)
     private Integer enableamount;
 
-
-
-    /*@ManyToOne
-    @JoinColumn(name = "ORDER_ID", nullable = false)
-    private Order order;
-*/
+    //@ManyToOne(targetEntity = Ordering.class)
+    //private Ordering ordering;
 
     public GoodsInOrder() {
     }

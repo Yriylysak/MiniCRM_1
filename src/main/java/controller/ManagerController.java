@@ -93,7 +93,7 @@ public class ManagerController {
     Tab tabGoods;
     @FXML
     Tab tabClient;
-    public static ManagerController managerController;
+
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private ObservableList<Ordering> orderingObservableList;
