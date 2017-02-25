@@ -130,12 +130,9 @@ public class Ordering {
     public String toString() {
         return "Ordering  " +
                 "id=" + id +
-                ", manager='" + manager + '\'' +
                 ", client='" + client + '\'' +
                 ", date=" + date +
                 ", dateEnd='" + dateEnd + '\'' +
-                ", orderStatus=" + orderStatus +
-                ", amount=" + amount +
-                ", summ=" + summ ;
+                ", orderStatus=" + orderStatus;
     }
 }

@@ -61,16 +61,33 @@ public class GoodsController {
             fldGoodsPrice.setText(currentGoods.getPrice().toString());
             fldNum.setText(currentGoods.getAmount().toString());
         } else if (goodsList.getSelectionModel().getSelectedItems() == null) {
-            System.out.println("___________ELSE____________");
             fldGoodsName.clear();
             fldGoodsPrice.clear();
-            ManagerController.managerController.parent.initialize();
         }
+        //тут контроллер падає, тому я закоментувала рядок нижче
+        //ManagerController.managerController.parent.initialize();
     }
+    //додаємо товари у базу даних
     @FXML
-    private void onActionAddGoods(){
+    private void onActionAddGoods() {
+        //якщо у поле ціни чи кількості введені некоректні дані,
+        // поля очищуються
+        try {
+            Double.parseDouble(fldGoodsPrice.getText());
+        } catch (NumberFormatException e) {
+            fldGoodsPrice.clear();
+            return;
+        }
+        try {
+            Integer.parseInt(fldNum.getText());
+        } catch (NumberFormatException e) {
+            fldNum.clear();
+            return;
+        }
+
         if (fldGoodsName.getText() != ""
-                && fldGoodsPrice.getText() != "") {
+                && fldGoodsPrice.getText() != ""
+                && fldNum.getText() != "") {
             Goods goods = new Goods(fldGoodsName.getText(), Double.parseDouble(fldGoodsPrice.getText()),
                     Integer.parseInt(fldNum.getText()));
             ServiceUtil.getGoodsService().add(goods);
@@ -80,7 +97,6 @@ public class GoodsController {
         fldGoodsName.clear();
         fldGoodsPrice.clear();
         fldNum.clear();
-
     }
 
     @FXML
@@ -95,18 +111,7 @@ public class GoodsController {
         fldGoodsPrice.clear();
         fldNum.clear();
     }
-    @FXML
-    private void onActionY() {
-        if (statusCheckY.isSelected()){
-            statusCheckN.setSelected(false);
-        }
-    }
-    @FXML
-    private void onActionN() {
-        if (statusCheckN.isSelected()){
-            statusCheckY.setSelected(false);
-        }
-    }
+
     @FXML
     private void onActionDelGoods() {
         currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
@@ -116,15 +121,5 @@ public class GoodsController {
         fldGoodsName.clear();
         fldGoodsPrice.clear();
         fldNum.clear();
-        initialize();
-
-       // managerController.initialize();
-       // fxmlLoader.getController();
-
     }
-
-
-
-
-
 }

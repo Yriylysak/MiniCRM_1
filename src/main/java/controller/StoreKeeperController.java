@@ -3,6 +3,7 @@ import entity.Client;
 import entity.Goods;
 import entity.Order;
 import entity.Ordering;
+import enumTypes.OrderStatus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -68,16 +69,16 @@ public class StoreKeeperController {
     @FXML TableColumn<Ordering, String> orderManagerClm;
 
 
-    private ObservableList<Ordering> orderingObservableList;
+    private ObservableList<Ordering> orderingObservableList = FXCollections.observableArrayList();
 
 
     @FXML
-    public void initialize(){
-        orderingObservableList = FXCollections.observableArrayList(DaoUtil.getOrderingDao().findAll());
-
-        //clientObservableList = FXCollections.observableList(ServiceUtil.getClientService().findAll());
-        // System.out.println(clientObservableList);
-        //goodsInOrderList.setItems(clientObservableList);
+    public void initialize() {
+        ObservableList<Ordering> allOrdering = FXCollections.observableArrayList(DaoUtil.getOrderingDao().findAll());
+        for (Ordering ord : allOrdering) {
+            if (ord.getOrderStatus() == OrderStatus.NEW)
+            orderingObservableList.add(ord);
+        }
 
         OrderNumberClm.setCellValueFactory(new PropertyValueFactory<Ordering, Long>("id"));
         orderDataClm.setCellValueFactory(new PropertyValueFactory<Ordering, Date>("date"));
@@ -89,13 +90,29 @@ public class StoreKeeperController {
 
     // Формирование заказа(btnFormOrder)
     @FXML
-    private void onActionFormOrder(){
+    private void onActionFormOrder() {
+
+    /*
+        if (orderList.getSelectionModel().getSelectedItem() != null) {
+            currentOrdering = (Ordering) orderList.getSelectionModel().getSelectedItem();
+
+            currentOrdering.setOrderStatus(OrderStatus.FORMED);
+            DaoUtil.getOrderingDao().update(currentOrdering);
+            }
+            */
 
     }
 
     // Неполное формирование заказа(btnFormPart)
     @FXML
-    private void onActionFormPart(){
+    private void onActionFormPart() {
+        /*if (orderList.getSelectionModel().getSelectedItem() != null) {
+            currentOrdering = (Ordering) orderList.getSelectionModel().getSelectedItem();
+
+            currentOrdering.setOrderStatus(OrderStatus.RETURNED);
+            DaoUtil.getOrderingDao().update(currentOrdering);
+        }
+        */
     }
 
     // Метод для клика мышкой по товарам из выбранного заказа(goodsInStoreList)

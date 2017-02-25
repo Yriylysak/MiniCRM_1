@@ -5,9 +5,9 @@ package enumTypes;
  */
 public enum OrderStatus {
     NEW("Новый"),               ACCEPTED("Пинят"),
-    FORMED("Сформированный"),   PAID_UP("Оплаченный"),
-    SENT("Отправленный"),       DELIVERED("Доставленый"),
-    CANCELED("Отменен");
+    RETURNED("Возвращен"),      FORMED("Сформированный"),
+    PAID_UP("Оплаченный"),      SENT("Отправленный"),
+    DELIVERED("Доставленый"),   CANCELED("Отменен");
 
     private String label;
 

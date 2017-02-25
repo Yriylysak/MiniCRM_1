@@ -50,7 +50,6 @@ public class EnterController {
 
             Scene scene = new Scene(root);
             scene.getStylesheets().add("/view/adminWindow.css");
-            // scene.getWindow();
             stage.setScene(scene);
             stage.setTitle("Login error");
             stage.show();
@@ -111,8 +110,8 @@ public class EnterController {
                 case STOREKEEPER:
                     try {
                         root = FXMLLoader.load(getClass().getResource("/view/storekeeperWindow.fxml"));
-                    } catch (IOException e) {e.printStackTrace()
-                    ;System.out.println("______________Ne tyt_______________");
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                     scene = new Scene(root);
                     stage.setTitle("Storekeeper window");

@@ -1,9 +1,8 @@
 package controller;
 
-import entity.Order;
+import entity.Ordering;
 import enumTypes.OrderStatus;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import util.DaoUtil;
 import util.ServiceUtil;
 
 import java.io.IOException;
@@ -32,12 +32,16 @@ public class CashierController {
     @FXML private ListView ordersListView;
     @FXML private Button btnCloseWin;
 
-    private ObservableList<Order> orderObservableList;
-    private ObservableList<Order> unpaidOrderObservableList ;
-    private Order currentOrder;
+    private ObservableList<Ordering> unpaidOrdering ;
+    private Ordering currentOrder;
 
     @FXML
     public void initialize() {
+        ObservableList<Ordering> allOrdering = FXCollections.observableArrayList(DaoUtil.getOrderingDao().findAll());
+        for (Ordering ord : allOrdering) {
+            if (ord.getOrderStatus() == OrderStatus.FORMED)
+                unpaidOrdering.add(ord);
+        }
 
         //orderObservableList = FXCollections.observableArrayList(ServiceUtil.getOrderService().findAll());
        /* for (Order order : orderObservableList) {
@@ -45,8 +49,8 @@ public class CashierController {
                 unpaidOrderObservableList.add(order);
             }
         }*/
-        //ordersListView.setItems(orderObservableList);
 
+       //ordersListView.setItems(unpaidOrdering);
     }
 
     public void showCashList(MouseEvent mouseEvent) {
@@ -71,22 +75,24 @@ public class CashierController {
     }
 
     public void onActionPaid() {
-        if (paidCheck.isSelected()){
+        if (paidCheck.isSelected()
+                && (ordersListView.getSelectionModel().getSelectedItem() != null) ) {
+
             canceledCheck.setSelected(false);
-            currentOrder = (Order) ordersListView.getSelectionModel().getSelectedItem();
-            Order newOrder = currentOrder;
-            newOrder.setOrderStatus(OrderStatus.PAID_UP);
-            ServiceUtil.getOrderService().changeOrder(currentOrder, newOrder);
+            currentOrder = (Ordering) ordersListView.getSelectionModel().getSelectedItem();
+            currentOrder.setOrderStatus(OrderStatus.PAID_UP);
+            DaoUtil.getOrderingDao().update(currentOrder);
         }
     }
 
     public void onActionCanceled() {
-        if (canceledCheck.isSelected()){
+        if (canceledCheck.isSelected()
+                && (ordersListView.getSelectionModel().getSelectedItem() != null)) {
+
             paidCheck.setSelected(false);
-            currentOrder = (Order) ordersListView.getSelectionModel().getSelectedItem();
-            Order newOrder = currentOrder;
-            newOrder.setOrderStatus(OrderStatus.CANCELED);
-            ServiceUtil.getOrderService().changeOrder(currentOrder, newOrder);
+            currentOrder = (Ordering) ordersListView.getSelectionModel().getSelectedItem();
+            currentOrder.setOrderStatus(OrderStatus.CANCELED);
+            DaoUtil.getOrderingDao().update(currentOrder);
         }
     }
 }
