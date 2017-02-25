@@ -84,12 +84,10 @@ public class GoodsInOrder {
 
     @Override
     public String toString() {
-        return "GoodsInOrder{" +
-                "id=" + id +
-                ", goods=" + goods +
-                ", price=" + price +
-                ", clienamount=" + clienamount +
-                ", enableamount=" + enableamount +
-                '}';
+        return id +
+                ". " + goods +
+                ". price = " + price +
+                ". clienamount=" + clienamount +
+                ". enableamount=" + enableamount;
     }
 }

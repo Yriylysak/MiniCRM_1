@@ -128,11 +128,10 @@ public class Ordering {
 
     @Override
     public String toString() {
-        return "Ordering  " +
-                "id=" + id +
-                ", client='" + client + '\'' +
-                ", date=" + date +
-                ", dateEnd='" + dateEnd + '\'' +
-                ", orderStatus=" + orderStatus;
+        return id +
+                ". status = " + orderStatus +
+                ". client = " + client +
+                ". date = " + date +
+                ". dateEnd = " + dateEnd;
     }
 }
