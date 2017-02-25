@@ -13,7 +13,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import util.DaoUtil;
 import util.ServiceUtil;
-
 import java.io.IOException;
 
 /**
@@ -29,19 +28,30 @@ public class CashierController {
     @FXML private TextField cashclientField;
     @FXML private CheckBox paidCheck;
     @FXML private CheckBox canceledCheck;
-    @FXML private ListView ordersListView;
+
     @FXML private Button btnCloseWin;
 
-    private ObservableList<Ordering> unpaidOrdering ;
+    @FXML private ListView orderingsList;
+
+
+    private ObservableList<Ordering> unpaidOrdering = FXCollections.observableArrayList();
+
     private Ordering currentOrder;
+
+    private ObservableList<Ordering> orderingObservableList;
 
     @FXML
     public void initialize() {
+
         ObservableList<Ordering> allOrdering = FXCollections.observableArrayList(DaoUtil.getOrderingDao().findAll());
         for (Ordering ord : allOrdering) {
-            if (ord.getOrderStatus() == OrderStatus.FORMED)
+            if (ord.getOrderStatus() == OrderStatus.NEW)
                 unpaidOrdering.add(ord);
+
+            // orderingObservableList = FXCollections.observableArrayList(DaoUtil.getOrderingDao().findAll());
         }
+        orderingsList.setItems(unpaidOrdering);
+    }
 
         //orderObservableList = FXCollections.observableArrayList(ServiceUtil.getOrderService().findAll());
        /* for (Order order : orderObservableList) {
@@ -51,7 +61,7 @@ public class CashierController {
         }*/
 
        //ordersListView.setItems(unpaidOrdering);
-    }
+
 
     public void showCashList(MouseEvent mouseEvent) {
     }
@@ -76,10 +86,10 @@ public class CashierController {
 
     public void onActionPaid() {
         if (paidCheck.isSelected()
-                && (ordersListView.getSelectionModel().getSelectedItem() != null) ) {
+                && (orderingsList.getSelectionModel().getSelectedItem() != null) ) {
 
             canceledCheck.setSelected(false);
-            currentOrder = (Ordering) ordersListView.getSelectionModel().getSelectedItem();
+            currentOrder = (Ordering) orderingsList.getSelectionModel().getSelectedItem();
             currentOrder.setOrderStatus(OrderStatus.PAID_UP);
             DaoUtil.getOrderingDao().update(currentOrder);
         }
@@ -87,10 +97,10 @@ public class CashierController {
 
     public void onActionCanceled() {
         if (canceledCheck.isSelected()
-                && (ordersListView.getSelectionModel().getSelectedItem() != null)) {
+                && (orderingsList.getSelectionModel().getSelectedItem() != null)) {
 
             paidCheck.setSelected(false);
-            currentOrder = (Ordering) ordersListView.getSelectionModel().getSelectedItem();
+            currentOrder = (Ordering) orderingsList.getSelectionModel().getSelectedItem();
             currentOrder.setOrderStatus(OrderStatus.CANCELED);
             DaoUtil.getOrderingDao().update(currentOrder);
         }
