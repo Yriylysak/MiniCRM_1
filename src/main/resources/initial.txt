@@ -21,13 +21,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 </beans>
 
-Callback<TableColumn<Map, String>, TableCell<Map, String>> cellFactoryForMap = p -> new TextFieldTableCell(new StringConverter() {
-            @Override
-            public String toString(Object t) {
-                return t.toString();
-            }
-            @Override
-            public Object fromString(String string) {
-                return string;
-            }
-        });
+
+
+
+        https://github.com/Grydzor/CRMProject02
