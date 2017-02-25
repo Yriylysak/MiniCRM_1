@@ -4,7 +4,7 @@ package enumTypes;
  * Created by Олег on 12.02.2017.
  */
 public enum OrderStatus {
-    NEW("Новый"),               ACCEPTED("Пинят"),
+    NEW("Новый"),
     RETURNED("Возвращен"),      FORMED("Сформированный"),
     PAID_UP("Оплаченный"),      SENT("Отправленный"),
     DELIVERED("Доставленый"),   CANCELED("Отменен");

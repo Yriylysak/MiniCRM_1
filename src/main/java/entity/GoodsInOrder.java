@@ -87,7 +87,7 @@ public class GoodsInOrder {
         return id +
                 ". " + goods +
                 ". price = " + price +
-                ". clienamount=" + clienamount +
+                ". amount=" + clienamount +
                 ". enableamount=" + enableamount;
     }
 }
