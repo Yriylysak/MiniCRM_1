@@ -1,25 +1,72 @@
-Yuliya Lypchuk
-Vyazovsky +
-Dmitry+
-_yihu
-
-07.02.2017
-
-Прохання не комітити свої файли hibernate.cfg.xml та клас Initial.java !
-
-Rename класів у папках Dao i Service.
-Дописане Dao для User i Employer.
-до класів User  i Employer додано getId().
-
-Прохання не комітити свої файли hibernate.cfg.xml та клас Initial.java !
-
-
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-    http://www.springframework.org/schema/tx
-    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- Настройки DB (Подклюсение) -->
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName"
+                  value="com.mysql.jdbc.Driver"/>
+
+
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/spring1"/>
+
+
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+
+
+    </bean>
+    <!-- Nastrojka  -->
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">
+                    org.hibernate.dialect.MySQL5Dialect
+                </prop>
+                <prop key="hibernate.show_sql">
+                    true
+                </prop>
+                <prop key="hibernate.connection.pool_size">
+                    3
+                </prop>
+                <prop key="jibernate.hbm2ddl.auto">
+                    create
+                </prop>
+            </props>
+
+
+        </property>
+        <property name="annotatedClasses">
+            <list>
+                <value>spring.ioc_hiber.entity.Car</value>
+            </list>
+        </property>
+    </bean>
 
 
 
+
+</beans>
+
+************************
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <import resource="data-config.xml"/>
+
+<context:component-scan base-package="spring.ioc_hiber.dao"/>
+<context:component-scan base-package="spring.ioc_hiber.service"/>
+
+
+</beans>
