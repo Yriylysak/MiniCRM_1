@@ -30,7 +30,6 @@ public class GoodsInOrder {
 
     @Column(name = "NDS", nullable = false)
     private Double nds;
-
     @Column(name = "PRICENDS", nullable = false)
     private Double priceNDS;
 
