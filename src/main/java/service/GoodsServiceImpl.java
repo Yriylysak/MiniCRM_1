@@ -17,7 +17,6 @@ public class GoodsServiceImpl  implements GoodsService {
         }
         return null;
     }
-
     @Override
     public List<Goods> findAll() {
         return DaoUtil.getGoodsDao().findAll();
