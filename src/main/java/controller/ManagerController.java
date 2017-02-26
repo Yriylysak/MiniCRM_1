@@ -238,7 +238,6 @@ public class ManagerController {
                 combobox.getValue(), amount, summ,
                 currentGoodsObservableList);
 
-        numberFld.setText(DaoUtil.getOrderingDao().create(ordering).toString());
         //пізніше замінити на:
         //numberFld.setText(ServiceUtil.getOrderingService().add(ordering).toString();
 
@@ -248,6 +247,8 @@ public class ManagerController {
         for (GoodsInOrder goodsInOrder : currentGoodsObservableList) {
             DaoUtil.getGoodsInOrderDao().create(goodsInOrder);
         }
+        numberFld.setText(DaoUtil.getOrderingDao().create(ordering).toString());
+
     }
 
     //дії по кліку мишки на вкладці "Замовлення"

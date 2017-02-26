@@ -3,6 +3,7 @@ package entity;
 import enumTypes.OrderStatus;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,8 +41,9 @@ public class Ordering {
     @Column (name = "SUMM")
     private Double summ;
 
-    @OneToMany(targetEntity = GoodsInOrder.class)
-    private List<GoodsInOrder> goodsInOrderList;
+    //@OneToMany(targetEntity = GoodsInOrder.class)
+    //private List<GoodsInOrder> goodsInOrderList;
+    transient private List<GoodsInOrder> goodsInOrderList = new ArrayList<>();
 
 /*
    @OneToMany(mappedBy = "ordering", fetch = FetchType.LAZY)
