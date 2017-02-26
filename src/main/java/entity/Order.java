@@ -9,7 +9,6 @@ import java.util.Date;
 public class Order {
 
     @Id
-    @Column (name = "ORDER_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

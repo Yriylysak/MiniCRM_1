@@ -1,7 +1,6 @@
 package entity;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * Created by JL on 19.02.2017.
@@ -17,27 +16,40 @@ public class GoodsInOrder {
     @JoinColumn(name = "GOODS_ID", nullable = false)
     private Goods goods;
 
+    @Column(name = "NAME", nullable = false)
+    private String name;
+
+    @Column(name = "AMOUNT", nullable = false)
+    private Integer amount;
+
+    @Column(name = "ENABLEAMOUNT", nullable = false)
+    private Integer amountEnable;
+
     @Column(name = "PRICE", nullable = false)
     private Double price;
 
-    @Column(name = "CLIENTAMOUNT", nullable = false)
-    private Integer clienamount;
+    @Column(name = "NDS", nullable = false)
+    private Double nds;
+    @Column(name = "PRICENDS", nullable = false)
+    private Double priceNDS;
 
-    @Column(name = "ENABLEAMOUNT", nullable = false)
-    private Integer enableamount;
-
-    //@ManyToOne(targetEntity = Ordering.class)
-    //private Ordering ordering;
+    @ManyToOne(targetEntity = Ordering.class)
+    @JoinColumn(name = "ORDER_ID", nullable = false)
+    private Ordering ordering;
 
     public GoodsInOrder() {
     }
 
-    public GoodsInOrder(Goods goods, Integer clienamount) {
+    public GoodsInOrder(Goods goods, Integer amount, Ordering ordering) {
         this.goods = goods;
-        this.price = goods.getPrice();
-        this.clienamount = clienamount;
-        enableamount = 0;
-
+        name = goods.getProductName();
+        this.amount = amount;
+        amountEnable = goods.getAmount();
+        price = goods.getPrice();
+        nds = goods.getPrice() * 0.2;
+        priceNDS = goods.getPrice() * 1.2;
+        this.ordering = getOrdering();
+        this.ordering = ordering;
     }
 
     public Long getId() {
@@ -48,12 +60,36 @@ public class GoodsInOrder {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Goods getGoods() {
         return goods;
     }
 
     public void setGoods(Goods goods) {
         this.goods = goods;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public Integer getAmountEnable() {
+        return amountEnable;
+    }
+
+    public void setAmountEnable(Integer amountEnable) {
+        this.amountEnable = amountEnable;
     }
 
     public Double getPrice() {
@@ -64,20 +100,28 @@ public class GoodsInOrder {
         this.price = price;
     }
 
-    public Integer getClienamount() {
-        return clienamount;
+    public Double getNds() {
+        return nds;
     }
 
-    public Integer getEnableamount() {
-        return enableamount;
+    public void setNds(Double nds) {
+        this.nds = nds;
     }
 
-    public void setClienamount(Integer clienamount) {
-        this.clienamount = clienamount;
+    public Double getPriceNDS() {
+        return priceNDS;
     }
 
-    public void setEnableamount(Integer enableamount) {
-        this.enableamount = enableamount;
+    public void setPriceNDS(Double priceNDS) {
+        this.priceNDS = priceNDS;
+    }
+
+    public Ordering getOrdering() {
+        return ordering;
+    }
+
+    public void setOrdering(Ordering ordering) {
+        this.ordering = ordering;
     }
 
     @Override
@@ -85,7 +129,7 @@ public class GoodsInOrder {
         return id +
                 ". " + goods +
                 ". price = " + price +
-                ". amount=" + clienamount +
-                ". enableamount=" + enableamount;
+                ". amount=" + amount +
+                ". enable=" + amountEnable;
     }
 }

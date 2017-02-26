@@ -3,9 +3,9 @@ package entity;
 import enumTypes.OrderStatus;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 
 /**
@@ -41,25 +41,31 @@ public class Ordering {
     @Column (name = "SUMM")
     private Double summ;
 
-
-   /* @OneToMany(targetEntity = GoodsInOrder.class)
+    @OneToMany(targetEntity = GoodsInOrder.class)
     private List<GoodsInOrder> goodsInOrderList;
-    */
+    //transient private List<GoodsInOrder> goodsInOrderList = new ArrayList<>();
+
 /*
    @OneToMany(mappedBy = "ordering", fetch = FetchType.LAZY)
     private Set<GoodsInOrder> goodsInOrderSet;
 */
 
-
     public Ordering() {
     }
 
+    public List<GoodsInOrder> getGoodsInOrderList() {
+        return goodsInOrderList;
+    }
 
+    public void setGoodsInOrderList(List<GoodsInOrder> goodsInOrderList) {
+        this.goodsInOrderList = goodsInOrderList;
+    }
 
     public Ordering(String manager, String client,
                     Date date, String dateEnd,
                     OrderStatus orderStatus,
-                    Integer amount, Double summ) {
+                    Integer amount, Double summ,
+                    List<GoodsInOrder> goodsInOrderList) {
         this.manager = manager;
         this.client = client;
         this.date = date;
@@ -67,6 +73,7 @@ public class Ordering {
         this.orderStatus = orderStatus;
         this.amount = amount;
         this.summ = summ;
+        this.goodsInOrderList = goodsInOrderList;
 
     }
 

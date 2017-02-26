@@ -5,14 +5,13 @@
 <hibernate-configuration>
     <session-factory>
         <property name="connection.url">
-            jdbc:mysql://localhost:3306/crm
-            <!--jdbc:mysql://192.168.1.127:3306/FirstDB-->
+            jdbc:mysql://localhost:3306/MiniCRM_1
        </property>
        <property name="connection.driver_class">
            com.mysql.jdbc.Driver
        </property>
        <property name="connection.username">root</property>
-       <property name="connection.password">root</property>
+       <property name="connection.password">100Yleaf</property>
 
        <property name="hbm2ddl.auto"> update </property>
 
@@ -23,7 +22,8 @@
        <mapping class="entity.Employee"/>
        <mapping class="entity.Client"/>
        <mapping class="entity.Goods"/>
-       <mapping class="entity.Order"/>
+       <mapping class="entity.GoodsInOrder"/>
+       <mapping class="entity.Ordering"/>
 
    </session-factory>
 </hibernate-configuration>
