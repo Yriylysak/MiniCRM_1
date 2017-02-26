@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 public class CashierController {
 
-    // commit window
+    // commit window1
 
     @FXML private TextField cashnumberFld;
     @FXML private TextField cashmanagerFld;
