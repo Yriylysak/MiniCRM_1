@@ -41,7 +41,7 @@ public class GoodsInOrder {
     public GoodsInOrder() {
     }
 
-    public GoodsInOrder(Goods goods, Integer amount) {
+    public GoodsInOrder(Goods goods, Integer amount, Ordering ordering) {
         this.goods = goods;
         name = goods.getProductName();
         this.amount = amount;
@@ -50,6 +50,7 @@ public class GoodsInOrder {
         nds = goods.getPrice() * 0.2;
         priceNDS = goods.getPrice() * 1.2;
         this.ordering = getOrdering();
+        this.ordering = ordering;
     }
 
     public Long getId() {

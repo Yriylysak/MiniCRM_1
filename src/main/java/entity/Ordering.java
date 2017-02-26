@@ -41,9 +41,9 @@ public class Ordering {
     @Column (name = "SUMM")
     private Double summ;
 
-    //@OneToMany(targetEntity = GoodsInOrder.class)
-    //private List<GoodsInOrder> goodsInOrderList;
-    transient private List<GoodsInOrder> goodsInOrderList = new ArrayList<>();
+    @OneToMany(targetEntity = GoodsInOrder.class)
+    private List<GoodsInOrder> goodsInOrderList;
+    //transient private List<GoodsInOrder> goodsInOrderList = new ArrayList<>();
 
 /*
    @OneToMany(mappedBy = "ordering", fetch = FetchType.LAZY)

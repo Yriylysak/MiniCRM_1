@@ -93,7 +93,7 @@ public class ManagerController {
     private ObservableList<Goods> goodsObservableList;
 
     private ObservableList<GoodsInOrder> kvasolka = FXCollections.observableArrayList();
-    private ObservableList<GoodsInOrder> currentGoodsObservableList = FXCollections.observableArrayList();
+    private ObservableList<GoodsInOrder> currentGoodsObservableList;
 
     //напишіть мені хто-небудь, що з цими двома рядками??
     // і відколи для String викликається toString() ? o_O
@@ -126,6 +126,7 @@ public class ManagerController {
     }
 
     public void initialize() {
+        currentGoodsObservableList = FXCollections.observableArrayList();
         //managerFld.setText(tmp);
         managerFld.setText(managerLogin);
         //гарно просимо табличку товарів із замовлення, щоб вона редагувалася
@@ -138,6 +139,11 @@ public class ManagerController {
         //виклик DAO замінити на Service:
         //orderingObservableList = FXCollections.observableArrayList(ServiceUtil.getOrderingService().findAll());
         orderList.setItems(orderingObservableList);
+        for (Ordering ordering : orderingObservableList) {
+            for (GoodsInOrder gio : ordering.getGoodsInOrderList()) {
+                System.out.println("______________________"  + gio.toString());
+            }
+        }
 
         goodsObservableList = FXCollections.observableArrayList(ServiceUtil.getGoodsService().findAll());
         goodsList.setItems(goodsObservableList);
@@ -240,14 +246,15 @@ public class ManagerController {
 
         //пізніше замінити на:
         //numberFld.setText(ServiceUtil.getOrderingService().add(ordering).toString();
+        numberFld.setText(DaoUtil.getOrderingDao().create(ordering).toString());
 
         goodNumFld.setText(amount.toString());
         priceFld.setText(summ.toString());
-        //збурігаємо у базу
+
+        //збeрігаємо у базу
         for (GoodsInOrder goodsInOrder : currentGoodsObservableList) {
             DaoUtil.getGoodsInOrderDao().create(goodsInOrder);
         }
-        numberFld.setText(DaoUtil.getOrderingDao().create(ordering).toString());
 
     }
 
@@ -300,7 +307,8 @@ public class ManagerController {
     private void onActionAddGoods() {
         if (goodsList.getSelectionModel().getSelectedItem() != null) {
             currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
-            currentGoodsInOrder = new GoodsInOrder(currentGoods, 1);
+            Ordering orderingTemp = new Ordering();
+            currentGoodsInOrder = new GoodsInOrder(currentGoods, 1, orderingTemp);
 
             System.out.println("________________" + currentGoodsInOrder);
             //додаємо в базу даних
