@@ -1,5 +1,7 @@
 package controller;
 
+import dao.GoodsInOrderDao;
+import dao.GoodsInOrderDaoImpl;
 import entity.*;
 import enumTypes.OrderStatus;
 import javafx.collections.FXCollections;
@@ -69,8 +71,7 @@ public class ManagerController {
     Button btnEdit;
     @FXML
     Button btnForm;
-    @FXML
-    Button btnGood;
+
     @FXML
     Button btnLogOut;
     @FXML
@@ -173,39 +174,7 @@ public class ManagerController {
         });
     }
 
-    //приберіть цей метод разом з кнопкою
-    //метод перенести до StoreKeeper
-    //у керування товарами додати кнопку "новий товар"
-    //яка очистить поля для заповнення
-    //те ж саме для клієнта
-    @FXML
-    private void onActionAddGood() {
-        Parent root = null;
-        Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader();
-        try {
-            root = FXMLLoader.load(getClass().getResource("/view/goodsWindow.fxml"));
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/view/goodsWindow.css");
-        stage.setScene(scene);
-        stage.setTitle("Создание товара");
-        stage.show();
-        stage.setResizable(false);
-
-        /* сім"я падає. від щастя?
-        // Теперь текущий контроллер "знает" о существовании "потомка"
-        children = loader.getController();
-        // А теперь и "потомок" знает своего "отца"
-        // і вони сім"я !!
-        children.setParent(this);
-        System.out.println("ONE"); //хто знає для чого тут цей рядок - напишіть
-        */
-    }
 
 
     @FXML
@@ -245,16 +214,16 @@ public class ManagerController {
                 currentGoodsObservableList);
 
         //пізніше замінити на:
-        //numberFld.setText(ServiceUtil.getOrderingService().add(ordering).toString();
-        numberFld.setText(DaoUtil.getOrderingDao().create(ordering).toString());
+        //numberFld.setText(ServiceUtil.getOrderingService().add(ordering).toString());
+        //numberFld.setText(DaoUtil.getOrderingDao().create(ordering).toString());
 
-        goodNumFld.setText(amount.toString());
-        priceFld.setText(summ.toString());
+        ////goodNumFld.setText(amount.toString());
+        //priceFld.setText(summ.toString());
 
         //збeрігаємо у базу
-        for (GoodsInOrder goodsInOrder : currentGoodsObservableList) {
-            DaoUtil.getGoodsInOrderDao().create(goodsInOrder);
-        }
+
+
+
 
     }
 

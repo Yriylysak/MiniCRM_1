@@ -208,4 +208,32 @@ public class StoreKeeperController {
 
     public void oderGetItems(MouseEvent mouseEvent) {
     }
+
+    public void onActionAddGood(ActionEvent event) {
+        Parent root = null;
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/goodsWindow.fxml"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/view/goodsWindow.css");
+        stage.setScene(scene);
+        stage.setTitle("Создание товара");
+        stage.show();
+        stage.setResizable(false);
+
+        /* сім"я падає. від щастя?
+        // Теперь текущий контроллер "знает" о существовании "потомка"
+        children = loader.getController();
+        // А теперь и "потомок" знает своего "отца"
+        // і вони сім"я !!
+        children.setParent(this);
+        System.out.println("ONE"); //хто знає для чого тут цей рядок - напишіть
+        */
+    }
 }
