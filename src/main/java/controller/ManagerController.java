@@ -64,7 +64,7 @@ public class ManagerController {
     @FXML TableColumn<GoodsInOrder, Double> columnPrice;
     @FXML TableColumn<GoodsInOrder, Double> columnNDS;
     @FXML TableColumn<GoodsInOrder, Double> columnPriceNDS;
-//
+////
     @FXML AnchorPane anchorPane;
 
     @FXML

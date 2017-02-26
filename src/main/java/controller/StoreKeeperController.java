@@ -205,7 +205,7 @@ public class StoreKeeperController {
         stage.setResizable(false);
 
     }
-//
+////
     public void oderGetItems(MouseEvent mouseEvent) {
     }
 
