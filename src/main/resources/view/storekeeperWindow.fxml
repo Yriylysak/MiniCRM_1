@@ -59,4 +59,5 @@
       <Button fx:id="btnGood" layoutX="290.0" layoutY="34.0" maxHeight="34.0" maxWidth="150.0" mnemonicParsing="false" onAction="#onActionAddGood" prefHeight="30.0" prefWidth="133.0" text="Новый товар" />
    </children>
     <!-- Закидываю окно  -->
+
 </AnchorPane>
