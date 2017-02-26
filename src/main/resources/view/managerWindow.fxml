@@ -64,6 +64,7 @@
          </children>
       </GridPane>
 
+
       <Label alignment="CENTER" layoutX="441.0" layoutY="23.0" text="ЗАКАЗЫ" />
       <TableView fx:id="tabView" layoutX="29.0" layoutY="408.0" prefHeight="213.0" prefWidth="869.0">
         <columns>
