@@ -12,13 +12,15 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import util.DaoUtil;
-import util.ServiceUtil;
 import java.io.IOException;
 
 /**
  * Created by dmitry on 16.02.17.
  */
 public class CashierController {
+
+    // commit window1
+
     @FXML private TextField cashnumberFld;
     @FXML private TextField cashmanagerFld;
     @FXML private TextField cashdateFld;
@@ -47,8 +49,6 @@ public class CashierController {
         for (Ordering ord : allOrdering) {
             if (ord.getOrderStatus() == OrderStatus.NEW)
                 unpaidOrdering.add(ord);
-
-            // orderingObservableList = FXCollections.observableArrayList(DaoUtil.getOrderingDao().findAll());
         }
         orderingsList.setItems(unpaidOrdering);
     }
