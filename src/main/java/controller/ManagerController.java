@@ -54,24 +54,16 @@ public class ManagerController {
     @FXML
     Button btnMyProfile;
 
-    @FXML
-    TableView tabView;
-    @FXML
-    TableColumn<Goods, Long> columnNumber;
-    @FXML
-    TableColumn<Goods, String> columnName;
-    @FXML
-    TableColumn<Goods, Integer> columnNmbr;
-    @FXML
-    TableColumn<Goods, Double> columnPrice;
-    @FXML
-    TableColumn<Goods, Double> columnSum;
+    @FXML TableView tabView;
+    @FXML TableColumn<GoodsInOrder, Long> columnID;
+    @FXML TableColumn<GoodsInOrder, String> columnName;
+    @FXML TableColumn<GoodsInOrder, Integer> columnAmount;
+    @FXML TableColumn<GoodsInOrder, Integer> columnAmountEnable;
+    @FXML TableColumn<GoodsInOrder, Double> columnPrice;
+    @FXML TableColumn<GoodsInOrder, Double> columnNDS;
+    @FXML TableColumn<GoodsInOrder, Double> columnPriceNDS;
 
-    @FXML
-    AnchorPane anchorPane;
-
-    @FXML
-    ListView<GoodsInOrder> listViewGoods;
+    @FXML AnchorPane anchorPane;
 
     @FXML
     Button btnEdit;
@@ -100,7 +92,7 @@ public class ManagerController {
     private ObservableList<Client> clientObservableList;
     private ObservableList<Goods> goodsObservableList;
 
-    private ObservableList<Goods> kvasolka = FXCollections.observableArrayList();
+    private ObservableList<GoodsInOrder> kvasolka = FXCollections.observableArrayList();
     private ObservableList<GoodsInOrder> currentGoodsObservableList = FXCollections.observableArrayList();
 
     //напишіть мені хто-небудь, що з цими двома рядками??
@@ -116,6 +108,7 @@ public class ManagerController {
     private ManagerController children;  // Ссылка на контроллер поражаемой формы
     ManagerController parent;     // Ссылка на родительский контроллер (если таковой есть для данной формы)
 
+    public ManagerController() {}
     public ManagerController getChildren() {
         return children;
     }
@@ -137,7 +130,6 @@ public class ManagerController {
         managerFld.setText(managerLogin);
         //гарно просимо табличку товарів із замовлення, щоб вона редагувалася
         tabView.setEditable(true);
-        ;
 
         clientObservableList = FXCollections.observableArrayList(ServiceUtil.getClientService().findAll());
         clientList.setItems(clientObservableList);
@@ -235,14 +227,16 @@ public class ManagerController {
         Double summ = 0.0;
         Integer amount = 0;
         for (GoodsInOrder gio : currentGoodsObservableList) {
-            summ += gio.getClienamount() * gio.getPrice();
-            amount += gio.getClienamount();
+            summ += gio.getAmount() * gio.getPrice();
+            amount += gio.getAmount();
         }
         priceFld.setText(summ.toString());
         goodNumFld.setText(amount.toString());
 
         Ordering ordering = new Ordering(managerLogin, clientField.getText(),
-                new Date(), termFld.getValue().format(formatter), combobox.getValue(), amount, summ);
+                new Date(), termFld.getValue().format(formatter),
+                combobox.getValue(), amount, summ,
+                currentGoodsObservableList);
 
         numberFld.setText(DaoUtil.getOrderingDao().create(ordering).toString());
         //пізніше замінити на:
@@ -250,6 +244,10 @@ public class ManagerController {
 
         goodNumFld.setText(amount.toString());
         priceFld.setText(summ.toString());
+        //збурігаємо у базу
+        for (GoodsInOrder goodsInOrder : currentGoodsObservableList) {
+            DaoUtil.getGoodsInOrderDao().create(goodsInOrder);
+        }
     }
 
     //дії по кліку мишки на вкладці "Замовлення"
@@ -302,22 +300,30 @@ public class ManagerController {
         if (goodsList.getSelectionModel().getSelectedItem() != null) {
             currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
             currentGoodsInOrder = new GoodsInOrder(currentGoods, 1);
+
+            System.out.println("________________" + currentGoodsInOrder);
+            //додаємо в базу даних
+            //DaoUtil.getGoodsInOrderDao().create(currentGoodsInOrder);
+            //System.out.println("________________" + DaoUtil.getGoodsInOrderDao().create(currentGoodsInOrder));
+
+
             currentGoodsObservableList.add(currentGoodsInOrder);
 
-            kvasolka.add(currentGoods);
+            kvasolka.add(currentGoodsInOrder);
 
             //додаємо товари у таблицю
-            columnNumber.setCellValueFactory(new PropertyValueFactory<>("id"));
-            columnName.setCellValueFactory(new PropertyValueFactory<>("productName"));
+            columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
+            columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
             //тут встановлюємо можливість редагування значень в таблиці
             columnName.setCellFactory(TextFieldTableCell.forTableColumn());
 
 
-            columnNmbr.setCellValueFactory(new PropertyValueFactory<>("amount"));
+            columnAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
             //columnNmbr.setCellFactory(TextFieldTableCell.for);
+            columnAmountEnable.setCellValueFactory(new PropertyValueFactory<>("amountEnable"));
 
-            Callback<TableColumn<Goods, Integer>, TableCell<Goods, Integer>> cellFactoryFor
+            Callback<TableColumn<GoodsInOrder, Integer>, TableCell<GoodsInOrder, Integer>> cellFactoryFor
                     = p -> new TextFieldTableCell(new StringConverter() {
                 @Override
                 public String toString(Object t) {
@@ -330,15 +336,17 @@ public class ManagerController {
                 }
             });
 
-            columnNmbr.setCellFactory(cellFactoryFor);
+            columnAmount.setCellFactory(cellFactoryFor);
 
             columnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-            String priceSum = "" + (currentGoods.getPrice() * 1.2);
-            //columnSum.setCellValueFactory(p -> new ReadOnlyObjectWrapper(currentGoods.getPrice()*1.2));
-            //columnSum.setCellValueFactory(currentGoods.getPrice()*1.2));
+
+            columnNDS.setCellValueFactory(new PropertyValueFactory<>("nds"));
+            columnPriceNDS.setCellValueFactory(new PropertyValueFactory<>("priceNDS"));
+
             System.out.println(currentGoodsObservableList);
 
             tabView.setItems(kvasolka);
+
         }
     }
 

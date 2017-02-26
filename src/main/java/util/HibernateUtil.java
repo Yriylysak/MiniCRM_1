@@ -1,8 +1,6 @@
 package util;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -13,6 +11,8 @@ import org.hibernate.cfg.Configuration;
 public class HibernateUtil {
     private static final SessionFactory factory = build();
     private static StandardServiceRegistry registry;
+
+    private HibernateUtil(){}
 
     private static SessionFactory build() {
         Configuration config = new Configuration();

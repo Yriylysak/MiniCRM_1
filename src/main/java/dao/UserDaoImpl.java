@@ -6,17 +6,19 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
 
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 /**
  * Created by JL on 05.02.2017.
  */
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
     private SessionFactory factory;
 
     public UserDaoImpl() {
         factory = HibernateUtil.getSessionFactory();
     }
+
     @Override
     public Long create(User user) {
         Session session = factory.openSession();
@@ -32,6 +34,7 @@ public class UserDaoImpl implements UserDao{
         }
         return null;
     }
+
     @Override
     public User read(Long id) {
         List<User> users = findAll();
@@ -42,14 +45,15 @@ public class UserDaoImpl implements UserDao{
         }
         return null;
     }
+
     @Override
     public boolean update(User user) {
         Session session = factory.openSession();
-        try{
+        try {
             session.beginTransaction();
             session.update(user);
             session.getTransaction().commit();
-            return  true;
+            return true;
         } catch (HibernateException e) {
             session.getTransaction().rollback();
         } finally {
@@ -57,6 +61,7 @@ public class UserDaoImpl implements UserDao{
         }
         return false;
     }
+
     @Override
     public boolean delete(User user) {
         if (user != null) {
@@ -74,8 +79,10 @@ public class UserDaoImpl implements UserDao{
         }
         return false;
     }
+
     @Override
     public List<User> findAll() {
         return  factory.openSession().createCriteria(User.class).list();
+            //return factory.openSession().createQuery("FROM " + User.class + " ", User.class).list();
     }
 }
