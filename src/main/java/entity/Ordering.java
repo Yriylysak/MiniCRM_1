@@ -3,7 +3,6 @@ package entity;
 import enumTypes.OrderStatus;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,8 +14,12 @@ import java.util.List;
 @Table (name = "ORDERING")
 public class Ordering {
     @Id
-    @Column(name = "ORDER_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Column(name = "ORDER_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO, generator = "order_seq")
+
+    //@GeneratedValue(strategy = GenerationType.AUTO, generator = "car_seq")
+    //@SequenceGenerator(name = "car_seq", sequenceName = "car_id", allocationSize = 25)
     private Long id;
 
     @Column (name = "MANAGER")
@@ -41,31 +44,18 @@ public class Ordering {
     @Column (name = "SUMM")
     private Double summ;
 
-    @OneToMany(targetEntity = GoodsInOrder.class)
-    private List<GoodsInOrder> goodsInOrderList;
+    //@OneToMany(targetEntity = GoodsInOrder.class)
+    //private List<GoodsInOrder> goodsInOrderList;
     //transient private List<GoodsInOrder> goodsInOrderList = new ArrayList<>();
 
-/*
-   @OneToMany(mappedBy = "ordering", fetch = FetchType.LAZY)
-    private Set<GoodsInOrder> goodsInOrderSet;
-*/
+   @OneToMany(mappedBy = "ordering",cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    private List<GoodsInOrder> goodsInOrder;
 
-    public Ordering() {
-    }
-
-    public List<GoodsInOrder> getGoodsInOrderList() {
-        return goodsInOrderList;
-    }
-
-    public void setGoodsInOrderList(List<GoodsInOrder> goodsInOrderList) {
-        this.goodsInOrderList = goodsInOrderList;
-    }
-
+    public Ordering() { }
     public Ordering(String manager, String client,
                     Date date, String dateEnd,
                     OrderStatus orderStatus,
-                    Integer amount, Double summ,
-                    List<GoodsInOrder> goodsInOrderList) {
+                    Integer amount, Double summ) {
         this.manager = manager;
         this.client = client;
         this.date = date;
@@ -73,8 +63,14 @@ public class Ordering {
         this.orderStatus = orderStatus;
         this.amount = amount;
         this.summ = summ;
-        this.goodsInOrderList = goodsInOrderList;
+    }
 
+    public List<GoodsInOrder> getGoodsInOrder() {
+        return goodsInOrder;
+    }
+
+    public void setGoodsInOrder(List<GoodsInOrder> goodsInOrder) {
+        this.goodsInOrder = goodsInOrder;
     }
 
     public String getManager() {

@@ -33,8 +33,9 @@ public class GoodsInOrder {
     @Column(name = "PRICENDS", nullable = false)
     private Double priceNDS;
 
-    @ManyToOne(targetEntity = Ordering.class)
-    @JoinColumn(name = "ORDER_ID", nullable = false)
+    //@ManyToOne(targetEntity = Ordering.class)
+    //@JoinColumn(name = "ORDER_ID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     private Ordering ordering;
 
     public GoodsInOrder() {

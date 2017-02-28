@@ -1,7 +1,5 @@
 package controller;
 
-import dao.GoodsInOrderDao;
-import dao.GoodsInOrderDaoImpl;
 import entity.*;
 import enumTypes.OrderStatus;
 import javafx.collections.FXCollections;
@@ -25,36 +23,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-
 /**
  * Created by julia on 05.02.2017.
  */
 public class ManagerController {
-    @FXML
-    TextField numberFld;
-    @FXML
-    TextField managerFld;
-    @FXML
-    TextField dateFld;
-    @FXML
-    TextField goodNumFld;
-    @FXML
-    TextField priceFld;
-    @FXML
-    TextField clientField;
-    @FXML
-    DatePicker termFld;
-    @FXML
-    ComboBox<OrderStatus> combobox;
-
-    @FXML
-    Button btnNewClient;
-    @FXML
-    Button btnNewOrder;
-    @FXML
-    Button btnRef;
-    @FXML
-    Button btnMyProfile;
+    @FXML TextField numberFld;
+    @FXML TextField managerFld;
+    @FXML TextField dateFld;
+    @FXML TextField goodNumFld;
+    @FXML TextField priceFld;
+    @FXML TextField clientField;
+    @FXML DatePicker termFld;
+    @FXML ComboBox<OrderStatus> combobox;
 
     @FXML TableView tabView;
     @FXML TableColumn<GoodsInOrder, Long> columnID;
@@ -64,43 +44,36 @@ public class ManagerController {
     @FXML TableColumn<GoodsInOrder, Double> columnPrice;
     @FXML TableColumn<GoodsInOrder, Double> columnNDS;
     @FXML TableColumn<GoodsInOrder, Double> columnPriceNDS;
-////
+
     @FXML AnchorPane anchorPane;
 
-    @FXML
-    Button btnEdit;
-    @FXML
-    Button btnForm;
+    @FXML Button btnNewOrder;
+    @FXML Button btnEdit;
+    @FXML Button btnForm;
 
-    @FXML
-    Button btnLogOut;
-    @FXML
-    ListView orderList;
-    @FXML
-    ListView goodsList;
-    @FXML
-    ListView clientList;
-    @FXML
-    Tab tabOrders;
-    @FXML
-    Tab tabGoods;
-    @FXML
-    Tab tabClient;
+    @FXML Button btnNewClient;
+    @FXML Button btnRef;
+    @FXML Button btnMyProfile;
+    @FXML Button btnLogOut;
 
+    @FXML ListView orderList;
+    @FXML ListView goodsList;
+    @FXML ListView clientList;
+    @FXML Tab tabOrders;
+    @FXML Tab tabGoods;
+    @FXML Tab tabClient;
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    private ObservableList<Ordering> orderingObservableList;
-    private ObservableList<Client> clientObservableList;
-    private ObservableList<Goods> goodsObservableList;
+    private ObservableList<Ordering> orderingObservableList = FXCollections.observableArrayList();;
+    private ObservableList<Client> clientObservableList = FXCollections.observableArrayList();;
+    private ObservableList<Goods> goodsObservableList = FXCollections.observableArrayList();;
+
+    private ObservableList<Goods> goodsTransient  = FXCollections.observableArrayList();;
 
     private ObservableList<GoodsInOrder> kvasolka = FXCollections.observableArrayList();
-    private ObservableList<GoodsInOrder> currentGoodsObservableList;
+    private ObservableList<GoodsInOrder> currentGoodsObservableList = FXCollections.observableArrayList();
 
-    //напишіть мені хто-небудь, що з цими двома рядками??
-    // і відколи для String викликається toString() ? o_O
     public static String managerLogin;
-    private String tmp = managerLogin.toString();
-
     public static GoodsInOrder currentGoodsInOrder;
     public static Goods currentGoods;
     public static Client currentClient;
@@ -113,47 +86,40 @@ public class ManagerController {
     public ManagerController getChildren() {
         return children;
     }
-
     public ManagerController getParent() {
         return parent;
     }
-
     public void setChildren(ManagerController children) {
         this.children = children;
     }
-
     public void setParent(ManagerController parent) {
         this.parent = parent;
     }
 
     public void initialize() {
-        currentGoodsObservableList = FXCollections.observableArrayList();
-        //managerFld.setText(tmp);
-        managerFld.setText(managerLogin);
-        //гарно просимо табличку товарів із замовлення, щоб вона редагувалася
-        tabView.setEditable(true);
-
-        clientObservableList = FXCollections.observableArrayList(ServiceUtil.getClientService().findAll());
-        clientList.setItems(clientObservableList);
+        //ініціалізація списків замовлень, товарів і клієнтів у вкладках
         //відображення списку замовлень
-        orderingObservableList = FXCollections.observableArrayList(DaoUtil.getOrderingDao().findAll());
+       orderingObservableList = FXCollections.observableArrayList(DaoUtil.getOrderingDao().findAll());
         //виклик DAO замінити на Service:
         //orderingObservableList = FXCollections.observableArrayList(ServiceUtil.getOrderingService().findAll());
         orderList.setItems(orderingObservableList);
-        for (Ordering ordering : orderingObservableList) {
-            for (GoodsInOrder gio : ordering.getGoodsInOrderList()) {
-                System.out.println("______________________"  + gio.toString());
-            }
-        }
 
+        //відображення списку клієнтів
+        clientObservableList = FXCollections.observableArrayList(ServiceUtil.getClientService().findAll());
+        clientList.setItems(clientObservableList);
+
+        //відображення списку товарів
         goodsObservableList = FXCollections.observableArrayList(ServiceUtil.getGoodsService().findAll());
         goodsList.setItems(goodsObservableList);
 
+        //ініціалізація текстових полів
+        managerFld.setText(managerLogin);
+        clientField.setPromptText("Выбрать");
         dateFld.setText(LocalDate.now().format(formatter));
         combobox.setPromptText("Выбрать");
-        //список статусів, які є перелічуваним типом
+        //список статусів замовлення, які є перелічуваним типом
         combobox.setItems(FXCollections.observableArrayList(OrderStatus.values()));
-
+        combobox.setValue(OrderStatus.NEW);
         //унеможливлюємо вибір дати виконання замовлення, що передує поточній
         //тобто замовлення "на вчора" не приймаються :)
         termFld.setConverter(new StringConverter<LocalDate>() {
@@ -172,122 +138,15 @@ public class ManagerController {
                 else return LocalDate.parse(dateString, formatter);
             }
         });
+        //гарно просимо табличку товарів із замовлення, щоб вона редагувалася
+        tabView.setEditable(true);
     }
-
-
-
-
-    @FXML
-    private void onActionNewClient() {
-        Parent root = null;
-        Stage stage = new Stage();
-        try {
-            root = FXMLLoader.load(getClass().getResource("/view/createClient.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/view/managerWindow.css");
-        stage.setScene(scene);
-        stage.setTitle("Создание клиента");
-        stage.show();
-        stage.setResizable(false);
-    }
-
-    @FXML
-    private void onActionForm() {
-        //тут вираховується сума за все замовлення
-        //але поки що товари у замовлення додаються по одному
-        //тому для всіх з GoodsInOrder amount=1
-        Double summ = 0.0;
-        Integer amount = 0;
-        for (GoodsInOrder gio : currentGoodsObservableList) {
-            summ += gio.getAmount() * gio.getPrice();
-            amount += gio.getAmount();
-        }
-        priceFld.setText(summ.toString());
-        goodNumFld.setText(amount.toString());
-
-        Ordering ordering = new Ordering(managerLogin, clientField.getText(),
-                new Date(), termFld.getValue().format(formatter),
-                combobox.getValue(), amount, summ,
-                currentGoodsObservableList);
-
-        //пізніше замінити на:
-        //numberFld.setText(ServiceUtil.getOrderingService().add(ordering).toString());
-        //numberFld.setText(DaoUtil.getOrderingDao().create(ordering).toString());
-
-        ////goodNumFld.setText(amount.toString());
-        //priceFld.setText(summ.toString());
-
-        //збeрігаємо у базу
-
-
-
-
-    }
-
-    //дії по кліку мишки на вкладці "Замовлення"
-    @FXML
-    public void onMousePressedOrders() {
-        //поточне замовлення
-        currentOrdering = (Ordering) orderList.getSelectionModel().getSelectedItem();
-        //id вибраного замовлення
-        numberFld.setText(currentOrdering.getId().toString());
-        //ім"я менеджера, який приймає замовлення
-        // береться з з вікна авторизації
-        managerFld.setText(currentOrdering.getManager());
-        //ім"я клієнта, який зробив замовлення
-        clientField.setText(currentOrdering.getClient());
-        //дата, коли було зроблено замовлення
-        dateFld.setText(currentOrdering.getDate().toString());
-        //дата виконання замовлення
-        //думаю, дії з датами якось можна оптимізувати
-        termFld.setValue(LocalDate.parse(currentOrdering.getDateEnd(), formatter));
-        //ordering status
-        combobox.setValue(currentOrdering.getOrderStatus());
-        //сума замовлення
-        priceFld.setText(currentOrdering.getSumm().toString());
-        //к-сть артикулів
-        goodNumFld.setText(currentOrdering.getAmount().toString());
-    }
-
-    //дії по кліку мишки на вкладці "Товари"
-    @FXML
-    public void onMousePressedGoods() {
-        if (goodsList.getSelectionModel().getSelectedItem() != null) {
-            currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
-        }
-        // initialize();
-    }
-
-    //дії по кліку мишки на вкладці "Клієнти"
-    @FXML
-    public void onMousePressedClients() {
-        if (clientList.getSelectionModel().getSelectedItem() != null) {
-            currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
-            clientField.setText(currentClient.getName() + " " + currentClient.getSureName());
-        }
-        // initialize();
-    }
-
     //дії по кнопці " Добавить товар"
     @FXML
     private void onActionAddGoods() {
         if (goodsList.getSelectionModel().getSelectedItem() != null) {
             currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
-            Ordering orderingTemp = new Ordering();
-            currentGoodsInOrder = new GoodsInOrder(currentGoods, 1, orderingTemp);
-
-            System.out.println("________________" + currentGoodsInOrder);
-            //додаємо в базу даних
-            //DaoUtil.getGoodsInOrderDao().create(currentGoodsInOrder);
-            //System.out.println("________________" + DaoUtil.getGoodsInOrderDao().create(currentGoodsInOrder));
-
-
-            currentGoodsObservableList.add(currentGoodsInOrder);
-
-            kvasolka.add(currentGoodsInOrder);
+            goodsTransient.add(currentGoods);
 
             //додаємо товари у таблицю
             columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -327,7 +186,36 @@ public class ManagerController {
 
         }
     }
+    @FXML
+    private void onActionForm() {
+        //тут вираховується сума за все замовлення
+        //але поки що товари у замовлення додаються по одному
+        //тому для всіх з GoodsInOrder amount=1
+        Double summ = 0.0;
+        Integer amount = 0;
 
+        Ordering ordering = new Ordering(managerLogin, clientField.getText(),
+                new Date(), termFld.getValue().format(formatter),
+                combobox.getValue(), amount, summ);
+
+        priceFld.setText(summ.toString());
+        goodNumFld.setText(amount.toString());
+        //збeрігаємо у базу
+        Long id = DaoUtil.getOrderingDao().create(ordering);
+        numberFld.setText(id.toString());
+        //пізніше замінити на:
+        //numberFld.setText(ServiceUtil.getOrderingService().add(ordering).toString());
+
+        for (Goods gio : goodsTransient) {
+            summ += gio.getAmount() * gio.getPrice();
+            amount += gio.getAmount();
+            Ordering ord = DaoUtil.getOrderingDao().read(id);
+            GoodsInOrder goodsInOrder = new GoodsInOrder(gio, 1, ord);
+            //додаємо товари з замовлення у базу
+           DaoUtil.getGoodsInOrderDao().create(goodsInOrder);
+        }
+    }
+    //дії по кнопці "редагувати замовлення"
     @FXML
     private void onActionEdit() {
         if (orderList.getSelectionModel().getSelectedItem() != null) {
@@ -347,6 +235,7 @@ public class ManagerController {
             } catch (NumberFormatException e) {
                 System.out.println("----------- Integer isn't int ------------");
             }
+            //update замовлення у таблиці бази даних
             DaoUtil.getOrderingDao().update(currentOrdering);
 
             numberFld.clear();
@@ -358,7 +247,6 @@ public class ManagerController {
             tabView.setItems(null);
         }
     }
-
     @FXML
     private void onActionNewOrder() {
         //очищуємо поля для нового замовлення
@@ -366,7 +254,7 @@ public class ManagerController {
         clientField.clear();
         //dateFld.setText(LocalDate.now().format(formatter));
         dateFld.setText(LocalDate.now().toString());
-        termFld.setValue(null);
+        termFld.setValue(LocalDate.now());
         currentGoodsObservableList.clear();
 
         combobox.setValue(OrderStatus.NEW);
@@ -375,12 +263,69 @@ public class ManagerController {
         goodNumFld.clear();
         priceFld.clear();
     }
-
+    //дії по кліку мишки на вкладці "Замовлення"
+    @FXML
+    public void onMousePressedOrders() {
+        if (orderList.getSelectionModel().getSelectedItem() != null) {
+            //поточне замовлення
+            currentOrdering = (Ordering) orderList.getSelectionModel().getSelectedItem();
+            //id вибраного замовлення
+            numberFld.setText(currentOrdering.getId().toString());
+            //ім"я менеджера, який приймає замовлення
+            // береться з з вікна авторизації
+            managerFld.setText(currentOrdering.getManager());
+            //ім"я клієнта, який зробив замовлення
+            clientField.setText(currentOrdering.getClient());
+            //дата, коли було зроблено замовлення
+            dateFld.setText(currentOrdering.getDate().toString());
+            //дата виконання замовлення
+            //думаю, дії з датами якось можна оптимізувати
+            termFld.setValue(LocalDate.parse(currentOrdering.getDateEnd(), formatter));
+            //ordering status
+            combobox.setValue(currentOrdering.getOrderStatus());
+            //сума замовлення
+            priceFld.setText(currentOrdering.getSumm().toString());
+            //к-сть артикулів
+            goodNumFld.setText(currentOrdering.getAmount().toString());
+        }
+    }
+    //дії по кліку мишки на вкладці "Товари"
+    @FXML
+    public void onMousePressedGoods() {
+        if (goodsList.getSelectionModel().getSelectedItem() != null) {
+            currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
+        }
+        // initialize();
+    }
+    //дії по кліку мишки на вкладці "Клієнти"
+    @FXML
+    public void onMousePressedClients() {
+        if (clientList.getSelectionModel().getSelectedItem() != null) {
+            currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
+            clientField.setText(currentClient.getName() + " " + currentClient.getSureName());
+        }
+        // initialize();
+    }
+    @FXML
+    private void onActionNewClient() {
+        Parent root = null;
+        Stage stage = new Stage();
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/createClient.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/view/managerWindow.css");
+        stage.setScene(scene);
+        stage.setTitle("Создание клиента");
+        stage.show();
+        stage.setResizable(false);
+    }
     @FXML
     private void onActionRef() {
         initialize();
     }
-
     @FXML
     private void onActionBtnLogOut() {
         GraphicsLoader.closeWindow(btnLogOut);
@@ -399,7 +344,6 @@ public class ManagerController {
         primaryStage.setResizable(false);
 
     }
-
     @FXML
     private void onActionProfile() {
         Parent root = null;
