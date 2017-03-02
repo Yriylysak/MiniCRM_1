@@ -45,6 +45,7 @@ public class ProfileController {
         //System.out.println(currentEmployee1.getUser().getEmail());
        // fldProfileEmail.setText(currentEmployee1.getUser().getEmail());
 
+
     }
 
 
