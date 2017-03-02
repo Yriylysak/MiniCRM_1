@@ -69,7 +69,7 @@ public class ManagerController {
     private ObservableList<Ordering> orderingObservableList = FXCollections.observableArrayList();;
     private ObservableList<Client> clientObservableList = FXCollections.observableArrayList();;
     private ObservableList<Goods> goodsObservableList = FXCollections.observableArrayList();;
-    private ObservableList<Goods> goodsTransient  = FXCollections.observableArrayList();;
+    //private ObservableList<Goods> goodsTransient  = FXCollections.observableArrayList();;
     private ObservableList<GoodsInOrder> currentGoodsObservableList = FXCollections.observableArrayList();
 
     public static String managerLogin;
@@ -77,6 +77,8 @@ public class ManagerController {
     public static Goods currentGoods;
     public static Client currentClient;
     public static Ordering currentOrdering;
+
+    private Integer amount;
 
     private ManagerController children;  // Ссылка на контроллер поражаемой формы
     ManagerController parent;     // Ссылка на родительский контроллер (если таковой есть для данной формы)
@@ -141,13 +143,13 @@ public class ManagerController {
     //дії по кнопці " Добавить товар"
     @FXML
     private void onActionAddGoods() {
-        Integer amount;
         btnAddManagGood.setDisable(true);
-        fldAmount.setDisable(true);
+        //fldAmount.setDisable(true);
         if (goodsList.getSelectionModel().getSelectedItem() != null) {
             currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
             try {
                 amount = Integer.parseInt(fldAmount.getText());
+                fldAmount.clear();
             } catch (NumberFormatException e) {
                 fldAmount.clear();
                 return;
@@ -155,7 +157,7 @@ public class ManagerController {
             //тимчасовий список товарів, які будуть відображені у таблиці у вікні менеджера
             currentGoodsObservableList.add( new GoodsInOrder(currentGoods, amount, new Ordering()));
             //товари, які при формуванні замовлення ми збережемо у таблицю БД
-            goodsTransient.add(currentGoods);
+            //goodsTransient.add(currentGoods);
 
             //присвоєння значень стовпцям таблиці
             columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -188,38 +190,41 @@ public class ManagerController {
     }
     @FXML
     private void onActionForm() {
-        //тут вираховується сума за все замовлення
-        //але поки що товари у замовлення додаються по одному
-        //тому для всіх з GoodsInOrder amount=1
+        Double discount;
+        try {
+            discount = Double.parseDouble(fldDiscount.getText());
+        } catch (NumberFormatException e) {
+            fldDiscount.clear();
+            return;
+        }
+        //тут вираховується сума з ПДВ за все замовлення
         Double summ = 0.0;
-        Integer amount = 0;
-
+        amount = 0;
+        for (GoodsInOrder gio : currentGoodsObservableList) {
+            summ += gio.getAmount() * gio.getPriceNDS();
+            amount += gio.getAmount();
+        }
+        //враховуємо суму знижки у замовлення
+        summ *= 1 + discount/100;
+        System.out.println("______________________" + summ + "  " + discount/100);
         Ordering ordering = new Ordering(managerLogin, clientField.getText(),
                 new Date(), termFld.getValue().format(formatter),
                 combobox.getValue(), amount, summ);
-
         priceFld.setText(summ.toString());
         goodNumFld.setText(amount.toString());
         //збeрігаємо у базу
         Long id = DaoUtil.getOrderingDao().create(ordering);
+        Ordering ord = DaoUtil.getOrderingDao().read(id);
+
         numberFld.setText(id.toString());
-        //numberFld.setText(DaoUtil.getOrderingDao().create(ordering).toString());
 
-        //пізніше замінити на:
-        //numberFld.setText(ServiceUtil.getOrd
-        //eringService().add(ordering).toString());
         //перебираємо список товарів і зберігаємо їх у таблицю БД
-        for (Goods gio : goodsTransient) {
-            summ += gio.getAmount() * gio.getPrice();
-            amount += gio.getAmount();
-            Ordering ord = DaoUtil.getOrderingDao().read(id);
-            GoodsInOrder goodsInOrder = new GoodsInOrder(gio, 1, ord);
-            goodsInOrder.setOrdering(ord);
-
-            //додаємо товари з замовлення у таблицю БД
-            DaoUtil.getGoodsInOrderDao().create(goodsInOrder);
+        for (GoodsInOrder gio : currentGoodsObservableList) {
+            gio.setOrdering(ord);
+            DaoUtil.getGoodsInOrderDao().create(gio);
         }
-        numberFld.clear();
+        btnAddManagGood.setDisable(true);
+        /*numberFld.clear();
         clientField.clear();
         //dateFld.setText(LocalDate.now().format(formatter));
         dateFld.setText(LocalDate.now().toString());
@@ -229,7 +234,7 @@ public class ManagerController {
         goodNumFld.clear();
         priceFld.clear();
         tabView.setItems(null);
-        btnAddManagGood.setDisable(true);
+        */
     }
     //дії по кнопці "редагувати замовлення"
     @FXML
@@ -245,12 +250,10 @@ public class ManagerController {
             try {
                 currentOrdering.setSumm(Double.parseDouble(priceFld.getText()));
             } catch (NumberFormatException e) {
-                System.out.println("----------- Double isn't double ------------");
             }
             try {
                 currentOrdering.setAmount(Integer.parseInt(goodNumFld.getText()));
             } catch (NumberFormatException e) {
-                System.out.println("----------- Integer isn't int ------------");
             }
             //update замовлення у таблиці бази даних
             DaoUtil.getOrderingDao().update(currentOrdering);
