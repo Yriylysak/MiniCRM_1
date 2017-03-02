@@ -32,18 +32,31 @@ public class User {
     @Column (name = "DATE")
     private Date date;
 
+    @Column (name = "EMAIL")
+    private String email;
+
+
+
     public User(String login, String password, Employee employee) {
         this.login = login;
         this.password = password;
         this.employee = employee;
         date = new Date();
+        email = login + "@miniCRM1.ua";
     }
+
     public User() {}
 
     public void setId(Long id) {
         this.id = id;
     }
 
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public Long getId() {
         return id;
     }

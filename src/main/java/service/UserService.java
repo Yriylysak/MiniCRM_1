@@ -19,6 +19,7 @@ public interface UserService {
     Position isUser(String login, String password);
     User createUser(Employee employee);
     String createLogin(String name, String surname);
+    String createEmail(String login);
     String createPassword();
     Long findUser(Employee employee);
     User getCurrentUser(String login, String password);

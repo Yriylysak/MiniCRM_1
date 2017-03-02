@@ -1,4 +1,5 @@
 package controller;
+import entity.Employee;
 import enumTypes.Position;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import util.ServiceUtil;
 import java.io.IOException;
+
+
 import static controller.ManagerController.managerLogin;
 
 
@@ -22,6 +25,7 @@ public class EnterController {
     @FXML Button enterButton;
     @FXML Button cancelButton;
     private int counter = 5;
+    public static Employee currentEmployee1;
 
     @FXML
     private void onActionLog() {
@@ -38,6 +42,8 @@ public class EnterController {
         Stage stage = new Stage();
 
         Position position = ServiceUtil.getUserService().isUser(loginField.getText(), passwordField.getText());
+        currentEmployee1 = ServiceUtil.getUserService().getCurrentUser(loginField.getText(), passwordField.getText()).getEmployee();
+        System.out.println(currentEmployee1);
 
         if (position == null) {
             try {

@@ -116,6 +116,12 @@ public class UserServiceImpl implements UserService {
         return login;
     }
 
+    @Override
+    public String createEmail(String login) {
+        String email = login + "@miniCRM1.ua";
+        return email;
+    }
+
     // проста автогенерація пароля
     @Override
     public String createPassword() {

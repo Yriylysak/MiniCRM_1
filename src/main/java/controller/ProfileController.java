@@ -14,6 +14,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
+import static controller.EnterController.currentEmployee1;
+
 /**
  * Created by dmitry on 23.02.17.
  */
@@ -34,6 +37,15 @@ public class ProfileController {
     Button btnEscProfile;
     @FXML
     ImageView image;
+
+    @FXML
+    public void initialize() {
+        fldProfileName.setText(currentEmployee1.getName());
+        fldProfileSurname.setText(currentEmployee1.getSureName());
+        //System.out.println(currentEmployee1.getUser().getEmail());
+       // fldProfileEmail.setText(currentEmployee1.getUser().getEmail());
+
+    }
 
 
     @FXML
