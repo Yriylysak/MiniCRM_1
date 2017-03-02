@@ -154,6 +154,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getCurrentUser(String login, String password) {
+        List<User> users = userDao.findAll();
+        for(User us : users) {
+            if ( (us.getLogin().equals(login))
+                    && (us.getPassword().equals(password))) {
+                return us;
+            }
+        }
+        return null;
+    }
+    @Override
     public Long findUser(Employee employee) {
         List<User> users = userDao.findAll();
         for (User us : users) {

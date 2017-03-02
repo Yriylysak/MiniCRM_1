@@ -21,5 +21,5 @@ public interface UserService {
     String createLogin(String name, String surname);
     String createPassword();
     Long findUser(Employee employee);
-
+    User getCurrentUser(String login, String password);
 }
