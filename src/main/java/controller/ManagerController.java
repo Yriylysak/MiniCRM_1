@@ -34,6 +34,8 @@ public class ManagerController {
     @FXML TextField priceFld;
     @FXML TextField clientField;
     @FXML DatePicker termFld;
+    @FXML TextField fldDiscount;
+    @FXML TextField fldAmount;
     @FXML ComboBox<OrderStatus> combobox;
 
     @FXML TableView tabView;
@@ -50,7 +52,7 @@ public class ManagerController {
     @FXML Button btnNewOrder;
     @FXML Button btnEdit;
     @FXML Button btnForm;
-
+    @FXML Button btnAddManagGood;
     @FXML Button btnNewClient;
     @FXML Button btnRef;
     @FXML Button btnMyProfile;
@@ -67,10 +69,7 @@ public class ManagerController {
     private ObservableList<Ordering> orderingObservableList = FXCollections.observableArrayList();;
     private ObservableList<Client> clientObservableList = FXCollections.observableArrayList();;
     private ObservableList<Goods> goodsObservableList = FXCollections.observableArrayList();;
-
     private ObservableList<Goods> goodsTransient  = FXCollections.observableArrayList();;
-
-    private ObservableList<GoodsInOrder> kvasolka = FXCollections.observableArrayList();
     private ObservableList<GoodsInOrder> currentGoodsObservableList = FXCollections.observableArrayList();
 
     public static String managerLogin;
@@ -126,12 +125,9 @@ public class ManagerController {
             //а нам точно треба обидва методи?
             @Override
             public String toString(LocalDate localDate) {
-                if (localDate == null || localDate.isBefore(LocalDate.now()))
-                    return "";
-                else
-                    return localDate.format(formatter);
+                if (localDate == null || localDate.isBefore(LocalDate.now())) return "";
+                else return localDate.format(formatter);
             }
-
             @Override
             public LocalDate fromString(String dateString) {
                 if (dateString == null || dateString.trim().isEmpty()) return null;
@@ -140,26 +136,35 @@ public class ManagerController {
         });
         //гарно просимо табличку товарів із замовлення, щоб вона редагувалася
         tabView.setEditable(true);
+        btnAddManagGood.setDisable(true);
     }
     //дії по кнопці " Добавить товар"
     @FXML
     private void onActionAddGoods() {
+        Integer amount;
+        btnAddManagGood.setDisable(true);
+        fldAmount.setDisable(true);
         if (goodsList.getSelectionModel().getSelectedItem() != null) {
             currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
+            try {
+                amount = Integer.parseInt(fldAmount.getText());
+            } catch (NumberFormatException e) {
+                fldAmount.clear();
+                return;
+            }
+            //тимчасовий список товарів, які будуть відображені у таблиці у вікні менеджера
+            currentGoodsObservableList.add( new GoodsInOrder(currentGoods, amount, new Ordering()));
+            //товари, які при формуванні замовлення ми збережемо у таблицю БД
             goodsTransient.add(currentGoods);
 
-            //додаємо товари у таблицю
+            //присвоєння значень стовпцям таблиці
             columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
             columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-            //тут встановлюємо можливість редагування значень в таблиці
-            columnName.setCellFactory(TextFieldTableCell.forTableColumn());
-
-
             columnAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-            //columnNmbr.setCellFactory(TextFieldTableCell.for);
-            columnAmountEnable.setCellValueFactory(new PropertyValueFactory<>("amountEnable"));
 
+            //тут встановлюємо можливість редагування стовпців "назва" і "кількість"
+            columnName.setCellFactory(TextFieldTableCell.forTableColumn());
+            //columnAmount.setCellFactory(TextFieldTableCell.forTableColumn());
             Callback<TableColumn<GoodsInOrder, Integer>, TableCell<GoodsInOrder, Integer>> cellFactoryFor
                     = p -> new TextFieldTableCell(new StringConverter() {
                 @Override
@@ -174,16 +179,11 @@ public class ManagerController {
             });
 
             columnAmount.setCellFactory(cellFactoryFor);
-
+            columnAmountEnable.setCellValueFactory(new PropertyValueFactory<>("amountEnable"));
             columnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-
             columnNDS.setCellValueFactory(new PropertyValueFactory<>("nds"));
             columnPriceNDS.setCellValueFactory(new PropertyValueFactory<>("priceNDS"));
-
-            System.out.println(currentGoodsObservableList);
-
-            tabView.setItems(kvasolka);
-
+            tabView.setItems(currentGoodsObservableList);
         }
     }
     @FXML
@@ -203,21 +203,38 @@ public class ManagerController {
         //збeрігаємо у базу
         Long id = DaoUtil.getOrderingDao().create(ordering);
         numberFld.setText(id.toString());
-        //пізніше замінити на:
-        //numberFld.setText(ServiceUtil.getOrderingService().add(ordering).toString());
+        //numberFld.setText(DaoUtil.getOrderingDao().create(ordering).toString());
 
+        //пізніше замінити на:
+        //numberFld.setText(ServiceUtil.getOrd
+        //eringService().add(ordering).toString());
+        //перебираємо список товарів і зберігаємо їх у таблицю БД
         for (Goods gio : goodsTransient) {
             summ += gio.getAmount() * gio.getPrice();
             amount += gio.getAmount();
             Ordering ord = DaoUtil.getOrderingDao().read(id);
             GoodsInOrder goodsInOrder = new GoodsInOrder(gio, 1, ord);
-            //додаємо товари з замовлення у базу
-           DaoUtil.getGoodsInOrderDao().create(goodsInOrder);
+            goodsInOrder.setOrdering(ord);
+
+            //додаємо товари з замовлення у таблицю БД
+            DaoUtil.getGoodsInOrderDao().create(goodsInOrder);
         }
+        numberFld.clear();
+        clientField.clear();
+        //dateFld.setText(LocalDate.now().format(formatter));
+        dateFld.setText(LocalDate.now().toString());
+        termFld.setValue(LocalDate.now());
+        currentGoodsObservableList.clear();
+        combobox.setValue(null);
+        goodNumFld.clear();
+        priceFld.clear();
+        tabView.setItems(null);
+        btnAddManagGood.setDisable(true);
     }
     //дії по кнопці "редагувати замовлення"
     @FXML
     private void onActionEdit() {
+        btnAddManagGood.setDisable(true);
         if (orderList.getSelectionModel().getSelectedItem() != null) {
             currentOrdering = (Ordering) orderList.getSelectionModel().getSelectedItem();
 
@@ -249,6 +266,7 @@ public class ManagerController {
     }
     @FXML
     private void onActionNewOrder() {
+        btnAddManagGood.setDisable(true);
         //очищуємо поля для нового замовлення
         numberFld.clear();
         clientField.clear();
@@ -266,6 +284,7 @@ public class ManagerController {
     //дії по кліку мишки на вкладці "Замовлення"
     @FXML
     public void onMousePressedOrders() {
+        btnAddManagGood.setDisable(true);
         if (orderList.getSelectionModel().getSelectedItem() != null) {
             //поточне замовлення
             currentOrdering = (Ordering) orderList.getSelectionModel().getSelectedItem();
@@ -287,12 +306,14 @@ public class ManagerController {
             priceFld.setText(currentOrdering.getSumm().toString());
             //к-сть артикулів
             goodNumFld.setText(currentOrdering.getAmount().toString());
+
         }
     }
     //дії по кліку мишки на вкладці "Товари"
     @FXML
     public void onMousePressedGoods() {
         if (goodsList.getSelectionModel().getSelectedItem() != null) {
+            btnAddManagGood.setDisable(false);
             currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
         }
         // initialize();
@@ -300,6 +321,7 @@ public class ManagerController {
     //дії по кліку мишки на вкладці "Клієнти"
     @FXML
     public void onMousePressedClients() {
+        btnAddManagGood.setDisable(true);
         if (clientList.getSelectionModel().getSelectedItem() != null) {
             currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
             clientField.setText(currentClient.getName() + " " + currentClient.getSureName());
