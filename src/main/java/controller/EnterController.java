@@ -71,7 +71,7 @@ public class EnterController {
             switch (position) {
                 case ADMIN:
                     try {
-                        root = FXMLLoader.load(getClass().getResource("/view/adminWindow.fxml"));
+                        root = FXMLLoader.load(getClass().getResource("/view/heisenberg.fxml"));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

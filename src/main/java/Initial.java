@@ -45,6 +45,11 @@ public class Initial extends Application {
         ServiceUtil.getEmployeeService().add(employeeStoreKeeper);
         ServiceUtil.getUserService().add(userStoreKeeper);
 
+        Employee employerHeisenberg = new Employee("Walter", "White", 53, Gender.MALE, Position.ADMIN);
+        User userHeisenberg = new User("Heisenberg", "1", employerHeisenberg);
+        ServiceUtil.getEmployeeService().add(employerHeisenberg);
+        ServiceUtil.getUserService().add(userHeisenberg);
+
 
         Client client1 = new Client("client1", "cli1", "age", "phone", "bla@bla.com");
         ServiceUtil.getClientService().add(client1);
