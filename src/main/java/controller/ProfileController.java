@@ -73,52 +73,77 @@ public class ProfileController {
 
     }
 
+
+
     @FXML
     private void onActionSave() {
 
-        Parent root = null;
-        Stage stage = new Stage();
+
         if (countWrongEmail >= 3) {
-            try {
-                root = FXMLLoader.load(getClass().getResource("/view/limiteWrongPassword.fxml"));
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+           countWrongEmail();
 
-            stage.getModality();
-
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add("/view/adminWindow.css");
-            stage.setScene(scene);
-            stage.setTitle("Limite wrong password");
-            stage.show();
-            stage.setResizable(false);
-            //System.exit(0);
-
-        }
-        if (fldProfileNewPass.getText().isEmpty() && fldProfileNewPass2.getText().isEmpty()) {
+        }else if (fldProfileNewPass.getText().isEmpty() && fldProfileNewPass2.getText().isEmpty()) {
             System.out.println(countWrongEmail);
 
             if (fldProfileCurrentPass.getText().isEmpty()) {
-                try {
-                    root = FXMLLoader.load(getClass().getResource("/view/notEnterPassword.fxml"));
-                    countWrongEmail++;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                curentPassIsEmpty();
 
-                stage.getModality();
+            } else //if(!fldProfileNewPass.getText().toString().equals(fldProfileNewPass2.getText().toString())) {
+                if (fldProfileCurrentPass.getText().equals(currentUser1.getPassword())) {
 
-                Scene scene = new Scene(root);
-                scene.getStylesheets().add("/view/adminWindow.css");
-                stage.setScene(scene);
-                stage.setTitle("Password field is empty");
-                stage.show();
-                stage.setResizable(false);
+                System.out.println("yra");
+
+
+            }
+                System.out.println("PPC");
             }
 
 
+
+    }
+
+    private void curentPassIsEmpty(){
+        Parent root = null;
+        Stage stage = new Stage();
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/notEnterPassword.fxml"));
+            countWrongEmail++;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        stage.getModality();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/view/adminWindow.css");
+        stage.setScene(scene);
+        stage.setTitle("Password field is empty");
+        stage.show();
+        stage.setResizable(false);
+    }
+
+    private void countWrongEmail() {
+        Parent root = null;
+        Stage stage = new Stage();
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/limiteWrongPassword.fxml"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //stage.getModality();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/view/adminWindow.css");
+        stage.setScene(scene);
+        stage.setTitle("Limite wrong password");
+        stage.show();
+        stage.setResizable(false);
+    }
+    @FXML
+    public void onActionNewPass() {
+        System.out.println(fldProfileNewPass.getText());
     }
 }

@@ -3,6 +3,7 @@ package service;
 import dao.EmployeeDao;
 import dao.EmployeeDaoImpl;
 import entity.Employee;
+import entity.User;
 import enumTypes.Gender;
 import enumTypes.Position;
 
@@ -178,4 +179,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return false;
     }
+
+
 }

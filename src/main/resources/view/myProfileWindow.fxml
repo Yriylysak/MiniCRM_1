@@ -68,7 +68,7 @@
             </Label>
             <Label text="Введите новый пароль" GridPane.rowIndex="8" />
             <Label text="Повторите новый пароль" GridPane.rowIndex="10" />
-            <TextField fx:id="fldProfileNewPass" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="fldProfileNewPass" onAction="#onActionNewPass" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <TextField fx:id="fldProfileNewPass2" GridPane.columnIndex="1" GridPane.rowIndex="10" />
             <Label text="Минимум 5 символов, ТОЛЬКО латинские буквы,цифры и _.,-@*" GridPane.columnIndex="1" GridPane.rowIndex="9">
                <font>

@@ -18,6 +18,6 @@ public class LimiteWrongPassword {
     }
     @FXML
     private void onKeyCanceled() {
-        onActionClose();
+        System.exit(0);
     }
 }

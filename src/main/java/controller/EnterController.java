@@ -44,8 +44,9 @@ public class EnterController {
         Stage stage = new Stage();
 
         Position position = ServiceUtil.getUserService().isUser(loginField.getText(), passwordField.getText());
-        currentEmployee1 = ServiceUtil.getUserService().getCurrentUser(loginField.getText(), passwordField.getText()).getEmployee();
         currentUser1 = ServiceUtil.getUserService().getCurrentUser(loginField.getText(), passwordField.getText());
+
+        currentEmployee1 = currentUser1.getEmployee();
 
 
         if (position == null) {
