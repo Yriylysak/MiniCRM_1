@@ -69,7 +69,6 @@ public class ManagerController {
     private ObservableList<Ordering> orderingObservableList = FXCollections.observableArrayList();;
     private ObservableList<Client> clientObservableList = FXCollections.observableArrayList();;
     private ObservableList<Goods> goodsObservableList = FXCollections.observableArrayList();;
-    //private ObservableList<Goods> goodsTransient  = FXCollections.observableArrayList();;
     private ObservableList<GoodsInOrder> currentGoodsObservableList = FXCollections.observableArrayList();
 
     public static String managerLogin;
@@ -205,8 +204,7 @@ public class ManagerController {
             amount += gio.getAmount();
         }
         //враховуємо суму знижки у замовлення
-        summ *= 1 + discount/100;
-        System.out.println("______________________" + summ + "  " + discount/100);
+        summ *= 1 - discount/100;
         Ordering ordering = new Ordering(managerLogin, clientField.getText(),
                 new Date(), termFld.getValue().format(formatter),
                 combobox.getValue(), amount, summ);
@@ -215,7 +213,6 @@ public class ManagerController {
         //збeрігаємо у базу
         Long id = DaoUtil.getOrderingDao().create(ordering);
         Ordering ord = DaoUtil.getOrderingDao().read(id);
-
         numberFld.setText(id.toString());
 
         //перебираємо список товарів і зберігаємо їх у таблицю БД
@@ -310,6 +307,22 @@ public class ManagerController {
             //к-сть артикулів
             goodNumFld.setText(currentOrdering.getAmount().toString());
 
+            currentGoodsObservableList = FXCollections.observableArrayList(DaoUtil.getGoodsInOrderDao().findAll());
+
+            ObservableList<GoodsInOrder> tempGoods = FXCollections.observableArrayList();
+            for (GoodsInOrder gio : currentGoodsObservableList) {
+                if (gio.getOrdering().getId() == currentOrdering.getId()) {
+                    tempGoods.add(gio);
+                }
+            }
+            columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
+            columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            columnAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+            columnAmountEnable.setCellValueFactory(new PropertyValueFactory<>("amountEnable"));
+            columnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+            columnNDS.setCellValueFactory(new PropertyValueFactory<>("nds"));
+            columnPriceNDS.setCellValueFactory(new PropertyValueFactory<>("priceNDS"));
+            tabView.setItems(tempGoods);
         }
     }
     //дії по кліку мишки на вкладці "Товари"

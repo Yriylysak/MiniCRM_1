@@ -22,7 +22,6 @@
 
 <!-- -->
 
-
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="692.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
    <children>
       <GridPane layoutX="366.0" layoutY="11.0" prefHeight="346.0" prefWidth="493.0" AnchorPane.bottomAnchor="335.0" AnchorPane.topAnchor="11.0">
@@ -57,11 +56,11 @@
             <Label text="Статус" GridPane.rowIndex="6" />
             <Label text="Итого количество" GridPane.rowIndex="7" />
             <Label text="Итого сумма к оплате" GridPane.rowIndex="9" />
-            <ComboBox fx:id="combobox" maxHeight="30.0" prefHeight="26.0" prefWidth="226.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="clientField" disable="true" maxHeight="30.0" maxWidth="205.0" prefHeight="26.0" prefWidth="205.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button fx:id="btnNewClient" maxHeight="34.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionNewClient" prefHeight="26.0" prefWidth="131.0" text="Добавить" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <ComboBox fx:id="combobox" maxHeight="30.0" prefHeight="30.0" prefWidth="219.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="clientField" disable="true" maxHeight="30.0" maxWidth="224.0" prefHeight="30.0" prefWidth="219.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button fx:id="btnNewClient" maxHeight="34.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionNewClient" prefHeight="34.0" prefWidth="97.0" text="Добавить" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets left="210.0" />
+                  <Insets left="225.0" />
                </GridPane.margin>
             </Button>
             <TextField fx:id="fldDiscount" text="0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
@@ -69,8 +68,9 @@
       
             
                   <Label alignment="CENTER" text="ЗАКАЗ" />
-            <GridPane GridPane.columnIndex="1">
+            <GridPane prefHeight="35.0" prefWidth="247.0" GridPane.columnIndex="1">
               <columnConstraints>
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -78,12 +78,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="btnMyProfile" contentDisplay="RIGHT" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" onAction="#onActionProfile" prefHeight="30.0" prefWidth="100.0" text="Кабинет">
+                  <Button fx:id="btnMyProfile" contentDisplay="RIGHT" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" onAction="#onActionProfile" prefHeight="26.0" prefWidth="131.0" text="Кабинет" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets left="2.0" right="2.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button fx:id="btnLogOut" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" onAction="#onActionBtnLogOut" prefHeight="30.0" prefWidth="100.0" text="Выход" GridPane.columnIndex="1">
+                  <Button fx:id="btnLogOut" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" onAction="#onActionBtnLogOut" prefHeight="26.0" prefWidth="131.0" text="Выход" GridPane.columnIndex="2">
                      <GridPane.margin>
                         <Insets left="2.0" right="2.0" />
                      </GridPane.margin>
@@ -92,38 +92,49 @@
             </GridPane>
          </children>
       </GridPane>
-      <TableView fx:id="tabView" layoutX="29.0" layoutY="408.0" prefHeight="213.0" prefWidth="869.0">
+      <TableView fx:id="tabView" layoutX="362.0" layoutY="425.0" prefHeight="245.0" prefWidth="501.0">
         <columns>
-          <TableColumn fx:id="columnID" prefWidth="75.0" text="id" />
-          <TableColumn fx:id="columnName" prefWidth="159.0" text="позиция" />
-            <TableColumn fx:id="columnAmount" prefWidth="121.0" text="количество" />
-            <TableColumn fx:id="columnAmountEnable" prefWidth="123.0" text="доступно" />
-            <TableColumn fx:id="columnPrice" prefWidth="139.0" text="цена без ндс" />
-            <TableColumn fx:id="columnNDS" prefWidth="122.0" text="ндс" />
-            <TableColumn fx:id="columnPriceNDS" prefWidth="129.0" text="цена с ндс" />
+          <TableColumn fx:id="columnID" prefWidth="33.0" text="id" />
+          <TableColumn fx:id="columnName" prefWidth="170.0" text="позиция" />
+            <TableColumn fx:id="columnAmount" prefWidth="60.0" text="кол-во" />
+            <TableColumn fx:id="columnAmountEnable" prefWidth="60.0" text="доступно" />
+            <TableColumn fx:id="columnPrice" prefWidth="60.0" text="без ндс" />
+            <TableColumn fx:id="columnNDS" prefWidth="53.0" text="ндс" />
+            <TableColumn fx:id="columnPriceNDS" prefWidth="67.0" text="цена с ндс" />
         </columns>
       </TableView>
-      <GridPane layoutX="174.0" layoutY="635.0" prefHeight="43.0" prefWidth="647.0">
+      <GridPane layoutX="11.0" layoutY="635.0" prefHeight="35.0" prefWidth="349.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="129.0" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="btnEdit" maxHeight="34.0" maxWidth="150.0" mnemonicParsing="false" onAction="#onActionEdit" text="Редактировать" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-            <Button fx:id="btnForm" maxHeight="34.0" maxWidth="150.0" mnemonicParsing="false" onAction="#onActionForm" text="Сформировать" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
-            <Button fx:id="btnNewOrder" maxHeight="34.0" maxWidth="150.0" mnemonicParsing="false" onAction="#onActionNewOrder" text="Новый заказ" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Button fx:id="btnAddManagGood" mnemonicParsing="false" onAction="#onActionAddGoods" prefHeight="32.0" prefWidth="115.0" text="Добавить товар" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="2.0" right="5.0" />
+               </GridPane.margin>
+            </Button>
+            <TextField fx:id="fldAmount" prefHeight="30.0" prefWidth="56.0" promptText="..." GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="2.0" right="2.0" />
+               </GridPane.margin>
+            </TextField>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="109.0" text="Количество:">
+               <GridPane.margin>
+                  <Insets left="2.0" right="2.0" />
+               </GridPane.margin>
+            </Label>
          </children>
       </GridPane>
-      <TabPane layoutX="26.0" layoutY="59.0" prefHeight="298.0" prefWidth="329.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="26.0" layoutY="92.0" prefHeight="527.0" prefWidth="329.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="tabOrders" text="Заказы">
                <content>
-                  <ListView fx:id="orderList" onMousePressed="#onMousePressedOrders" prefHeight="265.0" prefWidth="319.0" />
+                  <ListView fx:id="orderList" minHeight="-Infinity" onMousePressed="#onMousePressedOrders" prefHeight="509.0" prefWidth="329.0" />
                </content>
             </Tab>
           <Tab fx:id="tabGoods" text="Товары">
@@ -138,33 +149,6 @@
             </Tab>
         </tabs>
       </TabPane>
-      <GridPane layoutX="26.0" layoutY="355.0" prefHeight="30.0" prefWidth="329.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button fx:id="btnAddManagGood" mnemonicParsing="false" onAction="#onActionAddGoods" prefHeight="32.0" prefWidth="105.0" text="Добавить товар" GridPane.columnIndex="2" GridPane.halignment="CENTER">
-               <GridPane.margin>
-                  <Insets left="2.0" right="2.0" />
-               </GridPane.margin>
-            </Button>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="109.0" text="Количество:">
-               <GridPane.margin>
-                  <Insets left="2.0" right="2.0" />
-               </GridPane.margin>
-            </Label>
-            <TextField fx:id="fldAmount" prefHeight="30.0" prefWidth="56.0" promptText="..." GridPane.columnIndex="1">
-               <GridPane.margin>
-                  <Insets left="2.0" right="2.0" />
-               </GridPane.margin>
-            </TextField>
-         </children>
-      </GridPane>
       <GridPane layoutX="37.0" layoutY="11.0" prefHeight="33.0" prefWidth="300.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="100.0" />
@@ -176,12 +160,37 @@
          </rowConstraints>
          <children>
             <Button fx:id="btnRef" layoutX="37.0" layoutY="19.0" mnemonicParsing="false" onAction="#onActionRef" prefHeight="30.0" prefWidth="100.0" text="Обновить списки" GridPane.columnIndex="2" />
-            <ComboBox prefHeight="30.0" prefWidth="100.0" promptText="Поиск в..." />
-            <TextField prefHeight="30.0" prefWidth="96.0" GridPane.columnIndex="1">
+            <ComboBox fx:id="comboSearch" prefHeight="30.0" prefWidth="100.0" promptText="Поиск в..." />
+            <TextField fx:id="fldSearch" prefHeight="30.0" prefWidth="96.0" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="2.0" right="2.0" />
                </GridPane.margin>
             </TextField>
+         </children>
+      </GridPane>
+      <GridPane layoutX="533.0" layoutY="376.0" prefHeight="30.0" prefWidth="329.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="btnNewOrder" maxHeight="34.0" maxWidth="150.0" mnemonicParsing="false" onAction="#onActionNewOrder" prefHeight="30.0" prefWidth="100.0" text="Новый заказ" GridPane.halignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="5.0" right="2.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="btnEdit" maxHeight="34.0" maxWidth="100.0" mnemonicParsing="false" onAction="#onActionEdit" text="Редактировать" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="2.0" right="2.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="btnForm" maxHeight="34.0" maxWidth="108.0" mnemonicParsing="false" onAction="#onActionForm" prefHeight="30.0" prefWidth="100.0" text="Сформировать" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="2.0" right="2.0" />
+               </GridPane.margin></Button>
          </children>
       </GridPane>
    </children>
