@@ -1,5 +1,6 @@
 package controller;
 import entity.Employee;
+import entity.User;
 import enumTypes.Position;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,7 @@ public class EnterController {
     @FXML Button cancelButton;
     private int counter = 5;
     public static Employee currentEmployee1;
+    public static User currentUser1;
 
     @FXML
     private void onActionLog() {
@@ -43,7 +45,8 @@ public class EnterController {
 
         Position position = ServiceUtil.getUserService().isUser(loginField.getText(), passwordField.getText());
         currentEmployee1 = ServiceUtil.getUserService().getCurrentUser(loginField.getText(), passwordField.getText()).getEmployee();
-        System.out.println(currentEmployee1);
+        currentUser1 = ServiceUtil.getUserService().getCurrentUser(loginField.getText(), passwordField.getText());
+
 
         if (position == null) {
             try {
