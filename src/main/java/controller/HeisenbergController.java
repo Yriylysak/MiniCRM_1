@@ -49,7 +49,7 @@ public class HeisenbergController {
         Parent root = null;
         Stage stage = new Stage();
         try {
-            root = FXMLLoader.load(getClass().getResource("/view/managerWindow.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/view/managerWindow2.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<!-- -->
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="692.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
+   <children>
+      <GridPane layoutX="380.0" layoutY="11.0" prefHeight="346.0" prefWidth="525.0" AnchorPane.bottomAnchor="335.0" AnchorPane.topAnchor="11.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="160.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.0" minWidth="10.0" prefWidth="270.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField fx:id="numberFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="managerFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="dateFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="goodNumFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="priceFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <DatePicker fx:id="termFld" maxHeight="30.0" maxWidth="1.7976931348623157E308" prefHeight="26.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Номер заказа" GridPane.rowIndex="1" />
+            <Label text="Менеджер" GridPane.rowIndex="2" />
+            <Label text="Покупатель" GridPane.rowIndex="3" />
+            <Label text="Дата заказа" GridPane.rowIndex="4" />
+            <Label prefHeight="16.0" prefWidth="223.0" text="Срок выполнения" GridPane.rowIndex="5" />
+            <Label text="Статус" GridPane.rowIndex="6" />
+            <Label text="Итого количество" GridPane.rowIndex="7" />
+            <Label text="Итого сумма к оплате" GridPane.rowIndex="9" />
+            <ComboBox fx:id="combobox" maxHeight="30.0" prefHeight="30.0" prefWidth="317.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin></ComboBox>
+            <TextField fx:id="clientField" disable="true" maxHeight="30.0" maxWidth="205.0" prefHeight="30.0" prefWidth="171.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button fx:id="btnNewClient" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#onActionNewClient" prefHeight="34.0" prefWidth="100.0" text="Добавить" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="216.0" />
+               </GridPane.margin>
+            </Button>
+            <TextField fx:id="fldDiscount" text="0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label prefHeight="17.0" prefWidth="159.0" text="Скидка, %" GridPane.rowIndex="8" />
+      
+            
+                  <Label alignment="CENTER" text="ЗАКАЗ" />
+            <Button fx:id="btnLogOut" maxWidth="-Infinity" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" onAction="#onActionBtnLogOut" prefHeight="34.0" prefWidth="100.0" text="Выход" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="216.0" right="2.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="btnMyProfile" contentDisplay="RIGHT" maxWidth="-Infinity" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" onAction="#onActionProfile" prefHeight="34.0" prefWidth="100.0" text="Кабинет" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="112.0" right="2.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
+      </GridPane>
+      <TableView fx:id="tabView" layoutX="380.0" layoutY="408.0" prefHeight="213.0" prefWidth="525.0">
+        <columns>
+          <TableColumn fx:id="columnID" prefWidth="25.0" text="id" />
+          <TableColumn fx:id="columnName" prefWidth="140.0" text="позиция" />
+            <TableColumn fx:id="columnAmount" prefWidth="60.0" text="кол-во" />
+            <TableColumn fx:id="columnAmountEnable" prefWidth="60.0" text="доступно" />
+            <TableColumn fx:id="columnPrice" text="цена без ндс" />
+            <TableColumn fx:id="columnNDS" prefWidth="60.0" text="ндс" />
+            <TableColumn fx:id="columnPriceNDS" prefWidth="100.0" text="цена с ндс" />
+        </columns>
+      </TableView>
+      <GridPane layoutX="480.0" layoutY="635.0" prefHeight="43.0" prefWidth="425.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="btnEdit" maxHeight="34.0" maxWidth="150.0" mnemonicParsing="false" onAction="#onActionEdit" text="Редактировать" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="2.0" right="2.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="btnForm" maxHeight="34.0" maxWidth="150.0" mnemonicParsing="false" onAction="#onActionForm" text="Сформировать" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="2.0" right="2.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="btnNewOrder" maxHeight="34.0" maxWidth="150.0" mnemonicParsing="false" onAction="#onActionNewOrder" text="Новый заказ" GridPane.halignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="2.0" right="2.0" />
+               </GridPane.margin></Button>
+         </children>
+      </GridPane>
+      <TabPane layoutX="26.0" layoutY="59.0" minWidth="-Infinity" prefHeight="564.0" prefWidth="338.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="tabOrders" text="Заказы">
+               <content>
+                  <ListView fx:id="orderList" onMousePressed="#onMousePressedOrders" prefHeight="495.0" prefWidth="398.0" />
+               </content>
+            </Tab>
+          <Tab fx:id="tabGoods" text="Товары">
+               <content>
+                  <ListView fx:id="goodsList" onMousePressed="#onMousePressedGoods" prefHeight="188.0" prefWidth="214.0" />
+               </content>
+            </Tab>
+            <Tab fx:id="tabClient" text="Клиенты">
+               <content>
+                  <ListView fx:id="clientList" onMousePressed="#onMousePressedClients" prefHeight="188.0" prefWidth="214.0" />
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <GridPane layoutX="26.0" layoutY="640.0" minWidth="-Infinity" prefHeight="30.0" prefWidth="338.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="btnAddManagGood" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionAddGoods" prefHeight="34.0" prefWidth="110.0" text="Добавить товар" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="2.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets left="2.0" />
+               </padding>
+            </Button>
+            <Label alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="110.0" text="Количество:">
+               <GridPane.margin>
+                  <Insets left="2.0" right="2.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="fldAmount" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="110.0" promptText="..." GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="2.0" right="2.0" />
+               </GridPane.margin>
+            </TextField>
+         </children>
+      </GridPane>
+      <GridPane layoutX="27.0" layoutY="11.0" minWidth="-Infinity" prefHeight="33.0" prefWidth="338.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="130.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="130.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="130.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Button fx:id="btnRef" layoutX="37.0" layoutY="19.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionRef" prefHeight="34.0" prefWidth="110.0" text="Обновить списки" GridPane.columnIndex="2">
+               <GridPane.margin>
+                  <Insets left="2.0" right="2.0" />
+               </GridPane.margin></Button>
+            <ComboBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="110.0" promptText="Поиск в...">
+               <GridPane.margin>
+                  <Insets left="2.0" right="2.0" />
+               </GridPane.margin></ComboBox>
+            <TextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="110.0" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="2.0" right="2.0" />
+               </GridPane.margin>
+            </TextField>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

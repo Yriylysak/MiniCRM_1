@@ -49,6 +49,8 @@ public class EnterController {
         currentEmployee1 = currentUser1.getEmployee();
 
 
+        //Employee employee = ServiceUtil.getUserService().
+
         if (position == null) {
             try {
                 root = FXMLLoader.load(getClass().getResource("/view/accessDenied.fxml"));
@@ -90,7 +92,7 @@ public class EnterController {
                 case MANAGER:
                     try {
                        managerLogin = loginField.getText();
-                        root = FXMLLoader.load(getClass().getResource("/view/managerWindow.fxml"));
+                        root = FXMLLoader.load(getClass().getResource("/view/managerWindow2.fxml"));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
