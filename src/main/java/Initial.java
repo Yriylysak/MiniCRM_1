@@ -21,35 +21,38 @@ import java.util.List;
  */
 public class Initial extends Application {
     public static void main(String[] args) {
-        System.out.println("___________I'm here_______________");
-    /*Створюємо і записуємо у базу співробітників і користувачів сутність адміна*/
+        Employee employerHeisenberg = new Employee("Walter", "White", 53, Gender.MALE, Position.ADMIN);
+        User userHeisenberg = new User("Heisenberg", "1", employerHeisenberg);
+        //встановлюємо зв"язок між співробітником і новоствореним юзером
+        employerHeisenberg.setId(ServiceUtil.getEmployeeService().add(employerHeisenberg));
+        employerHeisenberg.setUser(DaoUtil.getUserDao().read(ServiceUtil.getUserService().add(userHeisenberg)));
+        DaoUtil.getEmployeeDao().update(employerHeisenberg);
+
+        /*Створюємо і записуємо у базу співробітників і користувачів*/
         Employee employerAdmin = new Employee("NameAdmin", "SurnameAdmin", 21, Gender.MALE, Position.ADMIN);
         User userAdmin = new User("A", "1", employerAdmin);
-        ServiceUtil.getEmployeeService().add(employerAdmin);
-        ServiceUtil.getUserService().add(userAdmin);
+        employerAdmin.setId(ServiceUtil.getEmployeeService().add(employerAdmin));
+        employerAdmin.setUser(DaoUtil.getUserDao().read(ServiceUtil.getUserService().add(userAdmin)));
+        DaoUtil.getEmployeeDao().update(employerAdmin);
         // для легших і швидших перевірок створюємо і додаємо у базу співробітника і користувача.
-        // після закінчення роботи запис можна видалити.
-        // але це директор, тому можна і залишити :)*/
         Employee employer1 = new Employee("Name", "Surname", 89, Gender.FEMALE, Position.MANAGER);
         User user1 = new User("D", "1", employer1);
-        ServiceUtil.getEmployeeService().add(employer1);
-        ServiceUtil.getUserService().add(user1);
+        employer1.setId(ServiceUtil.getEmployeeService().add(employer1));
+        employer1.setUser(DaoUtil.getUserDao().read(ServiceUtil.getUserService().add(user1)));
+        DaoUtil.getEmployeeDao().update(employer1);
 
         Employee employeeCashier = new Employee("NameCashier", "SurnameCashier", 33, Gender.MALE, Position.CASHIER);
         User userCashier = new User("C", "1", employeeCashier);
-        ServiceUtil.getEmployeeService().add(employeeCashier);
-        ServiceUtil.getUserService().add(userCashier);
+        employeeCashier.setId(ServiceUtil.getEmployeeService().add(employeeCashier));
+        employeeCashier.setUser(DaoUtil.getUserDao().read(ServiceUtil.getUserService().add(userCashier)));
+        DaoUtil.getEmployeeDao().update(employeeCashier);
+
 
         Employee employeeStoreKeeper = new Employee("NameStoreKeeper", "SurnameStoreKeeper", 33, Gender.MALE, Position.STOREKEEPER);
         User userStoreKeeper = new User("S", "1", employeeStoreKeeper);
-        ServiceUtil.getEmployeeService().add(employeeStoreKeeper);
-        ServiceUtil.getUserService().add(userStoreKeeper);
-
-        Employee employerHeisenberg = new Employee("Walter", "White", 53, Gender.MALE, Position.ADMIN);
-        User userHeisenberg = new User("Heisenberg", "1", employerHeisenberg);
-        ServiceUtil.getEmployeeService().add(employerHeisenberg);
-        ServiceUtil.getUserService().add(userHeisenberg);
-
+        employeeStoreKeeper.setId(ServiceUtil.getEmployeeService().add(employeeStoreKeeper));
+        employeeStoreKeeper.setUser(DaoUtil.getUserDao().read(ServiceUtil.getUserService().add(userStoreKeeper)));
+        DaoUtil.getEmployeeDao().update(employeeStoreKeeper);
 
         Client client1 = new Client("client1", "cli1", "age", "phone", "bla@bla.com");
         ServiceUtil.getClientService().add(client1);
@@ -57,10 +60,7 @@ public class Initial extends Application {
 
         List<User> userList = ServiceUtil.getUserService().findAll();
         for (User us : userList) {
-            System.out.println("__________________ " + us);
         }
-
-        System.out.println("___________I'm here_______________");
 
         Application.launch(args);
         HibernateUtil.getSessionFactory().close();

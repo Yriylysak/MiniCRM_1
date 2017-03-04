@@ -5,6 +5,7 @@ import dao.UserDaoImpl;
 import entity.Employee;
 import entity.User;
 import enumTypes.Position;
+import util.DaoUtil;
 
 import java.util.List;
 import java.util.Random;
@@ -94,6 +95,9 @@ public class UserServiceImpl implements UserService {
     public User createUser(Employee employee) {
         User user = new User(createLogin(employee.getName(), employee.getSureName()),
                             createPassword(), employee);
+
+        employee.setUser(DaoUtil.getUserDao().read(add(user)));
+        DaoUtil.getEmployeeDao().update(employee);
         return user;
     }
 
@@ -154,9 +158,9 @@ public class UserServiceImpl implements UserService {
 
         password.matches("[[aA-zZ]*[2-9]*]");
         // 3 variants of password
-        //return password;
+        return password;
         //return stringBuilderPasswrod.toString();
-        return "qwerty";
+        //return "qwerty";
     }
 
     @Override

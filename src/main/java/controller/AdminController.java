@@ -46,10 +46,22 @@ public class AdminController {
     private ObservableList<Position> positionsObservableList;
     private ObservableList<Gender> gendersObservableList;
 
+    //Heisenberg - суперкористувач, тому робимо його невидимим для інших
+    private ObservableList<Employee> hideWW () {
+        employeeObservableList = FXCollections.observableArrayList(ServiceUtil.getEmployeeService().findAll());
+        for (Employee employee : employeeObservableList) {
+            if (employee.getName().equals("Walter") && employee.getSureName().equals("White")
+                    && employee.getUser().getLogin().equals("Heisenberg")) {
+                employeeObservableList.remove(employee.getId());
+                break;
+            }
+        }
+        return employeeObservableList;
+    }
     @FXML
     public void initialize() {
-        employeeObservableList = FXCollections.observableArrayList(ServiceUtil.getEmployeeService().findAll());
-        baseInfoList.setItems(employeeObservableList);
+
+        baseInfoList.setItems(hideWW());
         btnEmpl.setSelected(true);
         sexBox.setPromptText("Выбрать");
         sexBox.setItems(FXCollections.observableArrayList(Gender.values()));
@@ -75,9 +87,8 @@ public class AdminController {
                     (Integer.parseInt(ageField.getText())), sexBox.getValue(), positionBox.getValue());
             ServiceUtil.getEmployeeService().add(employee);
         }
-        employeeObservableList = FXCollections.observableArrayList(ServiceUtil.getEmployeeService().findAll());
 
-        baseInfoList.setItems(employeeObservableList);
+        baseInfoList.setItems(hideWW());
         nameField.clear();
         surnameField.clear();
         sexBox.setPromptText("Выбрать");
@@ -103,9 +114,9 @@ public class AdminController {
                     (Integer.parseInt(ageField.getText())), sexBox.getValue(), positionBox.getValue());
 
             ServiceUtil.getEmployeeService().changeEmployer(currentEmployee, employee);
-            employeeObservableList = FXCollections.observableArrayList(ServiceUtil.getEmployeeService().findAll());
+            //employeeObservableList = FXCollections.observableArrayList(ServiceUtil.getEmployeeService().findAll());
             baseInfoList.refresh();
-            baseInfoList.setItems(employeeObservableList);
+            baseInfoList.setItems(hideWW());
         }
     }
 
@@ -117,7 +128,8 @@ public class AdminController {
             ServiceUtil.getUserService().delete(ServiceUtil.getUserService().findUser(currentEmployee));
             ServiceUtil.getEmployeeService().delete(currentEmployee.getId());
             baseInfoList.refresh();
-            employeeObservableList = FXCollections.observableList(ServiceUtil.getEmployeeService().findAll());
+            //employeeObservableList = FXCollections.observableList(ServiceUtil.getEmployeeService().findAll());
+            baseInfoList.setItems(hideWW());
             nameField.clear();
             surnameField.clear();
             sexBox.setPromptText("Выбрать");
@@ -132,6 +144,7 @@ public class AdminController {
     private void onActionGen() {
         currentEmployee = (Employee) baseInfoList.getSelectionModel().getSelectedItem();
         currentUser = ServiceUtil.getUserService().createUser(currentEmployee);
+
         ServiceUtil.getUserService().add(currentUser);
         Parent root = null;
         Stage stage = new Stage();
