@@ -4,7 +4,7 @@ package enumTypes;
  * Created by JL on 16.02.2017.
  */
 public enum Position {
-
+    ROOT("Root"),
     ADMIN("Admin"),
     MANAGER("Manager"),
     CASHIER("Cashier"),

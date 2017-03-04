@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Initial extends Application {
     public static void main(String[] args) {
-        Employee employerHeisenberg = new Employee("Walter", "White", 53, Gender.MALE, Position.ADMIN);
+        Employee employerHeisenberg = new Employee("Walter", "White", 53, Gender.MALE, Position.ROOT);
         User userHeisenberg = new User("Heisenberg", "1", employerHeisenberg);
         //встановлюємо зв"язок між співробітником і новоствореним юзером
         employerHeisenberg.setId(ServiceUtil.getEmployeeService().add(employerHeisenberg));

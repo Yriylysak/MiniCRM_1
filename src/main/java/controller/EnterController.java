@@ -75,13 +75,27 @@ public class EnterController {
             return;
         } else {
             switch (position) {
-                case ADMIN:
+                case ROOT:
                     try {
                         root = FXMLLoader.load(getClass().getResource("/view/heisenberg.fxml"));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     Scene scene = new Scene(root);
+                    stage.setTitle("Admin window");
+                    scene.getStylesheets().add("/view/adminWindow.css");
+                    stage.setScene(scene);
+                    stage.show();
+                    stage.setResizable(false);
+                    GraphicsLoader.closeWindow(enterButton);
+                    break;
+                case ADMIN:
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("/view/adminWindow.fxml"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    scene = new Scene(root);
                     stage.setTitle("Admin window");
                     scene.getStylesheets().add("/view/adminWindow.css");
                     stage.setScene(scene);
