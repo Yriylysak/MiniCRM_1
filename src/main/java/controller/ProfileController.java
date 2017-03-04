@@ -1,6 +1,7 @@
 package controller;
 
 
+import entity.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import service.UserServiceImpl;
+import util.DaoUtil;
+import util.ServiceUtil;
 
 import java.util.Date;
 
@@ -89,18 +92,25 @@ public class ProfileController {
             if (fldProfileCurrentPass.getText().isEmpty()) {
                 curentPassIsEmpty();
 
-            } else //if(!fldProfileNewPass.getText().toString().equals(fldProfileNewPass2.getText().toString())) {
-                if (fldProfileCurrentPass.getText().equals(currentUser1.getPassword())) {
+            } else if (fldProfileCurrentPass.getText().equals(currentUser1.getPassword())) {
 
-                System.out.println("yra");
+
+                chanjeFIO();
+                isOk();
+                initialize();
 
 
             }
+        }
+
+
+        else if(!fldProfileNewPass.getText().isEmpty() || !fldProfileNewPass2.getText().isEmpty()) {
+            System.out.println(countWrongEmail);
+            if (fldProfileNewPass.getText().equals(fldProfileNewPass2.getText())) {
+
                 System.out.println("PPC");
             }
-
-
-
+        }
     }
 
     private void curentPassIsEmpty(){
@@ -142,6 +152,48 @@ public class ProfileController {
         stage.show();
         stage.setResizable(false);
     }
+
+    public void chanjeFIO() {
+        if (!fldProfileName.getText().equals(currentEmployee1.getName())) {
+            currentEmployee1.setName(fldProfileName.getText());
+        } else if(!fldProfileSurname.getText().equals(currentEmployee1.getSureName())){
+            currentEmployee1.setSureName(fldProfileSurname.getText());
+        } else if(!fldProfileEmail.getText().equals(currentUser1.getEmail())){
+            currentUser1.setEmail(fldProfileEmail.getText());
+        }
+
+
+
+
+            ServiceUtil.getEmployeeService().changeEmployer(currentEmployee1, currentEmployee1);
+            ServiceUtil.getUserService().createUser(currentEmployee1);
+
+    }
+
+    public void isOk() {
+
+        Parent root = null;
+        Stage stage = new Stage();
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/isOkey.fxml"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //stage.getModality();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/view/adminWindow.css");
+        stage.setScene(scene);
+        stage.setTitle("Is ok");
+        stage.show();
+        stage.setResizable(false);
+
+    }
+
+
+
     @FXML
     public void onActionNewPass() {
         System.out.println(fldProfileNewPass.getText());
