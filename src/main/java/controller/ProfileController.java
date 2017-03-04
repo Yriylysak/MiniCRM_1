@@ -112,6 +112,7 @@ public class ProfileController {
 
             if (fldProfileNewPass.getText().equals(fldProfileNewPass2.getText())) {
                 if(fldProfileCurrentPass.getText().isEmpty()) {
+                    countWrongEmail++;
                     curentPassIsEmpty();
                 }else if (fldProfileCurrentPass.getText().equals(currentUser1.getPassword())) {
 
@@ -122,6 +123,8 @@ public class ProfileController {
 
 
                 }
+            } else {
+                countWrongEmail++;
             }
         }
     }
