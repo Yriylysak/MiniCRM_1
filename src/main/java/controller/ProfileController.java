@@ -90,6 +90,7 @@ public class ProfileController {
             System.out.println(countWrongEmail);
 
             if (fldProfileCurrentPass.getText().isEmpty()) {
+                countWrongEmail++;
                 curentPassIsEmpty();
 
             } else if (fldProfileCurrentPass.getText().equals(currentUser1.getPassword())) {
@@ -100,15 +101,27 @@ public class ProfileController {
                 initialize();
 
 
+            } else {
+                countWrongEmail++;
             }
         }
 
 
         else if(!fldProfileNewPass.getText().isEmpty() || !fldProfileNewPass2.getText().isEmpty()) {
             System.out.println(countWrongEmail);
-            if (fldProfileNewPass.getText().equals(fldProfileNewPass2.getText())) {
 
-                System.out.println("PPC");
+            if (fldProfileNewPass.getText().equals(fldProfileNewPass2.getText())) {
+                if(fldProfileCurrentPass.getText().isEmpty()) {
+                    curentPassIsEmpty();
+                }else if (fldProfileCurrentPass.getText().equals(currentUser1.getPassword())) {
+
+                     chanjeFIO();
+                     chanjePass();
+                     isOk();
+                     initialize();
+
+
+                }
             }
         }
     }
@@ -166,7 +179,20 @@ public class ProfileController {
 
 
             ServiceUtil.getEmployeeService().changeEmployer(currentEmployee1, currentEmployee1);
-            ServiceUtil.getUserService().createUser(currentEmployee1);
+            DaoUtil.getUserDao().update(currentUser1);
+
+    }
+    public void chanjePass() {
+        if (fldProfileNewPass.getText().equals(fldProfileNewPass2.getText())){
+            currentUser1.setPassword(fldProfileNewPass.getText());
+
+        }
+
+
+
+
+
+        DaoUtil.getUserDao().update(currentUser1);
 
     }
 
