@@ -8,7 +8,7 @@
     <import resource="mvc-dispatcher.xml"/>
     <import resource="data-context.xml"/>
 
-    <context:component-scan base-package="java"/>
+    <context:component-scan base-package="web"/>
     <mvc:resources mapping="/**" location="/"/>
     <mvc:annotation-driven/>
 </beans>
