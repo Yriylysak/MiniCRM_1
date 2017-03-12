@@ -1,6 +1,5 @@
 package web.controller;
 
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,9 +41,19 @@ public class LogInClientController {
         return "registry";
     }
     @RequestMapping(value = "/registry",method = RequestMethod.POST)
-    private String eee(
-            /*@RequestParam("login") String login,
-            @RequestParam("password") String password*/) {
+    private String eee(@RequestParam("login") String login,
+                       @RequestParam("password") String password,
+                       @RequestParam("name") String name,
+                       @RequestParam("surname") String surname,
+                       @RequestParam("phone") Integer phone,
+                       @RequestParam("email") String email,
+                       @RequestParam("address") String address) {
+        User user = new User(login, password, name, surname, phone, email, address);
+        if (service.isCreatedUser(user)) {
+            //такий у базі уже є
+            return "index";
+        }
+        service.add(user);
         return "client";
     }
 }
