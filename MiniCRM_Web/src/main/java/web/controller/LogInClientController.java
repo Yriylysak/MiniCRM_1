@@ -41,4 +41,10 @@ public class LogInClientController {
             @RequestParam("password") String password*/) {
         return "registry";
     }
+    @RequestMapping(value = "/registry",method = RequestMethod.POST)
+    private String eee(
+            /*@RequestParam("login") String login,
+            @RequestParam("password") String password*/) {
+        return "client";
+    }
 }

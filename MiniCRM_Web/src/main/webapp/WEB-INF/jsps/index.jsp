@@ -10,6 +10,19 @@
 <html>
 <head>
     <title>Авторизация</title>
+    <style>
+        fieldset {
+            width: 200px; /* Ширина таблицы */
+            border: 1px solid #060080; /* Рамка вокруг таблицы */
+            background-color: #fff5b1;
+            margin: auto; /* Выравниваем таблицу по центру окна  */
+        }
+
+        fieldset:hover {
+            border: 2px solid #060080; /* Рамка при наведении на рисунок курсора мыши */
+        }
+
+    </style>
     <script>
         function checkAuthFields()
         {
