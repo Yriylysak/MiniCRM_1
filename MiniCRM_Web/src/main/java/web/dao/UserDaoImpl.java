@@ -4,13 +4,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import web.entity.Client;
 import web.entity.User;
 
 import java.util.List;
 
 /**
- * Created by Comfy on 12.03.2017.
+ * Created  on 12.03.2017.
  */
 @Repository
 public class UserDaoImpl implements UserDao {

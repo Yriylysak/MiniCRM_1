@@ -14,8 +14,8 @@ public interface UserService {
     List<User> findAll();
 
     void delete(Long id);
-    void changeClient(User oldUser, User newUser);
-    Long findIdClient(User user);
-    boolean isCreatedClient(User user);
+    void changeUser(User user);
+    Long findIdUser(User user);
+    boolean isCreatedUser(User user);
     boolean auth(String login, String password);
 }
