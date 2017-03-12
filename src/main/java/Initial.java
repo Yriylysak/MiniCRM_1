@@ -1,25 +1,31 @@
-import dao.OrderingDaoImpl;
+import dao.ClientDaoImpl;
 import entity.*;
 import enumTypes.Gender;
-import enumTypes.OrderStatus;
 import enumTypes.Position;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import service.ClientService;
+import service.ClientServiceImpl;
+import util.ApplicationContextFactory;
 import util.DaoUtil;
 import util.HibernateUtil;
 import util.ServiceUtil;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Yura on 04.02.2017.
  */
 public class Initial extends Application {
+
+    private static ClientServiceImpl service;
+
     public static void main(String[] args) {
         Employee employerHeisenberg = new Employee("Walter", "White", 53, Gender.MALE, Position.ROOT);
         User userHeisenberg = new User("Heisenberg", "1", employerHeisenberg);
@@ -55,11 +61,16 @@ public class Initial extends Application {
         DaoUtil.getEmployeeDao().update(employeeStoreKeeper);
 
         Client client1 = new Client("client1", "cli1", "age", "phone", "bla@bla.com");
-        ServiceUtil.getClientService().add(client1);
+        //ServiceUtil.getClientService().add(client1);
 
+        service = ApplicationContextFactory.getApplicationContext().getBean("clientService", ClientServiceImpl.class);
+
+        service.add(client1);
+//        ServiceUtil.getClientService().add(client1);
 
         List<User> userList = ServiceUtil.getUserService().findAll();
         for (User us : userList) {
+            System.out.println("------------" + us);
         }
 
         Application.launch(args);

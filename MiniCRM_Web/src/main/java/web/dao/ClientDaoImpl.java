@@ -1,14 +1,17 @@
-package dao;
+package web.dao;
 
-import entity.Client;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import web.entity.Client;
 
 import java.util.List;
 
-@Repository("clientDao")
+/**
+ * Created by Comfy on 12.03.2017.
+ */
+@Repository
 public class ClientDaoImpl implements ClientDao {
     @Autowired
     private SessionFactory factory;
@@ -43,7 +46,6 @@ public class ClientDaoImpl implements ClientDao {
     @Override
     @Transactional
     public List<Client> findAll() {
-        //return factory.openSession().createCriteria(Client.class).list();
         return factory.getCurrentSession()
                 .createCriteria(Client.class).list();
     }

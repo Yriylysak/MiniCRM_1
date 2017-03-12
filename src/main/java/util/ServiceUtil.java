@@ -37,7 +37,8 @@ public class ServiceUtil
     }
 
     public static ClientService getClientService() {
-        clientService = new ClientServiceImpl();
+        clientService = ApplicationContextFactory.getApplicationContext()
+                .getBean(ClientServiceImpl.class);
         return clientService;
     }
 

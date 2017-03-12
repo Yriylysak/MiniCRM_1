@@ -1,10 +1,11 @@
-package dao;
+package web.dao;
 
-import entity.Client;
+import web.entity.Client;
+
 import java.util.List;
 
 /**
- * Created by Yura on 13.02.2017.
+ * Created by Comfy on 12.03.2017.
  */
 public interface ClientDao {
     Long create(Client client);

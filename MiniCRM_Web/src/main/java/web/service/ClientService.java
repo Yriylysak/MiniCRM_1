@@ -1,14 +1,12 @@
-package service;
+package web.service;
 
-import entity.Client;
-import org.springframework.stereotype.Service;
+import web.entity.Client;
 
 import java.util.List;
 
 /**
- * Created by Олег on 13.02.2017.
+ * Created by Comfy on 12.03.2017.
  */
-@Service
 public interface ClientService {
     Long add(Client client);
     List<Client> findAll();

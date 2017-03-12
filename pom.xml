@@ -8,15 +8,18 @@
     <groupId>MiniCRM_1</groupId>
     <artifactId>MiniCRM_1</artifactId>
 
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <modules>
         <module>MiniCRM_Web</module>
+        <module>MiniCRM_Web2</module>
     </modules>
 
-
     <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
         <junit.version>4.12</junit.version>
         <org.mysql.version>5.1.40</org.mysql.version>
         <org.hibernate.version>4.3.8.Final</org.hibernate.version>

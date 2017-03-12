@@ -1,18 +1,18 @@
-package service;
+package web.service;
 
-import dao.ClientDao;
-import entity.Client;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import web.dao.ClientDao;
+import web.entity.Client;
 
 import java.util.List;
 
-@Service("clientService")
+/**
+ * Created by Comfy on 12.03.2017.
+ */
+@Service
 public class ClientServiceImpl implements ClientService {
-
     @Autowired
-    @Qualifier("clientDao")
     private ClientDao clientDao;
 
     public ClientDao getClientDao() {
@@ -57,8 +57,7 @@ public class ClientServiceImpl implements ClientService {
     public void changeClient(Client oldClient, Client newClient) {
         if (oldClient != null && newClient != null) {
             oldClient.setName(newClient.getName());
-            oldClient.setSureName(newClient.getSureName());
-            oldClient.setAge(newClient.getAge());
+            oldClient.setSurname(newClient.getSurname());
             oldClient.setPhone(newClient.getPhone());
             oldClient.setEmail(newClient.getEmail());
 
@@ -83,9 +82,8 @@ public class ClientServiceImpl implements ClientService {
         List<Client> clients = findAll();
         for (Client cl : clients) {
             if (cl.getName().equals(client.getName())
-                    && cl.getSureName().equals(client.getSureName())
+                    && cl.getSurname().equals(client.getSurname())
                     && cl.getPhone().equals(client.getPhone())
-                    && cl.getAge().equals(client.getAge())
                     && cl.getEmail().equals(client.getEmail())) {
                 return true;
             }
