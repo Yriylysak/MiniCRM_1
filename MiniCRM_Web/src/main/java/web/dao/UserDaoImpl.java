@@ -44,7 +44,9 @@ public class UserDaoImpl implements UserDao {
     @Override
     @Transactional
     public List<User> findAll() {
-        return factory.getCurrentSession()
-                .createCriteria(User.class).list();
+        return factory
+                .getCurrentSession()
+                .createCriteria(User.class)
+                .list();
     }
 }
