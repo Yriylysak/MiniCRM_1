@@ -45,6 +45,8 @@
             width: 800px;
             height: 700px;
             border: 1px solid #060080; /* Рамка вокруг таблицы */
+            text-align: left;
+
         }
         #menu{
             width: 200px;
@@ -62,6 +64,7 @@
 
            /* margin: auto; !* Выравниваем таблицу по центру окна  *!*/
         }
+
         #shapka{
             width: auto;
             background-color: #090a28;
@@ -120,7 +123,12 @@
 
     <div class="center">
         <fieldset id="mainfield">
-
+            <span><i>Наименование товара</i></span><br/><input type="search"><br/>
+            <span><i>Количество</i></span><br/><input type="search"><br/>
+            <span><i>Телефон</i></span><br/><input type="search"><br/>
+            <span><i>Email</i></span><br/><input type="search"><br/>
+            <span><i>Адресс доставки</i></span><br/><input type="search"><br/><br/>
+            <input type="button" value="Оформить заказ">
         </fieldset>
     </div>
 
