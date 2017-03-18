@@ -11,6 +11,7 @@ import java.util.List;
  */
 public interface UserService {
     Long add(User user);
+    boolean update(User user);
     List<User> findAll();
     boolean delete(Long id);
     boolean changePassword(Long id, String oldPassword, String newPassword);

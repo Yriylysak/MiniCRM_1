@@ -6,13 +6,11 @@ import service.*;
  * Created by JL on 13.02.2017.
  */
 
-//factory of Services
 public class ServiceUtil
 {
     private static EmployeeService employeeService;
     private static UserService userService;
     private static ClientService clientService;
-    private static OrderService orderService;
     private static GoodsService goodsService;
     private static GoodsInOrderService goodsInOrderService;
 
@@ -40,11 +38,6 @@ public class ServiceUtil
         clientService = ApplicationContextFactory.getApplicationContext()
                 .getBean(ClientServiceImpl.class);
         return clientService;
-    }
-
-    public static OrderService getOrderService() {
-        orderService = new OrderServiceImpl();
-        return orderService;
     }
 
     public static UserService getUserService() {

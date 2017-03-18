@@ -1,55 +1,39 @@
 package controller;
 
-import dao.ClientDao;
-import dao.ClientDaoImpl;
 import entity.Client;
-import entity.Goods;
-import entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import service.ClientServiceImpl;
+import util.ApplicationContextFactory;
 import util.ServiceUtil;
 
 import static controller.ManagerController.currentGoods;
 
-
-/**
- * Created by dmitry on 15.02.17.
- */
 public class CreateClientController {
-    @FXML
-    TextField fldName;
-    @FXML
-    TextField fldSurname;
-    @FXML
-    TextField fldClientAge;
-    @FXML
-    TextField fldClientPhone;
-    @FXML
-    TextField fldClientMail;
-    @FXML
-    ListView clientList;
-    @FXML
-    Button btnAdd;
-    @FXML
-    Button btnCancelAdd;
-    @FXML
-    Button btnEditClient;
-    @FXML
-    Button btnDelClient;
+    @FXML TextField fldName;
+    @FXML TextField fldSurname;
+    @FXML TextField fldClientAge;
+    @FXML TextField fldClientPhone;
+    @FXML TextField fldClientMail;
+    @FXML ListView clientList;
+    @FXML Button btnAdd;
+    @FXML Button btnCancelAdd;
+    @FXML Button btnEditClient;
+    @FXML Button btnDelClient;
 
     public static Client currentClient;
-
-    private ObservableList<Client> clientObservableList;
-
     public static boolean isOpenWindowClient;
 
+    private ObservableList<Client> clientObservableList;
+    private ClientServiceImpl clientService;
 
     public void initialize() {
+        clientService = ApplicationContextFactory.getApplicationContext()
+                .getBean("clientService", ClientServiceImpl.class);
         clientObservableList = FXCollections.observableArrayList(ServiceUtil.getClientService().findAll());
         clientList.setItems(clientObservableList);
     }
@@ -62,9 +46,8 @@ public class CreateClientController {
         client.setAge(fldClientAge.getText());
         client.setPhone(fldClientPhone.getText());
         client.setEmail(fldClientMail.getText());
-        // clientService.add(client);
-        ClientDao clientDao = new ClientDaoImpl();
-        clientDao.create(client);
+
+        clientService.add(client);
         initialize();
         clientList.refresh();
         fldName.clear();
@@ -82,11 +65,8 @@ public class CreateClientController {
    // по мышке
     @FXML
     private void showClientList() {
-        //if (clientList.getSelectionModel().getSelectedItem() != null) {
-        if(true) {
-            //clientObservableList = FXCollections.observableArrayList (ServiceUtil.getClientService().findAll());
+        if (clientList.getSelectionModel().getSelectedItem() != null) {
             currentClient = (Client) clientList.getSelectionModel().getSelectedItem();
-            //clientList.setItems(clientObservableList);
             isOpenWindowClient = true;
             fldName.setText(currentClient.getName());
             fldSurname.setText(currentClient.getSureName());
@@ -104,7 +84,6 @@ public class CreateClientController {
         fldClientAge.clear();
         fldClientPhone.clear();
         fldClientMail.clear();
-
     }
     @FXML
     private void onActionEditClient() {

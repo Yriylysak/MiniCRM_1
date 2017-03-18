@@ -32,6 +32,15 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public boolean update(User user) {
+        if (user != null) {
+            userDao.update(user);
+            return true;
+        }
+        return false;
+    }
+
     /*метод без параметрів, повертає список List<> усіх користувачів (юзерів)*/
     @Override
     public List<User> findAll() {
@@ -93,7 +102,7 @@ public class UserServiceImpl implements UserService {
     /*автогенерація юзера, метод отримує об"єкт типу Employee*/
     @Override
     public User createUser(Employee employee) {
-        User user = new User(createLogin(employee.getName(), employee.getSureName()),
+        User user = new User(createLogin(employee.getName(), employee.getSurname()),
                             createPassword(), employee);
 
         employee.setUser(DaoUtil.getUserDao().read(add(user)));

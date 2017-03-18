@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="804.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CashierController">
    <children>
       <GridPane layoutX="296.0" layoutY="30.0" prefHeight="298.0" prefWidth="478.0">
@@ -18,32 +20,43 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TextField fx:id="cashnumberFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" />
-            <TextField fx:id="cashmanagerFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="cashdateFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="cashgoodNumFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="cashpriceFld" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <DatePicker fx:id="cahstermFld" disable="true" maxHeight="30.0" maxWidth="1.7976931348623157E308" prefHeight="26.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="fldId" disable="true" maxHeight="30.0" GridPane.columnIndex="1" />
+            <TextField fx:id="fldManager" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="fldDate" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="fldAmount" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="fldPrice" disable="true" maxHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <DatePicker fx:id="datePickerEnd" disable="true" maxHeight="30.0" maxWidth="1.7976931348623157E308" prefHeight="26.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="Номер заказа" />
             <Label text="Менеджер" GridPane.rowIndex="1" />
             <Label text="Покупатель" GridPane.rowIndex="2" />
             <Label text="Дата заказа" GridPane.rowIndex="3" />
             <Label prefHeight="16.0" prefWidth="223.0" text="Срок выполнения" GridPane.rowIndex="4" />
-            <Label text="Статус" GridPane.rowIndex="5" />
-            <Label text="Итого количество" GridPane.rowIndex="6" />
-            <Label text="Итого сумма к оплате" GridPane.rowIndex="7" />
-            <TextField fx:id="cashclientField" disable="true" maxHeight="30.0" maxWidth="364.0" prefHeight="30.0" prefWidth="364.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <CheckBox fx:id="paidCheck" mnemonicParsing="false" onAction="#onActionPaid" text="Оплачен" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <CheckBox fx:id="canceledCheck" mnemonicParsing="false" onAction="#onActionCanceled" text="Отменен" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Label text="Статус" GridPane.rowIndex="6" />
+            <Label text="Итого количество" GridPane.rowIndex="7" />
+            <Label text="Итого сумма к оплате" GridPane.rowIndex="8" />
+            <TextField fx:id="fldClient" disable="true" maxHeight="30.0" maxWidth="364.0" prefHeight="30.0" prefWidth="364.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <CheckBox fx:id="checkBoxPaid" mnemonicParsing="false" onAction="#onActionPaidOrder" text="Оплачен" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <CheckBox fx:id="checkBoxCanceled" mnemonicParsing="false" onAction="#onActionCanceledOrder" text="Отменен" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+            <ComboBox fx:id="cmbBoxStatus" prefWidth="150.0" promptText="Статус" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
-      <ListView fx:id="orderingsList" layoutX="39.0" layoutY="30.0" onMouseClicked="#showCashList" prefHeight="431.0" prefWidth="207.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0" />
-      <Button fx:id="btnCloseWin" layoutX="669.0" layoutY="434.0" mnemonicParsing="false" onAction="#onActionClose" prefHeight="38.0" prefWidth="105.0" text="Выход" />
+      <ListView fx:id="orderingsList" layoutX="39.0" layoutY="30.0" onMousePressed="#showCashList" prefHeight="431.0" prefWidth="207.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0" />
+      <GridPane layoutX="454.0" layoutY="424.0" prefHeight="49.0" prefWidth="330.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="btnCloseWin" mnemonicParsing="false" onAction="#onActionClose" prefWidth="125.0" text="Выход" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onActionChangeStatus" prefWidth="125.0" text="Изменить статус" GridPane.halignment="CENTER" />
+         </children>
+      </GridPane>
    </children>
-
-   <!-- commit for use -->
-   <!-- commit for use -->
 
 </AnchorPane>

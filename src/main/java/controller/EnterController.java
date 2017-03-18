@@ -1,4 +1,5 @@
 package controller;
+
 import entity.Employee;
 import entity.User;
 import enumTypes.Position;
@@ -13,13 +14,8 @@ import javafx.stage.Stage;
 import util.ServiceUtil;
 import java.io.IOException;
 
-
 import static controller.ManagerController.managerLogin;
 
-
-/**
- * Created by Yura on 05.02.2017.
- */
 public class EnterController {
     @FXML TextField loginField;
     @FXML PasswordField passwordField;
@@ -31,11 +27,13 @@ public class EnterController {
 
     @FXML
     private void onActionLog() {
-        System.out.println(loginField.getText());
+        //було створено для зручності перевірок
+        //System.out.println(loginField.getText());
     }
     @FXML
     private void onActionPass() {
-        System.out.println(passwordField.getText());
+        //було створено для зручності перевірок
+        //System.out.println(passwordField.getText());
     }
 
     @FXML
@@ -43,23 +41,19 @@ public class EnterController {
         Parent root = null;
         Stage stage = new Stage();
 
+        //оскільки, залежно від посади будуть відкриватися різні вікна,
+        //зберігаємо посаду користувача, якщо він існує, в окрему змінну
         Position position = ServiceUtil.getUserService().isUser(loginField.getText(), passwordField.getText());
-        currentUser1 = ServiceUtil.getUserService().getCurrentUser(loginField.getText(), passwordField.getText());
 
-        currentEmployee1 = currentUser1.getEmployee();
-
-
-        //Employee employee = ServiceUtil.getUserService().
-
+        //якщо користувача з введеним логіном і паролем не існує,
+        //даємо 5 спроб ввести коректні дані
         if (position == null) {
             try {
                 root = FXMLLoader.load(getClass().getResource("/view/accessDenied.fxml"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             stage.getModality();
-
             Scene scene = new Scene(root);
             scene.getStylesheets().add("/view/adminWindow.css");
             stage.setScene(scene);
@@ -74,8 +68,12 @@ public class EnterController {
             }
             return;
         } else {
+
+            currentUser1 = ServiceUtil.getUserService().getCurrentUser(loginField.getText(), passwordField.getText());
+            currentEmployee1 = currentUser1.getEmployee();
+
             switch (position) {
-                case ROOT:
+                case ROOT: //ROOT - єдиний користувач з супердоступом (існує лише в одному екземплярі)
                     try {
                         root = FXMLLoader.load(getClass().getResource("/view/heisenberg.fxml"));
                     } catch (IOException e) {
@@ -120,7 +118,7 @@ public class EnterController {
                     break;
                 case CASHIER:
                     try {
-                        root = FXMLLoader.load(getClass().getResource("/view/sellerWindow.fxml"));
+                        root = FXMLLoader.load(getClass().getResource("/view/cashierWindow.fxml"));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -132,7 +130,6 @@ public class EnterController {
                     stage.setResizable(false);
                     GraphicsLoader.closeWindow(enterButton);
                     break;
-
                 case STOREKEEPER:
                     try {
                         root = FXMLLoader.load(getClass().getResource("/view/storekeeperWindow.fxml"));

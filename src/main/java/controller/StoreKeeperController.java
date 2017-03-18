@@ -1,9 +1,11 @@
 package controller;
-import entity.Client;
-import entity.Goods;
-import entity.Order;
+
+import entity.GoodsInOrder;
 import entity.Ordering;
 import enumTypes.OrderStatus;
+import util.DaoUtil;
+
+import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,132 +17,85 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-import util.DaoUtil;
-import util.ServiceUtil;
 import javafx.scene.control.TableView;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import javafx.stage.Stage;
 
-import java.sql.Date;
-
-
-import java.io.IOException;
 
 /**
  * Created by dmitry on 21.02.17.
  */
 public class StoreKeeperController {
 
-    @FXML
-    public TableView tableInOrder;
-    @FXML
-    public TableView tableOrdering;
+    @FXML public TableView tblGoodsInOrder;
+    @FXML ListView listOrderings;
+    @FXML Button btnEscape;
+    @FXML Button btnFormOrder;
+    @FXML Button btnFormPart;
+    @FXML Button btnDelForm;
+    @FXML Button btnEditForm;
+    @FXML Button btnDelStore;
+    @FXML Button btnEditStore;
+    @FXML Button btnAddStore;
 
-    @FXML
-    ListView goodsInOrderList;
+    @FXML TableColumn<GoodsInOrder, Long> clmId;
+    @FXML TableColumn<GoodsInOrder, String> clmName;
+    @FXML TableColumn<GoodsInOrder, String> clmAmount;
+    @FXML TableColumn<GoodsInOrder, Integer> clmEnableAmount;
 
-    @FXML
-    Button btnEscape;
-    @FXML
-    Button btnFormOrder;
-    @FXML
-    Button btnFormPart;
-    @FXML
-    Button btnDelForm;
-    @FXML
-    Button btnEditForm;
-    @FXML
-    Button btnDelStore;
-    @FXML
-    Button btnEditStore;
-    @FXML
-    Button btnAddStore;
-
-
-     @FXML TableColumn<Client, Long> numberCLm;
-     @FXML TableColumn<Client, String> nameClm;
-     @FXML TableColumn<Client, String> sureNameClm;
-
-    @FXML TableColumn<Ordering, Long> OrderNumberClm;
-    @FXML TableColumn<Ordering, Date> orderDataClm;
-    @FXML TableColumn<Ordering, Date> orderDataDedlineClm ;
-    @FXML TableColumn<Ordering, String> orderManagerClm;
-
-
-    private ObservableList<Ordering> orderingObservableList = FXCollections.observableArrayList();
-
+    private ObservableList<Ordering> orderingObservableList;
+    private ObservableList<GoodsInOrder> currentGoodsObservableList;
+    private Ordering currentOrdering;
 
     @FXML
     public void initialize() {
+        orderingObservableList = FXCollections.observableArrayList();
         ObservableList<Ordering> allOrdering = FXCollections.observableArrayList(DaoUtil.getOrderingDao().findAll());
         for (Ordering ord : allOrdering) {
             if (ord.getOrderStatus() == OrderStatus.NEW)
             orderingObservableList.add(ord);
         }
-
-        OrderNumberClm.setCellValueFactory(new PropertyValueFactory<Ordering, Long>("id"));
-        orderDataClm.setCellValueFactory(new PropertyValueFactory<Ordering, Date>("date"));
-        orderDataDedlineClm.setCellValueFactory(new PropertyValueFactory<Ordering, Date>("dateEnd"));
-        orderManagerClm.setCellValueFactory(new PropertyValueFactory<Ordering, String>("manager"));
-        tableOrdering.setItems(orderingObservableList);
-
+        listOrderings.setItems(orderingObservableList);
     }
 
     // Формирование заказа(btnFormOrder)
     @FXML
     private void onActionFormOrder() {
-
-    /*
-        if (orderList.getSelectionModel().getSelectedItem() != null) {
-            currentOrdering = (Ordering) orderList.getSelectionModel().getSelectedItem();
-
+        if (listOrderings.getSelectionModel().getSelectedItem() != null) {
+            currentOrdering = (Ordering) listOrderings.getSelectionModel().getSelectedItem();
             currentOrdering.setOrderStatus(OrderStatus.FORMED);
             DaoUtil.getOrderingDao().update(currentOrdering);
             }
-            */
-
     }
 
     // Неполное формирование заказа(btnFormPart)
     @FXML
-    private void onActionFormPart() {
-        /*if (orderList.getSelectionModel().getSelectedItem() != null) {
-            currentOrdering = (Ordering) orderList.getSelectionModel().getSelectedItem();
-
+    private void onActionReturnOrder() {
+        if (listOrderings.getSelectionModel().getSelectedItem() != null) {
+            currentOrdering = (Ordering) listOrderings.getSelectionModel().getSelectedItem();
             currentOrdering.setOrderStatus(OrderStatus.RETURNED);
             DaoUtil.getOrderingDao().update(currentOrdering);
         }
-        */
     }
 
     // Метод для клика мышкой по товарам из выбранного заказа(goodsInStoreList)
     @FXML
     private void onMousePressedGoodsInOrder() {
+        if (listOrderings.getSelectionModel().getSelectedItem() != null) {
+            currentOrdering = (Ordering) listOrderings.getSelectionModel().getSelectedItem();
+            currentGoodsObservableList = FXCollections.observableArrayList(DaoUtil.getGoodsInOrderDao().findAll());
 
-
-
-    }
-
-    // Метод для клика мышкой по товарам из склада(goodsInStoreList)
-    @FXML
-    private void onMousePressedGoodsInStore() {
-    //   ObservableList<Client> currentClientList = FXCollections.observableArrayList();
-    //   currentClient1 = (Client) goodsInOrderList.getSelectionModel().getSelectedItem();
-    //   currentClientList.add(currentClient1);
-
-    //   numberCLm.setCellValueFactory(new PropertyValueFactory<Client, Long>("id"));
-    //   nameClm.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
-    //   sureNameClm.setCellValueFactory(new PropertyValueFactory<Client, String>("sureName"));
-
-    //   tableInOrder.setItems(currentClientList);
-    }
-
-    // Метод для вызова списка заказов(orderBox)
-    @FXML
-    private void onMousePressedOrderList(){
-
+            ObservableList<GoodsInOrder> tempGoods = FXCollections.observableArrayList();
+            for (GoodsInOrder gio : currentGoodsObservableList) {
+                if (gio.getOrdering().getId() == currentOrdering.getId()) {
+                    tempGoods.add(gio);
+                }
+            }
+            clmId.setCellValueFactory(new PropertyValueFactory<>("id"));
+            clmName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            clmAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+            clmEnableAmount.setCellValueFactory(new PropertyValueFactory<>("amountEnable"));
+            tblGoodsInOrder.setItems(tempGoods);
+        }
     }
 
     // Выход к окну авторизации
@@ -162,30 +117,9 @@ public class StoreKeeperController {
         primaryStage.setResizable(false);
     }
 
-    // Удаление товара из заказа
-    @FXML
-    private void onActionDelForm() {
-    }
-
-    // Изменение товара в заказе
-    @FXML
-    private void onActionEditForm(){
-    }
-
     // Изменение товара на складе
     @FXML
-    private void onActionEditStore() {
-    }
-
-    // Удаление товара со склада
-    @FXML
-    private void onActionDelStore(){
-    }
-
-    // Добавление товара в список товаров
-    @FXML
-    private void onActionAddStore(){
-    }
+    private void onActionEditStore() {}
 
     public void enterOwnCabinet(ActionEvent event) {
         Parent root = null;
@@ -203,10 +137,6 @@ public class StoreKeeperController {
         stage.setScene(scene);
         stage.show();
         stage.setResizable(false);
-
-    }
-////
-    public void oderGetItems(MouseEvent mouseEvent) {
     }
 
     public void onActionAddGood(ActionEvent event) {
@@ -219,21 +149,11 @@ public class StoreKeeperController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/view/goodsWindow.css");
         stage.setScene(scene);
         stage.setTitle("Создание товара");
         stage.show();
         stage.setResizable(false);
-
-        /* сім"я падає. від щастя?
-        // Теперь текущий контроллер "знает" о существовании "потомка"
-        children = loader.getController();
-        // А теперь и "потомок" знает своего "отца"
-        // і вони сім"я !!
-        children.setParent(this);
-        System.out.println("ONE"); //хто знає для чого тут цей рядок - напишіть
-        */
     }
 }

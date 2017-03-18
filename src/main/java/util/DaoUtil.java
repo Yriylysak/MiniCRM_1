@@ -9,7 +9,7 @@ public class DaoUtil {
     private static EmployeeDao employeeDao;
     private static UserDao userDao;
     private static ClientDao clientDao;
-    private static OrderDao orderDao;
+    //private static OrderDao orderDao;
     private static GoodsDao goodsDao;
     private static GoodsInOrderDao goodsInOrderDao;
     private static OrderingDao orderingDao;
@@ -40,11 +40,6 @@ public class DaoUtil {
     public static ClientDao getClientDao() {
         clientDao = new ClientDaoImpl();
         return clientDao;
-    }
-
-    public static OrderDao getOrderDao() {
-        orderDao = new OrderDaoImpl();
-        return orderDao;
     }
 
     public static GoodsDao getGoodsDao() {

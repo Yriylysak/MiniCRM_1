@@ -3,18 +3,12 @@ package service;
 import dao.EmployeeDao;
 import dao.EmployeeDaoImpl;
 import entity.Employee;
-import entity.User;
-import enumTypes.Gender;
-import enumTypes.Position;
-
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by JL on 05.02.2017.
- */
 public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeDao employeeDao;
+
     public EmployeeServiceImpl() {
         employeeDao = new EmployeeDaoImpl();
     }
@@ -26,7 +20,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Long add(Employee employee) {
         if (employee != null && !isCreatedEmployee(employee)) {
             Long id = employeeDao.create(employee);
-            employee.setId(id);
             return id;
         }
         return null;
@@ -50,86 +43,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     /*метод заміняє дані співробітнтка на нові*/
     @Override
-    public boolean changeEmployer(Employee oldEmployee, Employee newEmployee) {
-        if (oldEmployee != null && newEmployee != null) {
-            oldEmployee.setName(newEmployee.getName());
-            oldEmployee.setSureName(newEmployee.getSureName());
-            oldEmployee.setAge(newEmployee.getAge());
-            oldEmployee.setSex(newEmployee.getSex());
-            oldEmployee.setPosition(newEmployee.getPosition());
-            employeeDao.update(oldEmployee);
+    public boolean changeEmployee(Employee employee) {
+        if (employee != null) {
+            employeeDao.update(employee);
             return true;
         }
         return false;
     }
 
     @Override
-    public boolean changePosition(Long id, Position position) {
-        List<Employee> employees = findAll();
-        for(Employee empl : employees) {
-            if (empl.getId() == id) {
-                empl.setPosition(position);
-                employeeDao.update(empl);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean changeName(Long id, String name) {
-        List<Employee> employees = findAll();
-        for(Employee empl : employees) {
-            if (empl.getId() == id) {
-                empl.setName(name);
-                employeeDao.update(empl);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean changeSurname(Long id, String surname) {
-        List<Employee> employees = findAll();
-        for(Employee empl : employees) {
-            if (empl.getId() == id) {
-                empl.setSureName(surname);
-                employeeDao.update(empl);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean changeAge(Long id, Integer age) {
-        List<Employee> employees = findAll();
-        for(Employee empl : employees) {
-            if (empl.getId() == id) {
-                empl.setAge(age);
-                employeeDao.update(empl);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean changeSex(Long id, Gender sex) {
-        List<Employee> employees = findAll();
-        for(Employee empl : employees) {
-            if (empl.getId() == id) {
-                empl.setSex(sex);
-                employeeDao.update(empl);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public Long findIdEmployer(Employee employee) {
+    public Long findIdEmployee(Employee employee) {
         return employee.getId();
     }
 
@@ -141,9 +64,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employees = findAll();
         List<Employee> returnList = new LinkedList<>();
 
-        for(Employee empl : employees) {
-            if ((empl.getName() == someParam) || (empl.getSureName() == someParam)
-                || (empl.getPosition().toString() == someParam) || (empl.getSex().toString() == someParam)) {
+        for (Employee empl : employees) {
+            if ((empl.getName().equals(someParam)) || (empl.getSurname().equals(someParam))
+                    || (empl.getPosition().toString().equals(someParam))
+                    || (empl.getGender().toString().equals(someParam))) {
                 returnList.add(empl);
             }
         }
@@ -157,7 +81,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employees = findAll();
         List<Employee> returnList = new LinkedList<>();
 
-        for(Employee empl : employees) {
+        for (Employee empl : employees) {
             if ((empl.getAge() >= minAge) && (empl.getAge() <= maxAge)) {
                 returnList.add(empl);
             }
@@ -168,17 +92,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public boolean isCreatedEmployee(Employee employee) {
         List<Employee> employees = findAll();
-        for(Employee empl : employees) {
-            if (       (empl.getName()).equals(employee.getName())
-                    && (empl.getSureName().equals(employee.getSureName()))
+        for (Employee empl : employees) {
+            if ((empl.getName()).equals(employee.getName())
+                    && (empl.getSurname().equals(employee.getSurname()))
                     && (empl.getAge() == employee.getAge())
-                    && (empl.getSex().equals(employee.getSex()))
+                    && (empl.getGender().equals(employee.getGender()))
                     && (empl.getPosition().equals(employee.getPosition()))) {
                 return true;
             }
         }
         return false;
     }
-
-
 }

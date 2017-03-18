@@ -4,22 +4,19 @@ import entity.Employee;
 import entity.User;
 import enumTypes.Gender;
 import enumTypes.Position;
+import util.ServiceUtil;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import util.ServiceUtil;
 
 import java.io.IOException;
 
-/**
- * Created by Yura on 05.02.2017.
- */
 public class AdminController {
     @FXML public ListView baseInfoList;
     @FXML private TextField nameField;
@@ -43,24 +40,9 @@ public class AdminController {
 
     private ObservableList<Employee> employeeObservableList;
     private ObservableList<User> userObservableList;
-    private ObservableList<Position> positionsObservableList;
-    private ObservableList<Gender> gendersObservableList;
 
-    //Heisenberg - суперкористувач, тому робимо його невидимим для інших
-    private ObservableList<Employee> hideWW () {
-        employeeObservableList = FXCollections.observableArrayList(ServiceUtil.getEmployeeService().findAll());
-        for (Employee employee : employeeObservableList) {
-            if (employee.getName().equals("Walter") && employee.getSureName().equals("White")
-                    && employee.getUser().getLogin().equals("Heisenberg")) {
-                employeeObservableList.remove(employee.getId());
-                break;
-            }
-        }
-        return employeeObservableList;
-    }
     @FXML
     public void initialize() {
-
         baseInfoList.setItems(hideWW());
         btnEmpl.setSelected(true);
         sexBox.setPromptText("Выбрать");
@@ -68,7 +50,7 @@ public class AdminController {
         positionBox.setPromptText("Выбрать");
         positionBox.setItems(FXCollections.observableArrayList(Position.values()));
     }
-    // method creates Employee
+    /* method creates Employee */
     @FXML
     private void onActionCreate() {
         try {
@@ -81,11 +63,13 @@ public class AdminController {
                 && surnameField.getText() != ""
                 && ageField.getText() != ""
                 && sexBox.getValue() != null
-                && positionBox.getValue() != null) {
+                && positionBox.getValue() != null
+                && positionBox.getValue() != Position.ROOT) {
 
-            Employee employee = new Employee(nameField.getText(), surnameField.getText(),
-                    (Integer.parseInt(ageField.getText())), sexBox.getValue(), positionBox.getValue());
-            ServiceUtil.getEmployeeService().add(employee);
+            ServiceUtil.getEmployeeService()
+                    .add(new Employee(nameField.getText(), surnameField.getText(),
+                    (Integer.parseInt(ageField.getText())),
+                    sexBox.getValue(), positionBox.getValue()));
         }
 
         baseInfoList.setItems(hideWW());
@@ -94,6 +78,7 @@ public class AdminController {
         sexBox.setPromptText("Выбрать");
         ageField.clear();
         positionBox.setPromptText("Выбрать");
+
     }
 
     /*method changes current Employee */
@@ -109,13 +94,15 @@ public class AdminController {
                 && surnameField.getText() != ""
                 && ageField.getText() != ""
                 && sexBox.getValue() != null
-                && positionBox.getValue() != null) {
-            Employee employee = new Employee(nameField.getText(), surnameField.getText(),
-                    (Integer.parseInt(ageField.getText())), sexBox.getValue(), positionBox.getValue());
+                && positionBox.getValue() != null
+                && positionBox.getValue() != Position.ROOT) {
 
-            ServiceUtil.getEmployeeService().changeEmployer(currentEmployee, employee);
-            //employeeObservableList = FXCollections.observableArrayList(ServiceUtil.getEmployeeService().findAll());
-            baseInfoList.refresh();
+            currentEmployee.setName(nameField.getText());
+            currentEmployee.setSurname(surnameField.getText());
+            currentEmployee.setGender(sexBox.getValue());
+            currentEmployee.setAge(Integer.parseInt(ageField.getText()));
+            currentEmployee.setPosition(positionBox.getValue());
+            ServiceUtil.getEmployeeService().changeEmployee(currentEmployee);
             baseInfoList.setItems(hideWW());
         }
     }
@@ -127,8 +114,6 @@ public class AdminController {
             currentEmployee = (Employee) baseInfoList.getSelectionModel().getSelectedItem();
             ServiceUtil.getUserService().delete(ServiceUtil.getUserService().findUser(currentEmployee));
             ServiceUtil.getEmployeeService().delete(currentEmployee.getId());
-            baseInfoList.refresh();
-            //employeeObservableList = FXCollections.observableList(ServiceUtil.getEmployeeService().findAll());
             baseInfoList.setItems(hideWW());
             nameField.clear();
             surnameField.clear();
@@ -142,22 +127,30 @@ public class AdminController {
     /*method creates User for current Employee*/
     @FXML
     private void onActionGen() {
-        currentEmployee = (Employee) baseInfoList.getSelectionModel().getSelectedItem();
-        currentUser = ServiceUtil.getUserService().createUser(currentEmployee);
+        if (baseInfoList.getSelectionModel().getSelectedItem() != null) {
+            currentEmployee = (Employee) baseInfoList.getSelectionModel().getSelectedItem();
+            if (currentEmployee.getUser() != null) {
+                currentUser = currentEmployee.getUser();
+                currentUser.setPassword(ServiceUtil.getUserService().createPassword());
+                ServiceUtil.getUserService().update(currentUser);
+            } else {
+                currentUser = ServiceUtil.getUserService().createUser(currentEmployee);
+            }
 
-        ServiceUtil.getUserService().add(currentUser);
-        Parent root = null;
-        Stage stage = new Stage();
-        try {
-            root = FXMLLoader.load(getClass().getResource("/view/generateWindow.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
+            Parent root = null;
+            Stage stage = new Stage();
+            try {
+                root = FXMLLoader.load(getClass().getResource("/view/generateWindow.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/view/adminWindow.css");
+            stage.setScene(scene);
+            stage.show();
+            stage.setResizable(false);
+
         }
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/view/adminWindow.css");
-        stage.setScene(scene);
-        stage.show();
-        stage.setResizable(false);
     }
     /*method shows info of a current Employee, when mouse was pressed*/
     public void showListView() {
@@ -167,36 +160,43 @@ public class AdminController {
             } else {
                 currentEmployee = (Employee) baseInfoList.getSelectionModel().getSelectedItem();
                 nameField.setText(currentEmployee.getName());
-                surnameField.setText(currentEmployee.getSureName());
+                surnameField.setText(currentEmployee.getSurname());
                 ageField.setText("" + currentEmployee.getAge());
-                sexBox.setValue(currentEmployee.getSex());
+                sexBox.setValue(currentEmployee.getGender());
                 positionBox.setValue(currentEmployee.getPosition());
                 registryField.setText("" + currentEmployee.getDate());
                 accountStatus.setSelected(ServiceUtil.getUserService().findUser(currentEmployee) != null);
+
+                if (ServiceUtil.getUserService().findUser(currentEmployee) != null) {
+                    GenButton.setText("Новый пароль");
+                } else {
+                    GenButton.setText("Сгенерировать");
+                }
             }
         }
         if (baseInfoList.getSelectionModel().getSelectedItems() == null) {
             nameField.clear();
             surnameField.clear();
             sexBox.setPromptText("Выбрать");
-
             positionBox.setPromptText("Выбрать");
             ageField.clear();
-
             registryField.clear();
             accountStatus.setSelected(false);
         }
     }
     /*method shows info of a current User, when mouse was pressed*/
     public void showListViewUsers() {
-        currentUser = (User) baseInfoList.getSelectionModel().getSelectedItem();
-        nameField.setText(currentUser.getEmployee().getName());
-        surnameField.setText(currentUser.getEmployee().getSureName());
-        ageField.setText(""+currentUser.getEmployee().getAge());
-        sexBox.setValue(currentUser.getEmployee().getSex());
-        positionBox.setValue(currentUser.getEmployee().getPosition());
-        registryField.setText(""+currentUser.getEmployee().getDate());
-        accountStatus.setSelected(ServiceUtil.getUserService().findUser(currentEmployee)!= null);
+        if (baseInfoList.getSelectionModel().getSelectedItem() != null) {
+            currentUser = (User) baseInfoList.getSelectionModel().getSelectedItem();
+            nameField.setText(currentUser.getEmployee().getName());
+            surnameField.setText(currentUser.getEmployee().getSurname());
+            ageField.setText("" + currentUser.getEmployee().getAge());
+            sexBox.setValue(currentUser.getEmployee().getGender());
+            positionBox.setValue(currentUser.getEmployee().getPosition());
+            registryField.setText("" + currentUser.getEmployee().getDate());
+            accountStatus.setSelected(ServiceUtil.getUserService().findUser(currentEmployee) != null);
+            GenButton.setDisable(ServiceUtil.getUserService().findUser(currentEmployee) != null);
+        }
     }
     /*When method shows info of a current Employee
       * this method unblocks Employees control-buttons*/
@@ -208,8 +208,7 @@ public class AdminController {
             ChenButton.setDisable(false);
             DelButton.setDisable(false);
             GenButton.setDisable(false);
-            employeeObservableList = FXCollections.observableArrayList(ServiceUtil.getEmployeeService().findAll());
-            baseInfoList.setItems(employeeObservableList);
+            baseInfoList.setItems(hideWW());
         }
     }
     /*When method showListViewUsers() shows info of a current User
@@ -221,8 +220,7 @@ public class AdminController {
         ChenButton.setDisable(true);
         DelButton.setDisable(true);
         GenButton.setDisable(true);
-        userObservableList = FXCollections.observableArrayList(ServiceUtil.getUserService().findAll());
-        baseInfoList.setItems(userObservableList);
+        baseInfoList.setItems(hideHeisenberg());
     }
     @FXML
     private void onActionAdminLogOut() {
@@ -240,5 +238,28 @@ public class AdminController {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
+    }
+
+    //Heisenberg - суперкористувач, тому робимо його невидимим для інших
+    private ObservableList<Employee> hideWW () {
+        employeeObservableList = FXCollections.observableArrayList(ServiceUtil.getEmployeeService().findAll());
+        for (Employee employee : employeeObservableList) {
+            if (employee.getName().equals("Walter") && employee.getSurname().equals("White")
+                    && employee.getUser().getLogin().equals("Heisenberg")) {
+                employeeObservableList.remove(employee);
+                break;
+            }
+        }
+        return employeeObservableList;
+    }
+    private ObservableList<User> hideHeisenberg () {
+        userObservableList = FXCollections.observableArrayList(ServiceUtil.getUserService().findAll());
+        for (User user : userObservableList) {
+            if (user.getLogin().equals("Heisenberg")) {
+                userObservableList.remove(user);
+                break;
+            }
+        }
+        return userObservableList;
     }
 }

@@ -23,10 +23,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public Long create(Employee employee) {
         if (employee != null) {
             if (!(employee.getName().isEmpty()) &&
-                    !(employee.getSureName().isEmpty()) &&
+                    !(employee.getSurname().isEmpty()) &&
                     (employee.getAge() > 0) &&
                     !(employee.getPosition() == null) &&
-                    !(employee.getSex() == null)) {
+                    !(employee.getGender() == null)) {
                 Session session = factory.openSession();
                 try {
                     session.beginTransaction();
