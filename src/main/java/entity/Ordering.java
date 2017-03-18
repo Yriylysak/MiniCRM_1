@@ -21,7 +21,7 @@ public class Ordering {
     @Column (name = "DATE_END")
     private String dateEnd;
     //@Column (name = "ORDER_STATUS")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private OrderStatus orderStatus;
     @Column (name = "AMOUNT")
     private Integer amount;

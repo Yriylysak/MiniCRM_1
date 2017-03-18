@@ -10,6 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import service.OrderingServiceImpl;
+import util.ApplicationContextFactory;
 import util.DaoUtil;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -33,15 +35,20 @@ public class CashierController {
     private ObservableList<Ordering> orderingObservableList;
     private ObservableList<Ordering> unpaidOrdering;
     private Ordering currentOrder;
+    private OrderingServiceImpl orderingService;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     @FXML
     public void initialize() {
+        orderingService = ApplicationContextFactory.getApplicationContext()
+                .getBean("orderingService", OrderingServiceImpl.class);
+
         unpaidOrdering = FXCollections.observableArrayList();
         cmbBoxStatus.setItems(FXCollections.observableArrayList(OrderStatus.values()));
-        orderingObservableList = FXCollections.observableArrayList(DaoUtil.getOrderingDao().findAll());
+        orderingObservableList = FXCollections.observableArrayList(orderingService.findAll());
         for (Ordering ord : orderingObservableList) {
-            if (ord.getOrderStatus() == OrderStatus.FORMED)
+            if (ord.getOrderStatus() == OrderStatus.FORMED
+             || ord.getOrderStatus() == OrderStatus.PAID_UP )
                 unpaidOrdering.add(ord);
         }
         orderingsList.setItems(unpaidOrdering);
@@ -69,16 +76,8 @@ public class CashierController {
             currentOrder = (Ordering) orderingsList.getSelectionModel().getSelectedItem();
             if (cmbBoxStatus.getValue() == OrderStatus.CANCELED
                     || cmbBoxStatus.getValue() == OrderStatus.PAID_UP) {
-                System.out.println("++++++++++++++++++  " + cmbBoxStatus.getValue());
-                currentOrder.setOrderStatus(OrderStatus.CANCELED);
-                System.out.println("--------------------------  " + DaoUtil.getOrderingDao().update(currentOrder));
-                initialize();
-            }
-            if ( cmbBoxStatus.getValue() == OrderStatus.PAID_UP) {
-                System.out.println("++++++++++++++++++  " + cmbBoxStatus.getValue());
-                currentOrder.setManager(fldManager.getText());
-                currentOrder.setOrderStatus(OrderStatus.PAID_UP);
-                System.out.println("--------------------------  " + DaoUtil.getOrderingDao().update(currentOrder));
+                currentOrder.setOrderStatus(cmbBoxStatus.getValue());
+                orderingService.update(currentOrder);
                 initialize();
             }
         }
@@ -110,11 +109,13 @@ public class CashierController {
             checkBoxCanceled.setSelected(false);
             currentOrder = (Ordering) orderingsList.getSelectionModel().getSelectedItem();
             currentOrder.setOrderStatus(OrderStatus.PAID_UP);
-            System.out.println("---------------------------" + DaoUtil.getOrderingDao().update(currentOrder));
+             DaoUtil.getOrderingDao().update(currentOrder);
             initialize();
         }
     }
 
+    @FXML
+    public void onActionCabinet() {}
     @FXML
     public void onActionCanceledOrder() {
         if (checkBoxCanceled.isSelected()

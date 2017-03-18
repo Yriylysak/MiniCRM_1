@@ -13,6 +13,7 @@ public class ServiceUtil
     private static ClientService clientService;
     private static GoodsService goodsService;
     private static GoodsInOrderService goodsInOrderService;
+    private static OrderingService orderingService;
 
     public static GoodsInOrderService getGoodsInOrderService() {
         goodsInOrderService = new GoodsInOrderServiceImpl();
@@ -20,6 +21,8 @@ public class ServiceUtil
     }
 
     public static OrderingService getOrderingService() {
+        orderingService = ApplicationContextFactory.getApplicationContext()
+                .getBean(OrderingServiceImpl.class);
         return orderingService;
     }
 
@@ -27,7 +30,6 @@ public class ServiceUtil
         ServiceUtil.orderingService = orderingService;
     }
 
-    private static OrderingService orderingService;
 
     public static GoodsService getGoodsService() {
         goodsService = new GoodsServiceImpl();

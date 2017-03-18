@@ -16,6 +16,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+
+import service.OrderingServiceImpl;
+import util.ApplicationContextFactory;
 import util.DaoUtil;
 import util.ServiceUtil;
 import java.io.IOException;
@@ -67,6 +70,9 @@ public class ManagerController {
     @FXML Tab tabClient;
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    //private DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+    //price = BigDecimal.valueOf(decimalFormat.parse(priceNewItem.getText()).doubleValue());
+
     private ObservableList<Ordering> orderingObservableList;
     private ObservableList<Client> clientObservableList;
     private ObservableList<Goods> goodsObservableList;
@@ -82,6 +88,7 @@ public class ManagerController {
 
     private ManagerController children;  // Ссылка на контроллер поражаемой формы
     ManagerController parent;     // Ссылка на родительский контроллер (если таковой есть для данной формы)
+    private OrderingServiceImpl orderingService;
 
     public ManagerController() {}
     public ManagerController getChildren() {
@@ -98,10 +105,13 @@ public class ManagerController {
     }
 
     public void initialize() {
+        orderingService = ApplicationContextFactory.getApplicationContext()
+                .getBean("orderingService", OrderingServiceImpl.class);
+
         currentGoodsObservableList = FXCollections.observableArrayList();
         orderingObservableList = FXCollections.observableArrayList();
         //ініціалізація списків замовлень, товарів і клієнтів у вкладках  //виклик DAO замінити на Service
-        ObservableList<Ordering> allOrdering = FXCollections.observableArrayList(DaoUtil.getOrderingDao().findAll());
+        ObservableList<Ordering> allOrdering = FXCollections.observableArrayList(orderingService.findAll());
         for (Ordering ord : allOrdering) {
             if (ord.getManager().equals(managerLogin)) {
                 orderingObservableList.add(ord);
@@ -210,8 +220,10 @@ public class ManagerController {
         priceFld.setText(summ.toString());
         goodNumFld.setText(amount.toString());
         //збeрігаємо у базу
-        Long id = DaoUtil.getOrderingDao().create(ordering);
-        Ordering ord = DaoUtil.getOrderingDao().read(id);
+        //Long id = DaoUtil.getOrderingDao().create(ordering);
+        Long id = orderingService.add(ordering);
+        //Ordering ord = DaoUtil.getOrderingDao().read(id);
+        Ordering ord = orderingService.read(id);
         numberFld.setText(id.toString());
 
         //перебираємо список товарів і зберігаємо їх у таблицю БД
@@ -220,6 +232,9 @@ public class ManagerController {
             DaoUtil.getGoodsInOrderDao().create(gio);
         }
         btnAddManagGood.setDisable(true);
+
+        //currentGoodsObservableList = FXCollections.observableArrayList();
+        currentGoodsObservableList.clear();
         initialize();
     }
 
@@ -243,7 +258,8 @@ public class ManagerController {
             } catch (NumberFormatException e) {
             }
             //update замовлення у таблиці бази даних
-            DaoUtil.getOrderingDao().update(currentOrdering);
+            System.out.println("+++++++++++++++++++++ ");
+           orderingService.update(currentOrdering);
 
             numberFld.clear();
             goodNumFld.clear();

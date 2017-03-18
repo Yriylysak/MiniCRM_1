@@ -12,7 +12,7 @@ public interface OrderingDao {
 
     Long create(Ordering ordering);
     Ordering read(Long id);
-    boolean update(Ordering ordering);
-    boolean delete(Ordering ordering);
+    void update(Ordering ordering);
+    void delete(Ordering ordering);
     List<Ordering> findAll();
 }

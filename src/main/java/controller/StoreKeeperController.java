@@ -3,6 +3,8 @@ package controller;
 import entity.GoodsInOrder;
 import entity.Ordering;
 import enumTypes.OrderStatus;
+import service.OrderingServiceImpl;
+import util.ApplicationContextFactory;
 import util.DaoUtil;
 
 import java.io.IOException;
@@ -45,11 +47,15 @@ public class StoreKeeperController {
     private ObservableList<Ordering> orderingObservableList;
     private ObservableList<GoodsInOrder> currentGoodsObservableList;
     private Ordering currentOrdering;
+    private OrderingServiceImpl orderingService;
 
     @FXML
     public void initialize() {
+        orderingService = ApplicationContextFactory.getApplicationContext()
+                .getBean("orderingService", OrderingServiceImpl.class);
+
         orderingObservableList = FXCollections.observableArrayList();
-        ObservableList<Ordering> allOrdering = FXCollections.observableArrayList(DaoUtil.getOrderingDao().findAll());
+        ObservableList<Ordering> allOrdering = FXCollections.observableArrayList(orderingService.findAll());
         for (Ordering ord : allOrdering) {
             if (ord.getOrderStatus() == OrderStatus.NEW)
             orderingObservableList.add(ord);
@@ -63,7 +69,7 @@ public class StoreKeeperController {
         if (listOrderings.getSelectionModel().getSelectedItem() != null) {
             currentOrdering = (Ordering) listOrderings.getSelectionModel().getSelectedItem();
             currentOrdering.setOrderStatus(OrderStatus.FORMED);
-            DaoUtil.getOrderingDao().update(currentOrdering);
+            orderingService.update(currentOrdering);
             }
     }
 
@@ -73,7 +79,7 @@ public class StoreKeeperController {
         if (listOrderings.getSelectionModel().getSelectedItem() != null) {
             currentOrdering = (Ordering) listOrderings.getSelectionModel().getSelectedItem();
             currentOrdering.setOrderStatus(OrderStatus.RETURNED);
-            DaoUtil.getOrderingDao().update(currentOrdering);
+            orderingService.update(currentOrdering);
         }
     }
 

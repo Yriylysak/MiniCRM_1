@@ -9,10 +9,11 @@ import java.util.List;
  */
 public interface OrderingService {
     Long add(Ordering ordering);
+    Ordering read(Long id);
+    void delete(Long id);
+    void update(Ordering ordering);
     List<Ordering> findAll();
 
-    boolean delete(Long id);
-    boolean changeClient(Ordering oldOrdering, Ordering newOrdering);
     Long findIdClient(Ordering ordering);
     boolean isCreatedClient(Ordering ordering);
 

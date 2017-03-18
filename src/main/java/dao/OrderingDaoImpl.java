@@ -1,85 +1,58 @@
 package dao;
 
+import entity.Client;
 import entity.Ordering;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import util.HibernateUtil;
 
+import javax.persistence.criteria.Order;
 import java.util.List;
 
 /***
  * Created by JL on 19.02.2017.
  */
+@Repository("orderingDao")
 public class OrderingDaoImpl implements OrderingDao {
+    @Autowired
     private SessionFactory factory;
+
     public OrderingDaoImpl() {
-        factory = HibernateUtil.getSessionFactory();
     }
 
     @Override
+    @Transactional
     public Long create(Ordering ordering) {
-
-        Session session = factory.openSession();
-        try {
-            session.beginTransaction();
-            Long id = (Long) session.save(ordering);
-            session.getTransaction().commit();
-            return id;
-        } catch (HibernateException e) {
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
-        }
-        return null;
+        return (Long) factory.getCurrentSession().save(ordering);
     }
 
     @Override
+    @Transactional
     public Ordering read(Long id) {
-        List<Ordering> orderings = findAll();
-        for (Ordering ord : orderings) {
-            if(ord.getId() == id) {
-                return ord;
-            }
-        }
-        return null;
+        return (Ordering) factory.getCurrentSession().get(Ordering.class, id);
     }
 
     @Override
-    public boolean update(Ordering ordering) {
-        Session session = factory.openSession();
-        try {
-            session.beginTransaction();
-            session.update(ordering);
-            session.getTransaction().commit();
-            return true;
-
-        } catch (HibernateException e) {
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
-        }
-        return false;
+    @Transactional
+    public void update(Ordering ordering) {
+        factory.getCurrentSession().update(ordering);
     }
 
     @Override
-    public boolean delete(Ordering ordering) {
-        Session session = factory.openSession();
-        try {
-            session.beginTransaction();
-            session.delete(ordering);
-            session.getTransaction().commit();
-            return true;
-
-        } catch (HibernateException e) {
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
-        }
-        return false;
+    @Transactional
+    public void delete(Ordering ordering) {
+        factory.getCurrentSession().delete(ordering);
     }
 
     @Override
+    @Transactional
     public List<Ordering> findAll() {
-        return factory.openSession().createCriteria(Ordering.class).list();    }
+        //return factory.openSession().createCriteria(Client.class).list();
+        return factory.getCurrentSession()
+                .createCriteria(Ordering.class).list();
+    }
 }

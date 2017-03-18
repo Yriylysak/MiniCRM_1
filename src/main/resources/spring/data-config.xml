@@ -14,7 +14,7 @@
         <property name="driverClassName"
                   value="com.mysql.jdbc.Driver"/>
         <property name="url"
-                  value="jdbc:mysql://localhost:3306/MiniCRM_1"/>
+                  value="jdbc:mysql://localhost:3306/MiniCRM3"/>
         <property name="username" value="root"/>
         <property name="password" value="100Yleaf"/>
     </bean>
@@ -30,19 +30,19 @@
                 </prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.connection.pool_size">3</prop>
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
 
         <property name="annotatedClasses">
             <list>
                 <value>entity.Client</value>
-
-               <!-- <value>entity.Employee</value>
-                <value>entity.User</value>
+                <value>entity.Ordering</value>
+                <!--<value>entity.Employee</value>
+                <value>entity.User</value>-->
                 <value>entity.Goods</value>
                 <value>entity.GoodsInOrder</value>
-                <value>entity.Ordering</value>-->
+                <value>entity.Ordering</value>
             </list>
         </property>
     </bean>

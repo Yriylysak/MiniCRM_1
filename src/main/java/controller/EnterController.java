@@ -27,13 +27,11 @@ public class EnterController {
 
     @FXML
     private void onActionLog() {
-        //було створено для зручності перевірок
-        //System.out.println(loginField.getText());
+        System.out.println(loginField.getText());
     }
     @FXML
     private void onActionPass() {
-        //було створено для зручності перевірок
-        //System.out.println(passwordField.getText());
+        System.out.println(passwordField.getText());
     }
 
     @FXML
