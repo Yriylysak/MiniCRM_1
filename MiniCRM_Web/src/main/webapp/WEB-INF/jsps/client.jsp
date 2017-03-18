@@ -51,7 +51,7 @@
             <legend><i>Изменение информации</i></legend>
             <form:form action="/client"  onsubmit="return checkAuthFields()" modelAttribute="user">
                 <span><i>Логин</i> </span><br/><form:input path="login"/><br/>
-                <span><i>Пароль</i> </span><br/><form:input path="password"/><br/>
+                <span><i>Пароль</i> </span><br/><form:password path="password"/><br/>
                 <span><i>Имя </i></span><br/><form:input path="name"/><br/>
                 <span><i>Фамилия</i></span><br/><form:input path="surname"/><br/>
                 <span><i>Email</i></span><br/><form:input path="email"/><br/>
