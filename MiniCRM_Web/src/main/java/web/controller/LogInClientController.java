@@ -1,5 +1,7 @@
 package web.controller;
 
+import entity.Ordering;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,8 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import service.OrderingService;
+
+import service.OrderingServiceImpl;
+import util.ApplicationContextFactory;
 import web.entity.User;
 import web.service.UserService;
+
+import java.util.List;
 
 /**
  * Created by Julia on 06.03.2017.
@@ -24,6 +33,14 @@ public class LogInClientController {
     public String index(Model model) {
         model.addAttribute(new User());
         System.out.println("------------> index");
+
+/*        OrderingService orderingService = ApplicationContextFactory.getApplicationContext()
+                .getBean("orderingService", OrderingServiceImpl.class);
+        List<Ordering> orderings = orderingService.findAll();
+        for (Ordering ord : orderings) {
+            System.out.println(ord);
+        }
+*/
         return "index";
     }
     @RequestMapping(value = "/index",method = RequestMethod.POST)
