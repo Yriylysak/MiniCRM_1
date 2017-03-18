@@ -36,7 +36,17 @@
         <artifactId>hibernate-entitymanager</artifactId>
         <version>${org.hibernate.version}</version>
     </dependency>
+        <dependency>
+            <groupId>MiniCRM_1</groupId>
+            <artifactId>MiniCRM_1</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
     <packaging>war</packaging>
+
+
+    <build>
+        <sourceDirectory>../src/main/java/</sourceDirectory>
+    </build>
 </project>
