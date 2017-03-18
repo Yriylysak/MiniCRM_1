@@ -113,7 +113,7 @@
     <span id="error" style="color: red"> </span>
     <form:form action="/index" onsubmit="return checkAuthFields()" modelAttribute="user">
         <span><i>Логин:</i></span><br/><form:input path="login"/><br/>
-        <span><i>Пароль:</i></span><br/><form:input path="password" /><br/>
+        <span><i>Пароль:</i></span><br/><form:password path="password" /><br/>
         <input type="submit" value="Вход" onclick="checkAuthFields()"/>
     </form:form>
     <form action="/index" method="get" name="registry"> <input type="submit" value="Регистрация">
@@ -123,11 +123,11 @@
 
     <div class="center">
         <fieldset id="mainfield">
-            <span><i>Наименование товара</i></span><br/><input type="search"><br/>
-            <span><i>Количество</i></span><br/><input type="search"><br/>
-            <span><i>Телефон</i></span><br/><input type="search"><br/>
-            <span><i>Email</i></span><br/><input type="search"><br/>
-            <span><i>Адресс доставки</i></span><br/><input type="search"><br/><br/>
+            <span><i>Наименование товара</i></span><br/><input type="search" size="40px"><br/>
+            <span><i>Количество</i></span><br/><input type="search" size="10px"><br/>
+            <span><i>Телефон</i></span><br/><input type="search" size="40px"><br/>
+            <span><i>Email</i></span><br/><input type="search" size="40px"><br/>
+            <span><i>Адресс доставки</i></span><br/><input type="search" size="40px"><br/><br/>
             <input type="button" value="Оформить заказ">
         </fieldset>
     </div>
