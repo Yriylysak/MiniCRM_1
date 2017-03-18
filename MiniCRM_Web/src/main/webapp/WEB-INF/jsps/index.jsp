@@ -9,18 +9,66 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Авторизация</title>
+    <title>Главная страница</title>
     <style>
-        fieldset {
-            width: 200px; /* Ширина таблицы */
-            border: 1px solid #060080; /* Рамка вокруг таблицы */
-            background-color: #fff5b1;
-            margin: auto; /* Выравниваем таблицу по центру окна  */
-        }
+        body{
+            /*background-color: #e1ffdb;*/
+            background-color: #9c8f50;
+            background-image: url(http://www.transparenttextures.com/patterns/brick-wall-dark.png);
 
-        fieldset:hover {
-            border: 2px solid #060080; /* Рамка при наведении на рисунок курсора мыши */
         }
+        #glaw{
+            margin: auto;
+            width: auto;
+        }
+        .text{
+            color: #fdfbff;
+
+        }
+        .autor, .center{
+            float: left;
+            margin: 5px 5px 5px 5px;
+            top: 3%;
+        }
+        .poisk{
+            float: right;
+
+        }
+        .menublock{
+            float: right;
+            margin-top: 7px;
+
+        }
+        #mainfield{
+            border-radius: 5px;
+            margin: auto;
+            width: 800px;
+            height: 700px;
+            border: 1px solid #060080; /* Рамка вокруг таблицы */
+        }
+        #menu{
+            width: 200px;
+            border-radius: 5px;
+            height: auto;
+            border: 1px solid #060080; /* Рамка вокруг таблицы */
+        }
+        #autorization {
+            float: right;
+            width: 220px; /* Ширина таблицы */
+            border: 1px solid #060080; /* Рамка вокруг таблицы */
+            border-radius: 5px;
+            text-align: left;
+            top: 3%;
+
+           /* margin: auto; !* Выравниваем таблицу по центру окна  *!*/
+        }
+        #shapka{
+            width: auto;
+            background-color: #090a28;
+        }
+        /*button:hover {
+            border: 2px solid #060080; !* Рамка при наведении на рисунок курсора мыши *!
+        }*/
 
     </style>
     <script>
@@ -44,19 +92,49 @@
             }
             return true;
         }
+
     </script>
 </head>
 <body>
-<fieldset>
-    <legend>Введите логин и пароль:</legend>
+<center>
+    <fieldset id="shapka">
+        <h2 class="text"><i>DRUGSTORE</i></h2>
+
+    </fieldset>
+</center>
+<div id="glaw">
+
+<div class="autor">
+    <fieldset id="autorization">
+    <legend><i>Авторизация</i></legend>
     <span id="error" style="color: red"> </span>
     <form:form action="/index" onsubmit="return checkAuthFields()" modelAttribute="user">
-        <span>Логин  :</span><form:input path="login"/><br/>
-        <span>Пароль:</span><form:input path="password"/><br/>
+        <span><i>Логин:</i></span><br/><form:input path="login"/><br/>
+        <span><i>Пароль:</i></span><br/><form:input path="password" /><br/>
         <input type="submit" value="Вход" onclick="checkAuthFields()"/>
     </form:form>
     <form action="/index" method="get" name="registry"> <input type="submit" value="Регистрация">
     </form>
-</fieldset>
+    </fieldset>
+</div>
+
+    <div class="center">
+        <fieldset id="mainfield">
+
+        </fieldset>
+    </div>
+
+<div class="poisk">
+    <p><h5><i>Поиск на сайте</i></h5></p><input type="search"><input type="button" value="Поиск">
+</div>
+
+</div>
+
+<div class="menublock">
+    <fieldset id="menu">
+        <legend><i>Меню сайта</i></legend>
+    </fieldset>
+</div>
+
 </body>
 </html>

@@ -11,16 +11,28 @@
 <head>
     <title>Регистрация</title>
     <style>
-        fieldset {
-            width: 200px; /* Ширина таблицы */
-            border: 1px solid #060080; /* Рамка вокруг таблицы */
-            background-color: #fff5b1;
-            margin: auto; /* Выравниваем таблицу по центру окна  */
+        body{
+            background-color: #9c8f50;
+            background-image: url(http://www.transparenttextures.com/patterns/brick-wall-dark.png);
+
+        }
+        #reg{
+            margin: auto;
+            width: auto;
+        }
+        .regblock{
+            margin: auto;
         }
 
-        fieldset:hover {
-            border: 2px solid #060080; /* Рамка при наведении на рисунок курсора мыши */
+        #regfield {
+            width: 300px; /* Ширина таблицы */
+            margin: auto; /* Выравниваем таблицу по центру окна  */
+            border-radius: 5px;
         }
+
+        /*fieldset:hover {
+            border: 2px solid #060080; !* Рамка при наведении на рисунок курсора мыши *!
+        }*/
 
     </style>
     <script>
@@ -67,18 +79,23 @@
     </script>
 </head>
 <body>
-<fieldset>
+<div id="reg">
+    <div class="regblock" align="center">
+
+        <legend><h3><i>Регистрация на сайте</i></h3></legend><br/>
     <span id="error" style="color: red"> </span>
     <form:form action="/registry"  onsubmit="return checkAuthFields()" modelAttribute="user">
-        <span>Логин :</span><br/><form:input path="login"/><br/>
-        <span>Пароль :</span><br/><form:input path="password"/><br/>
-        <span>Имя :</span><br/><form:input path="name"/><br/>
-        <span>Фамилия:</span><br/><form:input path="surname"/><br/>
-        <span>Email:</span><br/><form:input path="email"/><br/>
-        <span>Телефон:</span><br/><form:input path="phone"/><br/>
-        <span>Адресс:</span><br/><form:input path="address"/><br/>
+        <span><i>Логин</i> </span><br/><form:input path="login"/><br/>
+        <span><i>Пароль</i> </span><br/><form:input path="password"/><br/>
+        <span><i>Имя </i></span><br/><form:input path="name"/><br/>
+        <span><i>Фамилия</i></span><br/><form:input path="surname"/><br/>
+        <span><i>Email</i></span><br/><form:input path="email"/><br/>
+        <span><i>Телефон</i></span><br/><form:input path="phone"/><br/>
+        <span><i>Адресс</i></span><br/><form:input path="address"/><br/><br/>
         <input type="submit" value="Регистрация" onclick="checkAuthFields()"/>
     </form:form>
-</fieldset>
+
+    </div>
+</div>
 </body>
 </html>
