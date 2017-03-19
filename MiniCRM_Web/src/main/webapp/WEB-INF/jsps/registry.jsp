@@ -51,11 +51,12 @@
                 error.innerHTML = "Введите логин!";
                 return false;
             }
-            if(name.value=='')
+            if(password.value=='')
             {
                 error.innerHTML = "Введите пароль!";
                 return false;
             }
+
             if(name.value=='')
             {
                 error.innerHTML = "Введите имя!";
@@ -64,7 +65,7 @@
 
             if(surname.value=='')
             {
-                error.innerHTML = "Введите пароль!";
+                error.innerHTML = "Введите фамилию!";
                 return false;
             }
 
