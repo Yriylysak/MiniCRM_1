@@ -3,6 +3,7 @@ package web.controller;
 import entity.Ordering;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,18 +30,19 @@ public class LogInClientController {
     @Autowired
     private UserService service;
 
+    @Autowired
+    private OrderingService orderingService;
+
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.HEAD})
     public String index(Model model) {
         model.addAttribute(new User());
         System.out.println("------------> index");
 
-/*        OrderingService orderingService = ApplicationContextFactory.getApplicationContext()
-                .getBean("orderingService", OrderingServiceImpl.class);
         List<Ordering> orderings = orderingService.findAll();
         for (Ordering ord : orderings) {
-            System.out.println(ord);
+            System.out.println("++++++++++++++---->>>" + ord);
         }
-*/
+
         return "index";
     }
     @RequestMapping(value = "/index",method = RequestMethod.POST)

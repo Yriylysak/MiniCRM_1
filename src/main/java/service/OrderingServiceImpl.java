@@ -1,12 +1,10 @@
 package service;
 
-import dao.ClientDao;
 import dao.OrderingDao;
 import entity.Ordering;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import util.DaoUtil;
 
 import java.util.List;
 

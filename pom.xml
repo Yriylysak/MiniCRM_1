@@ -13,7 +13,6 @@
 
     <modules>
         <module>MiniCRM_Web</module>
-        <module>MiniCRM_Web2</module>
     </modules>
 
     <properties>
