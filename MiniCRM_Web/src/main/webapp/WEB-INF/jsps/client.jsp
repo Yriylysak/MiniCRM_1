@@ -22,6 +22,18 @@
         .change{
             float: left;
         }
+        .centerfield{
+            width: 750px;
+            margin: 0px 0px 0px 15px;
+            float: left;
+        }
+        #centerfieldset{
+            border: 1px solid #060080; /* Рамка вокруг таблицы */
+            border-radius: 5px;
+            width: 725px;
+            height: 500px;
+            text-align: left;
+        }
         .history{
             float: right;
         }
@@ -61,7 +73,17 @@
             </form:form>
         </fieldset>
     </div>
-
+<div class="centerfield">
+    <fieldset id="centerfieldset">
+    <legend><i><font color="#ffd700">Оформление заказа</font></i></legend>
+        <span><i>Наименование товара</i></span><br/><input type="search" size="40px"><br/>
+        <span><i>Количество</i></span><br/><input type="search" size="10px"><br/>
+        <span><i>Телефон</i></span><br/><input type="search" size="40px"><br/>
+        <span><i>Email</i></span><br/><input type="search" size="40px"><br/>
+        <span><i>Адресс доставки</i></span><br/><input type="search" size="40px"><br/><br/>
+        <input type="button" value="Оформить заказ">
+    </fieldset>
+</div>
     <div class="history">
         <fieldset id="orderhistory">
             <legend><i>История заказов</i></legend>

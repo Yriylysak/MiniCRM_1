@@ -123,6 +123,7 @@
 
     <div class="center">
         <fieldset id="mainfield">
+            <legend><i><font color="#ffd700">Оформление заказа</font></i></legend>
             <span><i>Наименование товара</i></span><br/><input type="search" size="40px"><br/>
             <span><i>Количество</i></span><br/><input type="search" size="10px"><br/>
             <span><i>Телефон</i></span><br/><input type="search" size="40px"><br/>
