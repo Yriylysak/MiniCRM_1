@@ -22,6 +22,7 @@ import util.ApplicationContextFactory;
 import util.DaoUtil;
 import util.ServiceUtil;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -70,7 +71,7 @@ public class ManagerController {
     @FXML Tab tabClient;
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    //private DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+    private DecimalFormat decimalFormat = new DecimalFormat("#0.00");
     //price = BigDecimal.valueOf(decimalFormat.parse(priceNewItem.getText()).doubleValue());
 
     private ObservableList<Ordering> orderingObservableList;
@@ -154,6 +155,44 @@ public class ManagerController {
     private void onActionAddGoods() {
         btnAddManagGood.setDisable(true);
         //fldAmount.setDisable(true);
+        //якщо потрібно змінити к-сть товару з таблиці (для поточного СФОРМОВАНОГО замовлення)
+        if (tabView.getSelectionModel().getSelectedItem() != null) {
+            GoodsInOrder currentGio = (GoodsInOrder) tabView.getSelectionModel().getSelectedItem();
+            //fldAmount.setText(currentGio.getAmount().toString());
+            try {
+                amount = Integer.parseInt(fldAmount.getText());
+                fldAmount.clear();
+            } catch (NumberFormatException e) {
+                fldAmount.clear();
+                return;
+            }
+            //змінюємо к-сть товару
+            currentGio.setAmount(amount);
+            System.out.println(amount + " +++++++++++>>> " + DaoUtil.getGoodsInOrderDao().update(currentGio));
+
+            ObservableList<GoodsInOrder> tempGoods = FXCollections.observableArrayList(DaoUtil.getGoodsInOrderDao().findAll());
+
+            currentGoodsObservableList = FXCollections.observableArrayList();
+            currentGoodsObservableList.clear();
+
+            for (GoodsInOrder gio : tempGoods) {
+                if (gio.getOrdering().getId() == currentOrdering.getId()
+                        && gio.getAmount() > 0) {
+                    currentGoodsObservableList.add(gio);
+                    System.out.println("++++++++");
+                }
+            }
+            columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
+            columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            columnAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+            columnAmountEnable.setCellValueFactory(new PropertyValueFactory<>("amountEnable"));
+            columnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+            columnNDS.setCellValueFactory(new PropertyValueFactory<>("nds"));
+            columnPriceNDS.setCellValueFactory(new PropertyValueFactory<>("priceNDS"));
+
+            tabView.setItems(currentGoodsObservableList);
+            //currentGoodsObservableList.clear();
+        }
         if (goodsList.getSelectionModel().getSelectedItem() != null) {
             currentGoods = (Goods) goodsList.getSelectionModel().getSelectedItem();
             try {
@@ -165,34 +204,38 @@ public class ManagerController {
             }
             //тимчасовий список товарів, які будуть відображені у таблиці, у вікні менеджера
             //ці товари при формуванні замовлення ми збережемо у таблицю БД
-            currentGoodsObservableList.add(new GoodsInOrder(currentGoods, amount, new Ordering()));
+            if (amount > 0) {
+                currentGoodsObservableList.add(new GoodsInOrder(currentGoods, amount, new Ordering()));
 
-            columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
-            columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
-            columnAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+                columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
+                columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+                columnAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
-            //тут встановлюємо можливість редагування стовпців "назва" і "кількість"
-            columnName.setCellFactory(TextFieldTableCell.forTableColumn());
-            //columnAmount.setCellFactory(TextFieldTableCell.forTableColumn());
-            Callback<TableColumn<GoodsInOrder, Integer>, TableCell<GoodsInOrder, Integer>> cellFactoryFor
-                    = p -> new TextFieldTableCell(new StringConverter() {
-                @Override
-                public String toString(Object t) {
-                    return t.toString();
-                }
+                //тут встановлюємо можливість редагування стовпців "назва" і "кількість"
+                columnName.setCellFactory(TextFieldTableCell.forTableColumn());
+                //columnAmount.setCellFactory(TextFieldTableCell.forTableColumn());
+                Callback<TableColumn<GoodsInOrder, Integer>, TableCell<GoodsInOrder, Integer>> cellFactoryFor
+                        = p -> new TextFieldTableCell(new StringConverter() {
+                    @Override
+                    public String toString(Object t) {
+                        return t.toString();
+                    }
 
-                @Override
-                public Object fromString(String string) {
-                    return string;
-                }
-            });
+                    @Override
+                    public Object fromString(String string) {
+                        return string;
+                    }
+                });
 
-            columnAmount.setCellFactory(cellFactoryFor);
-            columnAmountEnable.setCellValueFactory(new PropertyValueFactory<>("amountEnable"));
-            columnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-            columnNDS.setCellValueFactory(new PropertyValueFactory<>("nds"));
-            columnPriceNDS.setCellValueFactory(new PropertyValueFactory<>("priceNDS"));
-            tabView.setItems(currentGoodsObservableList);
+                columnAmount.setCellFactory(cellFactoryFor);
+                columnAmountEnable.setCellValueFactory(new PropertyValueFactory<>("amountEnable"));
+                columnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+                columnNDS.setCellValueFactory(new PropertyValueFactory<>("nds"));
+                columnPriceNDS.setCellValueFactory(new PropertyValueFactory<>("priceNDS"));
+
+                tabView.setItems(currentGoodsObservableList);
+                //currentGoodsObservableList.clear();
+            }
         }
     }
 
@@ -214,10 +257,14 @@ public class ManagerController {
         }
         //враховуємо суму знижки у замовлення
         summ *= 1 - discount / 100;
+        //округлення
+        summ = Math.rint(100.0 * summ) / 100.0;
+
         Ordering ordering = new Ordering(managerLogin, clientField.getText(),
                 new Date(), termFld.getValue().format(formatter),
                 combobox.getValue(), amount, summ);
         priceFld.setText(summ.toString());
+
         goodNumFld.setText(amount.toString());
         //збeрігаємо у базу
         //Long id = DaoUtil.getOrderingDao().create(ordering);
@@ -234,31 +281,56 @@ public class ManagerController {
         btnAddManagGood.setDisable(true);
 
         //currentGoodsObservableList = FXCollections.observableArrayList();
-        currentGoodsObservableList.clear();
+        //currentGoodsObservableList.clear();
         initialize();
     }
 
+    @FXML
+    private void onActSelectGoodsFromOrd() {
+        if (tabView.getSelectionModel().getSelectedItem() != null) {
+            GoodsInOrder gio = (GoodsInOrder) tabView.getSelectionModel().getSelectedItem();
+            fldAmount.setText(gio.getAmount().toString());
+
+            btnAddManagGood.setDisable(false);
+        }
+    }
     //дії по кнопці "редагувати замовлення"
     @FXML
     private void onActionEdit() {
         btnAddManagGood.setDisable(true);
         if (orderList.getSelectionModel().getSelectedItem() != null) {
-            currentOrdering = (Ordering) orderList.getSelectionModel().getSelectedItem();
+            Double discount;
+            try {
+                discount = Double.parseDouble(fldDiscount.getText());
+            } catch (NumberFormatException e) {
+                fldDiscount.clear();
+                return;
+            }
 
+            currentOrdering = (Ordering) orderList.getSelectionModel().getSelectedItem();
+            Double summ = 0.0;
+            amount = 0;
+            for (GoodsInOrder gio : currentGoodsObservableList) {
+                if (gio.getOrdering() == null) {
+                    gio.setOrdering(currentOrdering);
+                    System.out.println("==============>>> " + DaoUtil.getGoodsInOrderDao().create(gio));
+                }
+                summ += gio.getAmount() * gio.getPriceNDS();
+                amount += gio.getAmount();
+            }
+
+            //враховуємо суму знижки у замовлення
+            summ *= 1 - discount / 100;
+            //округлення
+            summ = Math.rint(100.0 * summ) / 100.0;
             //заміняємо параметри замовлення на нові
             currentOrdering.setDateEnd(termFld.getValue().format(formatter));
             currentOrdering.setOrderStatus(combobox.getValue());
             currentOrdering.setClient(clientField.getText());
-            try {
-                currentOrdering.setSumm(Double.parseDouble(priceFld.getText()));
-            } catch (NumberFormatException e) {
-            }
-            try {
-                currentOrdering.setAmount(Integer.parseInt(goodNumFld.getText()));
-            } catch (NumberFormatException e) {
-            }
+            currentOrdering.setSumm(summ);
+            currentOrdering.setAmount(amount);
+
             //update замовлення у таблиці бази даних
-            System.out.println("+++++++++++++++++++++ ");
            orderingService.update(currentOrdering);
 
             numberFld.clear();
@@ -312,12 +384,15 @@ public class ManagerController {
             //к-сть артикулів
             goodNumFld.setText(currentOrdering.getAmount().toString());
 
-            currentGoodsObservableList = FXCollections.observableArrayList(DaoUtil.getGoodsInOrderDao().findAll());
+            currentGoodsObservableList = FXCollections.observableArrayList();
+            currentGoodsObservableList.clear();
 
-            ObservableList<GoodsInOrder> tempGoods = FXCollections.observableArrayList();
-            for (GoodsInOrder gio : currentGoodsObservableList) {
-                if (gio.getOrdering().getId() == currentOrdering.getId()) {
-                    tempGoods.add(gio);
+            ObservableList<GoodsInOrder> tempGoods = FXCollections.observableArrayList(DaoUtil.getGoodsInOrderDao().findAll());
+
+            for (GoodsInOrder gio : tempGoods) {
+                if (gio.getOrdering().getId() == currentOrdering.getId()
+                        && gio.getAmount() > 0) {
+                    currentGoodsObservableList.add(gio);
                 }
             }
             columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -327,7 +402,7 @@ public class ManagerController {
             columnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
             columnNDS.setCellValueFactory(new PropertyValueFactory<>("nds"));
             columnPriceNDS.setCellValueFactory(new PropertyValueFactory<>("priceNDS"));
-            tabView.setItems(tempGoods);
+            tabView.setItems(currentGoodsObservableList);
         }
     }
 

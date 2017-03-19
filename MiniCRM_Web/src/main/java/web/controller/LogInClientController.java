@@ -3,7 +3,6 @@ package web.controller;
 import entity.Ordering;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,9 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import service.OrderingService;
-
-import service.OrderingServiceImpl;
-import util.ApplicationContextFactory;
 import web.entity.User;
 import web.service.UserService;
 
@@ -38,6 +34,8 @@ public class LogInClientController {
         model.addAttribute(new User());
         System.out.println("------------> index");
 
+        //тут доступні замовлення
+        //не питайте як, сама в шоці
         List<Ordering> orderings = orderingService.findAll();
         for (Ordering ord : orderings) {
             System.out.println("++++++++++++++---->>>" + ord);

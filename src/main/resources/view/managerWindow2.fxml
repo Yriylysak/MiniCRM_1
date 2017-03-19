@@ -83,7 +83,7 @@
             </Button>
          </children>
       </GridPane>
-      <TableView fx:id="tabView" layoutX="380.0" layoutY="408.0" prefHeight="213.0" prefWidth="525.0">
+      <TableView fx:id="tabView" layoutX="380.0" layoutY="408.0" onMousePressed="#onActSelectGoodsFromOrd" prefHeight="213.0" prefWidth="525.0">
         <columns>
           <TableColumn fx:id="columnID" prefWidth="25.0" text="id" />
           <TableColumn fx:id="columnName" prefWidth="140.0" text="позиция" />
@@ -171,25 +171,15 @@
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="130.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="130.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="130.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="btnRef" layoutX="37.0" layoutY="19.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionRef" prefHeight="34.0" prefWidth="110.0" text="Обновить списки" GridPane.columnIndex="2">
+            <Button fx:id="btnRef" layoutX="37.0" layoutY="19.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onActionRef" prefHeight="34.0" prefWidth="165.0" text="Обновить списки" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="2.0" right="2.0" />
                </GridPane.margin></Button>
-            <ComboBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="110.0" promptText="Поиск в...">
-               <GridPane.margin>
-                  <Insets left="2.0" right="2.0" />
-               </GridPane.margin></ComboBox>
-            <TextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="110.0" GridPane.columnIndex="1">
-               <GridPane.margin>
-                  <Insets left="2.0" right="2.0" />
-               </GridPane.margin>
-            </TextField>
          </children>
       </GridPane>
    </children>
